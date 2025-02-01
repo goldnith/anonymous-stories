@@ -1,0 +1,233 @@
+/* 🌌 General Body */
+body {
+  background: radial-gradient(circle, #080808, #000011); /* Deep space effect */
+  color: #00ffcc; /* Neon alien text color */
+  font-family: 'Orbitron', sans-serif; /* Sci-fi style font */
+  margin: 0;
+  padding: 0;
+}
+
+/* 🚀 Home Page Container */
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* ✨ Page Title */
+.home-container h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #00ffcc; /* Alien green glow */
+  text-transform: uppercase;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+/* 🛸 Story Cards Grid */
+.stories-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+/* 🛸 Alien Story Card */
+.story-card {
+  border: 2px solid #00ffcc; /* Neon border */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 255, 204, 0.3); /* Soft glow */
+  padding: 20px;
+  background: rgba(10, 10, 20, 0.9); /* Darker background for space effect */
+  color: #00ffcc;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 255, 204, 0.6); /* Glowing hover effect */
+}
+
+/* 🎯 Story Title */
+.story-card h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ffcc; /* Alien green */
+  margin-bottom: 10px;
+  text-transform: capitalize;
+}
+
+/* 📖 Story Content */
+.story-card p {
+  font-size: 1rem;
+  color: #aaffff; /* Lighter blue for text */
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* 🪐 Story Category */
+.story-card small {
+  font-size: 0.9rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* 👽 Alien-Themed Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.9); /* Dark background for form */
+  border: 2px solid #00ffcc; /* Alien neon border */
+  border-radius: 8px;
+  box-shadow: 0 0 15px #00ffcc; /* Glowing box-shadow */
+  color: #00ffcc;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* 👽 Glowing Input Fields */
+input, textarea, select {
+  background: black;
+  color: #00ffcc;
+  border: 2px solid #00ffcc;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 0 10px #00ffcc;
+}
+
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff; /* Glowing focus effect */
+}
+
+/* 👾 Alien-Themed Button */
+button {
+  background: linear-gradient(45deg, #00ffcc, #0088ff);
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 50px;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px #00ffcc;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff; /* Stronger glowing hover */
+  transform: scale(1.1);
+}
+
+/* 🌠 Success Message */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #00ff88;
+  color: black;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px #00ff88;
+  font-size: 16px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* 🛸 Alien-Themed Full-Screen Loader */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, #080808, #000011);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #00ffcc;
+  font-size: 24px;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 🛸 UFO Spinner Loader */
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #00ffcc;
+  border-top: 6px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff;
+}
+
+/* Animations */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 👽 Alien-Themed Typing Effect */
+.alien-typing {
+  font-size: 16px;
+  color: #00ffcc;
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #00ffcc;
+  padding-right: 5px;
+  min-height: 24px;
+}
+
+/* Blinking Cursor Effect */
+.cursor {
+  color: #00ffcc;
+  animation: blink 0.8s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: black;
+  box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
+}
+
+.search-bar {
+  padding: 8px;
+  border: 2px solid #00ffcc;
+  border-radius: 20px;
+  background: black;
+  color: #00ffcc;
+  font-size: 16px;
+  outline: none;
+  width: 250px;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-bar::placeholder {
+  color: #00ffcc88;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 15px #00ffcc;
+}

@@ -1,0 +1,326 @@
+/* 👽 Alien-Themed Navigation */
+nav {
+    display: flex;
+    position: sticky;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #060606, #0a0a32);
+    border-bottom: 2px solid #00ffcc;
+    box-shadow: 0 0 10px #00ffcc;
+    top: 0;
+    z-index: 1000; /* Make sure the nav stays on top of the content */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    font-style: italic;
+}
+
+nav a {
+    text-decoration: none;
+    color: #00ffcc;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    position: relative;
+}
+
+nav a:hover {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+nav h1 {
+    color: #00ffcc;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Typing Effect */
+.alien-typing {
+    font-size: 16px;
+    color: #00ffcc;
+    font-family: "Orbitron", sans-serif;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid #00ffcc;
+    padding-right: 5px;
+    min-height: 24px;
+}
+
+.cursor {
+    color: #00ffcc;
+    animation: blink 0.8s infinite alternate;
+}
+
+@keyframes blink {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.main-content {
+  margin-top: 60px; /* Adjust this value to match the height of your nav */
+}
+
+/* 🛸 Alien Story Cards */
+.story-card {
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ffcc;
+  box-shadow: 0 0 15px #00ffcc;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.story-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #ff00ff;
+}
+
+.story-card h3 {
+    margin: 0 0 10px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* 🚀 Alien Form */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    box-shadow: 0 0 15px #00ffcc;
+    color: #00ffcc;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Futuristic Inputs */
+input, textarea, select {
+    padding: 12px;
+    font-size: 16px;
+    background: black;
+    color: #00ffcc;
+    border: 2px solid #00ffcc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #00ffcc;
+    font-family: 'Orbitron', sans-serif;
+}
+
+input:focus, textarea:focus, select:focus {
+    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
+}
+
+/* 👾 Alien Button */
+button {
+    background: linear-gradient(45deg, #00ffcc, #ff00ff);
+    border: none;
+    color: black;
+    padding: 12px 18px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px #00ffcc;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    box-shadow: 0 0 25px #ff00ff, 0 0 40px #00ffcc;
+    transform: scale(1.1);
+}
+
+/* Overlay */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  /* Popup Container */
+  .popup-content {
+    background: radial-gradient(circle, #0a0a1a, #000011);
+    padding: 25px;
+    border-radius: 12px;
+    color: #00ffcc;
+    box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff;
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    animation: popupAppear 0.3s ease-in-out;
+    font-family: 'Orbitron', sans-serif;
+    border: 2px solid #00ffcc;
+    max-height: 80vh;
+    overflow-y: auto; /* Enables scrolling */
+  }
+  
+  /* Scrollbar Customization */
+  .popup-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .popup-content::-webkit-scrollbar-thumb {
+    background: #00ffcc;
+    border-radius: 10px;
+  }
+  
+  .popup-content::-webkit-scrollbar-track {
+    background: #000011;
+  }
+  
+  /* Popup Title */
+  .popup-content h2 {
+    font-size: 1.8rem;
+    color: #00ffcc;
+    text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
+    margin-bottom: 15px;
+  }
+  
+  /* Typing Animation for Story */
+  .typing-text {
+    font-size: 1.2rem;
+    color: #d1f7ff;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    overflow: hidden;
+    display: inline-block;
+    border-right: 2px solid #00ffcc;
+    animation: blinkCursor 0.8s infinite;
+  }
+  
+  /* Cursor Blinking Animation */
+  @keyframes blinkCursor {
+    50% {
+      border-color: transparent;
+    }
+  }
+  
+  /* Close Button */
+  .popup-content button {
+    background: linear-gradient(45deg, #00ffcc, #0088ff);
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px #00ffcc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .popup-content button:hover {
+    box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff;
+    transform: scale(1.1);
+  }
+  
+  /* UFO Glow Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes popupAppear {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+}
+
+.popup-like-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+}
+  
+.popup-like-container p {
+    font-size: 1.2rem;
+    color: #00ffcc;
+}
+
+  
+
+/* 🌌 Alien Animations */
+@keyframes glow {
+    0% { box-shadow: 0 0 10px #00ffcc; }
+    50% { box-shadow: 0 0 20px #ff00ff; }
+    100% { box-shadow: 0 0 10px #00ffcc; }
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
+/* Apply glow effect */
+nav, .story-card, form, .popup-content {
+    animation: glow 2s infinite alternate;
+}
+
+
+.floating-button {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  background: linear-gradient(45deg, #00ffcc, #0088ff);
+  color: black;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px #00ffcc;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  animation: float 2s ease-in-out infinite;
+}
+
+.floating-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #00ffcc, 0 0 45px #0088ff;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

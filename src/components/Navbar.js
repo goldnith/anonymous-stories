@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-import { FaHome, FaPenAlt } from "react-icons/fa"; // Import icons
 import React, { useEffect, useState } from "react";
 import "./component.css"; // Ensure you have your CSS file linked
 

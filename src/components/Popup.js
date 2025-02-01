@@ -1,28 +1,48 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./component.css";
-import useUniqueId from "../hooks/useUniqueId"; // ✅ Correct import
+import useUniqueId from "../hooks/useUniqueId";
+import axios from "axios";
+
+const BASE_URL = "http://localhost:5000";
 
 function Popup({ story, onClose }) {
   const [displayedText, setDisplayedText] = useState("");
   const typingIndex = useRef(0);
-  const [likes, setLikes] = useState(story?.likeCount || 0);
+  const [likeCount, setLikes] = useState(0);
   const [likedByUser, setLikedByUser] = useState(false);
-  const userId = useUniqueId(); // ✅ Get unique user ID
-
-  const title = story?.title || "Untitled";
-  const content = story?.story || ""; // ✅ Ensure content is always a string
-  const category = story?.category || "Unknown";
-
-  // ✅ Simulated Typewriter Effect
+  const userId = useUniqueId();
+  const storyId = story?._id;
+  
+  // ✅ Fetch Like Status
   useEffect(() => {
-    if (!content) return;
+    if (!storyId || !userId) return;
 
-    setDisplayedText(""); // Reset text
+    const fetchLikeStatus = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/stories/${storyId}/likes`, { params: { userId } });
+        if (response.data) {
+          setLikes(response.data.likeCount);
+          setLikedByUser(response.data.likedByUser);
+        }
+      } catch (error) {
+        console.error("Error fetching like status:", error);
+        setLikes(0);
+        setLikedByUser(false);
+      }
+    };
+
+    fetchLikeStatus();
+  }, [storyId, userId]);
+
+  // ✅ Typewriter Effect
+  useEffect(() => {
+    if (!story?.story) return;
+    setDisplayedText("");
     typingIndex.current = 0;
 
     const interval = setInterval(() => {
-      if (typingIndex.current < content.length) {
-        setDisplayedText((prev) => prev + content[typingIndex.current]);
+      if (typingIndex.current < story.story.length) {
+        setDisplayedText((prev) => prev + story.story[typingIndex.current]);
         typingIndex.current += 1;
       } else {
         clearInterval(interval);
@@ -30,41 +50,18 @@ function Popup({ story, onClose }) {
     }, 20);
 
     return () => clearInterval(interval);
-  }, [content]);
+  }, [story?.story]);
 
-  // ✅ Fetch Like Status When Popup Opens
-  useEffect(() => {
-    if (!story) return;
-
-    const fetchLikeStatus = async () => {
-      try {
-        const response = await fetch(`/api/stories/${story._id}/likes`);
-        const data = await response.json();
-        setLikes(data.likeCount);
-        setLikedByUser(data.likedUsers.includes(userId));
-      } catch (error) {
-        console.error("Error fetching like status:", error);
-      }
-    };
-
-    fetchLikeStatus();
-  }, [story]); // ✅ Only fetch likes when `story` changes
-
-  // ✅ Handle Like Button Click
+  // ✅ Handle Like Action
   const handleLikeClick = async () => {
+    if (!storyId || !userId) return;
+
     try {
-      const url = likedByUser
-        ? `/api/stories/${story._id}/unlike`
-        : `/api/stories/${story._id}/like`;
-
-      await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
-      });
-
-      setLikes((prevLikes) => (likedByUser ? prevLikes - 1 : prevLikes + 1));
-      setLikedByUser(!likedByUser);
+      const response = await axios.post(`${BASE_URL}/api/stories/${storyId}/${likedByUser ? "unlike" : "like"}`, { userId });
+      if (response.data) {
+        setLikes(response.data.likeCount);
+        setLikedByUser(!likedByUser);
+      }
     } catch (error) {
       console.error("Error updating like:", error);
     }
@@ -75,20 +72,15 @@ function Popup({ story, onClose }) {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <h2>{title}</h2>
+        <h2>{story.title || "Untitled"}</h2>
         <p>{displayedText}</p>
-        <p><strong>Category:</strong> {category}</p>
-        <p>
-          <strong>Likes:</strong> {likes}{" "}
-          <span
-            role="img"
-            aria-label="heart"
-            style={{ fontSize: "2rem", cursor: "pointer" }}
-            onClick={handleLikeClick}
-          >
-            {likedByUser ? "❤️" : "🤍"}
-          </span>
-        </p>
+        <p><strong>Category:</strong> {story.category || "Unknown"}</p>
+        <button 
+          onClick={handleLikeClick} 
+          className={`like-button ${likedByUser ? "liked" : ""}`}
+        >
+          {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+        </button>
         <button onClick={onClose}>Close</button>
       </div>
     </div>

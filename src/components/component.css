@@ -88,6 +88,25 @@ nav h1 {
     font-family: 'Orbitron', sans-serif;
 }
 
+.story-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.story-preview {
+  color: #666;
+  line-height: 1.6;
+}
+
+.story-footer {
+  margin-top: 15px;
+}
+
+.like-count {
+  font-size: 1rem;
+  color: #666;
+}
+
 /* 🚀 Alien Form */
 form {
     display: flex;

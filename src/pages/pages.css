@@ -231,3 +231,38 @@ button:hover {
 .search-bar:focus {
   box-shadow: 0 0 15px #00ffcc;
 }
+
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.sort-button {
+  padding: 8px 16px;
+  border: 2px solid black;
+  border-radius: 4px;
+  background: #00ffcc;
+  cursor: pointer;
+}
+
+.sort-button.active {
+  background: black;
+  color: #00ffcc;
+  border: 2px solid #00ffcc;
+}
+
+.category-filter {
+  padding: 8px;
+  border: 2px solid #00ffcc;
+  border-radius: 4px;
+  background: black;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

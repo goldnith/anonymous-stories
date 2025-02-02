@@ -55,7 +55,7 @@ function SubmitStory() {
         setSuccess(false);
         setIsNavigating(true);
         setTimeout(() => navigate("/"), 2000); // Simulating loading time
-      }, 2000);
+      }, 200);
       
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to submit story');

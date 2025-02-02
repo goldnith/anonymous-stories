@@ -79,7 +79,8 @@ function Popup({ story, onClose }) {
           onClick={handleLikeClick} 
           className={`like-button ${likedByUser ? "liked" : ""}`}
         >
-          {likeCount} {likeCount === 1 ? "Like" : "Likes"}
+          {likedByUser ? "❤️" : "🤍"} {likeCount} 
+          
         </button>
         <button onClick={onClose}>Close</button>
       </div>

@@ -102,10 +102,22 @@ nav h1 {
   margin-top: 15px;
 }
 
+.like-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.heart-icon {
+  font-size: 1.2rem;
+}
+
 .like-count {
   font-size: 1rem;
   color: #666;
 }
+
 
 /* 🚀 Alien Form */
 form {
@@ -188,7 +200,12 @@ button:hover {
     border: 2px solid #00ffcc;
     max-height: 80vh;
     overflow-y: auto; /* Enables scrolling */
+    display: flex;
+    flex-direction: column;
+    
   }
+
+
   
   /* Scrollbar Customization */
   .popup-content::-webkit-scrollbar {
@@ -206,6 +223,7 @@ button:hover {
   
   /* Popup Title */
   .popup-content h2 {
+
     font-size: 1.8rem;
     color: #00ffcc;
     text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
@@ -231,13 +249,21 @@ button:hover {
       border-color: transparent;
     }
   }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: auto;
+    padding-top: 20px;
+  }
   
   /* Close Button */
   .popup-content button {
     background: linear-gradient(45deg, #00ffcc, #0088ff);
     color: black;
     border: none;
-    padding: 12px 20px;
+    padding: 10px 20px;
     font-size: 16px;
     border-radius: 50px;
     cursor: pointer;
@@ -245,6 +271,10 @@ button:hover {
     text-transform: uppercase;
     box-shadow: 0 0 15px #00ffcc;
     transition: all 0.3s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    
   }
   
   .popup-content button:hover {
@@ -274,16 +304,33 @@ button:hover {
 }
 
 .popup-like-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
 }
   
 .popup-like-container p {
     font-size: 1.2rem;
     color: #00ffcc;
+}
+
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+
+}
+
+.like-button.liked {
+  background: var(--alien-green);
+  color: var(--deep-space);
+  box-shadow: 0 0 10px var(--alien-green);
+  border: solid 2px #00ffcc;
 }
 
   
@@ -342,4 +389,94 @@ nav, .story-card, form, .popup-content {
   100% {
     transform: translateY(0);
   }
+}
+
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.loader {
+  border: 4px solid var(--deep-space);
+  border-top: 4px solid var(--alien-green);
+  box-shadow: var(--neon-glow);
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite, glow 2s ease-in-out infinite;
+}
+
+.alien {
+  position: fixed;
+  z-index: 1000;
+  transition: all 2s ease-in-out;
+}
+
+.alien-head {
+  width: 50px;
+  height: 70px;
+  background: #00ffcc;
+  border-radius: 40% 40% 60% 60%;
+  position: relative;
+  box-shadow: 0 0 20px #00ffcc;
+}
+
+.antenna-left, .antenna-right {
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: #00ffcc;
+  top: -20px;
+}
+
+.antenna-left {
+  left: 15px;
+  transform: rotate(-15deg);
+}
+
+.antenna-right {
+  right: 15px;
+  transform: rotate(15deg);
+}
+
+.alien-eyes {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 20px;
+}
+
+.eye {
+  width: 15px;
+  height: 25px;
+  background: #000;
+  border-radius: 50%;
+  position: relative;
+}
+
+.eye::after {
+  content: '';
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: #00ffcc;
+  border-radius: 50%;
+  top: 5px;
+  left: 5px;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.alien {
+  animation: float 2s infinite ease-in-out;
 }

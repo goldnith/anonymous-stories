@@ -1,3 +1,9 @@
+#About application
+
+![alt text](<Screenshot From 2025-02-03 12-08-15.png>) ![alt text](<Screenshot From 2025-02-03 12-08-05.png>) ![alt text](<Screenshot From 2025-02-03 12-07-56.png>) ![alt text](<Screenshot From 2025-02-03 12-07-46.png>)
+
+An application to write anonymous stories and read other's stories..
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -242,23 +242,25 @@ button:hover {
 .sort-button {
   padding: 8px 16px;
   border: 2px solid black;
-  border-radius: 4px;
-  background: #00ffcc;
+  border-radius: 20px;
+  background: linear-gradient(45deg, #00ffcc, #0088ff);
   cursor: pointer;
+  box-shadow: 0 0 15px linear-gradient(45deg, #00ffcc, #0088ff);
 }
 
 .sort-button.active {
   background: black;
   color: #00ffcc;
-  border: 2px solid #00ffcc;
+  border: 2px solid linear-gradient(45deg, #00ffcc, #0088ff);
 }
 
 .category-filter {
   padding: 8px;
-  border: 2px solid #00ffcc;
-  border-radius: 4px;
+  border: 2px solid linear-gradient(45deg, #00ffcc, #0088ff);
+  border-radius: 20px;
   background: black;
   cursor: pointer;
+  box-shadow: 0 0 15px linear-gradient(45deg, #00ffcc, #0088ff);
 }
 
 .controls {

@@ -2,6 +2,29 @@ import React, { useState } from "react";
 import axios from "axios";
 import style from './component.css';
 
+const STORY_CATEGORIES = [
+  "funny",
+  "awkward",
+  "serious",
+  "embarrassing", 
+  "scary",
+  "romantic",
+  "mysterious",
+  "confession",
+  "lifechanging",
+  "random",
+  "heartwarming",
+  "inspirational",
+  "adventure",
+  "childhood",
+  "workplace",
+  "family",
+  "friendship",
+  "school",
+  "college",
+  "travel"
+];
+
 function StoryForm() {
   const [formData, setFormData] = useState({
     title: "",
@@ -40,10 +63,13 @@ function StoryForm() {
         onChange={handleChange}
       />
       <select name="category" value={formData.category} onChange={handleChange}>
+        
         <option value="">Select a category</option>
-        <option value="funny">Funny</option>
-        <option value="awkward">Awkward</option>
-        <option value="serious">Serious</option>
+          {STORY_CATEGORIES.map(category => (
+            <option key={category} value={category}>
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </option>
+          ))}
       </select>
       <button type="submit">Submit</button>
     </form>

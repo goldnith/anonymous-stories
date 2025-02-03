@@ -269,7 +269,7 @@ button:hover {
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
-    box-shadow: 0 0 15px #00ffcc;
+    box-shadow: 0 0 15px linear-gradient(45deg, #00ffcc, #0088ff);
     transition: all 0.3s ease-in-out;
     margin-left: auto;
     margin-right: auto;
@@ -360,7 +360,7 @@ nav, .story-card, form, .popup-content {
   right: 50px;
   background: linear-gradient(45deg, #00ffcc, #0088ff);
   color: black;
-  border: none;
+  border: 2px solid black;
   border-radius: 50%;
   width: 60px;
   height: 60px;

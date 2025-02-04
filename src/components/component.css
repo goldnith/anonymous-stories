@@ -259,7 +259,7 @@ button:hover {
     color: radial-gradient(circle, #0a0a1a, #000011);
     margin: 20px 0;
     padding: 20px;
-    background: linear-gradient(45deg, #00ffcc, #0088ff);
+    background: radial-gradient(circle, #0a0a1a, #000011);
     border: 1px solid var(--alien-green);
     border-radius: 10px;
     box-shadow: inset 0 0 20px linear-gradient(45deg, #00ffcc, #0088ff);
@@ -279,7 +279,7 @@ button:hover {
     padding: 20px;
     border: 1px solid var(--alien-green);
     border-radius: 10px;
-    box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.2);
+    box-shadow: inset 0 0 20px linear-gradient(45deg, #00ffcc, #0088ff);
     text-shadow: 0 0 5px var(--alien-green);
     
   }
@@ -290,7 +290,7 @@ button:hover {
   }
   
   :root {
-    --alien-green: linear-gradient(45deg, #00ffcc, #0088ff);
+    --alien-green: radial-gradient(circle, #0a0a1a, #000011);
     --deep-space: #0A0A0A;
     --text-glow: radial-gradient(circle, #0a0a1a, #000011);
   }

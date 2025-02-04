@@ -268,3 +268,28 @@ button:hover {
   gap: 10px;
   align-items: center;
 }
+
+.stories-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+  align-items: start;
+}
+
+@media (max-width: 1200px) {
+  .stories-grid {
+    padding: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .stories-grid {
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+}

@@ -7,6 +7,7 @@ const BASE_URL = "https://anonymous-app-backend.onrender.com";
 
 function Popup({ story, onClose }) {
   const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const typingIndex = useRef(0);
   const [likeCount, setLikes] = useState(0);
   const [likedByUser, setLikedByUser] = useState(false);
@@ -35,16 +36,24 @@ function Popup({ story, onClose }) {
   }, [storyId, userId]);
 
   // ✅ Typewriter Effect
-  useEffect(() => {
+   // Show complete story initially
+   useEffect(() => {
     if (!story?.story) return;
-    setDisplayedText("");
+    
+    // Set complete story first
+    setDisplayedText(story.story);
+    
+    // Start typing effect
+    setIsTyping(true);
     typingIndex.current = 0;
+    setDisplayedText("");
 
     const interval = setInterval(() => {
       if (typingIndex.current < story.story.length) {
         setDisplayedText((prev) => prev + story.story[typingIndex.current]);
         typingIndex.current += 1;
       } else {
+        setIsTyping(false);
         clearInterval(interval);
       }
     }, 20);
@@ -73,6 +82,7 @@ function Popup({ story, onClose }) {
     <div className="popup-overlay">
       <div className="popup-content">
         <h2>{story.title || "Untitled"}</h2>
+        <p style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</p>
         <p>{displayedText}</p>
         <p><strong>Category:</strong> {story.category || "Unknown"}</p>
         <button 

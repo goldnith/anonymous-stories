@@ -223,48 +223,44 @@ button:hover {
   
   /* Popup Title */
   .popup-content h2 {
-
-    font-size: 1.8rem;
-    color: #00ffcc;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
-    margin-bottom: 15px;
+    font-size: 2rem;
+    color: var(--alien-green);
+    text-shadow: 0 0 10px var(--alien-green);
+    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
   }
-
+  
   .story-text {
     animation: fadeIn 1s ease-in;
     font-family: 'Space Mono', monospace;
-    font-size: 1.1rem;
-    line-height: 1.8;
+    font-size: 1.2rem;
+    line-height: 2;
     letter-spacing: 0.5px;
-    color: #39FF14;
+    color: #E0FFF0;
     margin: 20px 0;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
+    padding: 20px;
+    background: rgba(57, 255, 20, 0.05);
+    border: 1px solid var(--alien-green);
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.1);
   }
   
   .story-text p {
     opacity: 0;
     transform: translateY(-20px);
-    animation: slideIn 0.5s ease-out forwards;
+    animation: slideIn 0.8s ease-out forwards;
+    text-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
   }
   
-  .story-text p:nth-child(1) { animation-delay: 0.2s; }
-  .story-text p:nth-child(2) { animation-delay: 0.4s; }
-  .story-text p:nth-child(3) { animation-delay: 0.6s; }
-  .story-text p:nth-child(4) { animation-delay: 0.8s; }
-  .story-text p:nth-child(5) { animation-delay: 1.0s; }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
   
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  :root {
+    --alien-green: #39FF14;
+    --deep-space: #0A0A0A;
+    --text-glow: rgba(57, 255, 20, 0.3);
   }
   
   /* Typing Animation for Story */

@@ -270,7 +270,7 @@ button:hover {
 }
 
 .stories-grid {
-  max-width: 800px;
+  max-width: 100%;
   margin: 20px auto;
   padding: 20px;
   display: flex;
@@ -280,7 +280,9 @@ button:hover {
 }
 
 .story-card {
-  width: 600px;
+  width: 60vw;
+  min-width: 300px;
+  max-width: 800px;
   min-height: 200px;
   padding: 20px;
   margin: 0;
@@ -288,7 +290,7 @@ button:hover {
 
 @media (max-width: 768px) {
   .story-card {
-    width: 90%;
+    width: 90vw;
     min-width: 280px;
   }
 }

@@ -232,6 +232,16 @@ button:hover {
 
   .story-text {
     animation: fadeIn 1s ease-in;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    color: #39FF14;
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
   }
   
   @keyframes fadeIn {

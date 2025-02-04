@@ -38,7 +38,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/stories")
+      .get("https://anonymous-app-backend.onrender.com/api/stories")
       .then((response) => {
         setStories(response.data);
         setIsLoading(false);

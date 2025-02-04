@@ -3,7 +3,7 @@ import "./component.css";
 import useUniqueId from "../hooks/useUniqueId";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://anonymous-app-backend.onrender.com";
 
 function Popup({ story, onClose }) {
   const [displayedText, setDisplayedText] = useState("");

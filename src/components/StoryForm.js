@@ -39,7 +39,7 @@ function StoryForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/stories", formData);
+      await axios.post("https://anonymous-app-backend.onrender.com/api/stories", formData);
       alert("Story submitted successfully!");
       setFormData({ title: "", story: "", category: "" });
     } catch (error) {

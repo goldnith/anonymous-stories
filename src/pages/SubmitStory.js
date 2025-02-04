@@ -64,7 +64,7 @@ function SubmitStory() {
     setError(null);
 
     try {
-      await axios.post('http://localhost:5000/api/stories', {
+      await axios.post('https://anonymous-app-backend.onrender.com/api/stories', {
         title: formData.title,
         story: formData.story,
         category: formData.category

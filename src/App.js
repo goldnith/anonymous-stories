@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SubmitStory from "./pages/SubmitStory";
 import Alien from "./components/Alien";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function AppContent() {
   const { isLoading, setIsLoading } = useLoading();
@@ -22,6 +23,7 @@ function AppContent() {
 
   return (
     <>
+      <SpeedInsights/>
       <Navbar />
       <Alien />
       {isLoading && <Loader />}

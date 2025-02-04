@@ -244,9 +244,27 @@ button:hover {
     box-shadow: 0 0 10px rgba(57, 255, 20, 0.2);
   }
   
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  .story-text p {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: slideIn 0.5s ease-out forwards;
+  }
+  
+  .story-text p:nth-child(1) { animation-delay: 0.2s; }
+  .story-text p:nth-child(2) { animation-delay: 0.4s; }
+  .story-text p:nth-child(3) { animation-delay: 0.6s; }
+  .story-text p:nth-child(4) { animation-delay: 0.8s; }
+  .story-text p:nth-child(5) { animation-delay: 1.0s; }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   /* Typing Animation for Story */

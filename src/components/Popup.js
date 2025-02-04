@@ -7,7 +7,6 @@ const BASE_URL = "https://anonymous-app-backend.onrender.com";
 
 function Popup({ story, onClose }) {
   const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
   const typingIndex = useRef(0);
   const [likeCount, setLikes] = useState(0);
   const [likedByUser, setLikedByUser] = useState(false);
@@ -60,7 +59,10 @@ function Popup({ story, onClose }) {
   if (!story) return null;
 
   return (
-    <div className="popup-overlay">
+    <div 
+      className="popup-overlay"
+      onClick={onClose} // Close when clicking overlay
+    >
       <div className="popup-content">
         <h2>{story.title || "Untitled"}</h2>
         <p className="story-text" 

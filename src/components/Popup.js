@@ -12,6 +12,15 @@ function Popup({ story, onClose }) {
   const [likedByUser, setLikedByUser] = useState(false);
   const userId = useUniqueId();
   const storyId = story?._id;
+  const [isLikeLoading, setIsLikeLoading] = useState(false);
+
+
+  const handleOverlayClick = (e) => {
+    // Only close if clicking the black overlay
+    if (e.target.classList.contains('popup-overlay')) {
+      onClose();
+    }
+  };
   
   // ✅ Fetch Like Status
   useEffect(() => {
@@ -43,16 +52,24 @@ function Popup({ story, onClose }) {
 
   // ✅ Handle Like Action
   const handleLikeClick = async () => {
-    if (!storyId || !userId) return;
+    if (!storyId || !userId || isLikeLoading) return;
 
+    setIsLikeLoading(true);
     try {
-      const response = await axios.post(`${BASE_URL}/api/stories/${storyId}/${likedByUser ? "unlike" : "like"}`, { userId });
+      const response = await axios.post(
+        `${BASE_URL}/api/stories/${storyId}/${likedByUser ? "unlike" : "like"}`,
+        { userId },
+        { timeout: 5000 } // 5 second timeout
+      );
+      
       if (response.data) {
         setLikes(response.data.likeCount);
         setLikedByUser(!likedByUser);
       }
     } catch (error) {
       console.error("Error updating like:", error);
+    } finally {
+      setIsLikeLoading(false);
     }
   };
 
@@ -61,7 +78,7 @@ function Popup({ story, onClose }) {
   return (
     <div 
       className="popup-overlay"
-      onClick={onClose} // Close when clicking overlay
+      onClick={handleOverlayClick} // Close when clicking overlay
     >
       <div className="popup-content">
         <h2>{story.title || "Untitled"}</h2>
@@ -76,8 +93,9 @@ function Popup({ story, onClose }) {
         <p><strong>Category:</strong> {story.category || "Unknown"}</p>
         <div className="button-container">
           <button 
-            onClick={handleLikeClick} 
-            className={`like-button ${likedByUser ? "liked" : ""}`}>
+            onClick={handleLikeClick}
+            disabled={isLikeLoading} 
+            className={`like-button ${isLikeLoading ? "loading" : ""}`}>
             {likedByUser ? "❤️" : "🤍"} {likeCount}
           </button>
           <button onClick={onClose}>Close</button>

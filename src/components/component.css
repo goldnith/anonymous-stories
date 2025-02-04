@@ -67,10 +67,24 @@ nav h1 {
 }
 
 /* 🛸 Alien Story Cards */
+
+.stories-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
 .story-card {
+  width: 100%;
+  max-width: 350px;
+  margin: 15px;
+  padding: 20px;
   border: 2px solid #00ffcc;
   border-radius: 10px;
-  padding: 15px;
   margin-bottom: 15px;
   background: rgba(0, 0, 0, 0.8);
   color: #00ffcc;
@@ -118,6 +132,12 @@ nav h1 {
   color: #666;
 }
 
+@media (max-width: 768px) {
+  .stories-container {
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+}
 
 /* 🚀 Alien Form */
 form {
@@ -248,8 +268,20 @@ button:hover {
   .story-text p {
     opacity: 0;
     transform: translateY(-20px);
-    animation: slideIn 0.8s ease-out forwards;
-    text-shadow: 0 0 5px radial-gradient(circle, #0a0a1a, #000011);
+    animation: fadeIn 1s ease-in;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem;
+    line-height: 2;
+    letter-spacing: 0.5px;
+    background: radial-gradient(circle, #0a0a1a, #000011);
+    color: var(--alien-green);
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid var(--alien-green);
+    border-radius: 10px;
+    box-shadow: inset 0 0 20px rgba(57, 255, 20, 0.2);
+    text-shadow: 0 0 5px var(--alien-green);
+    
   }
   
   @keyframes fadeIn {
@@ -260,7 +292,7 @@ button:hover {
   :root {
     --alien-green: linear-gradient(45deg, #00ffcc, #0088ff);
     --deep-space: #0A0A0A;
-    --text-glow: linear-gradient(45deg, #00ffcc, #0088ff);
+    --text-glow: radial-gradient(circle, #0a0a1a, #000011);
   }
   
   /* Typing Animation for Story */
@@ -364,6 +396,18 @@ button:hover {
   color: var(--deep-space);
   box-shadow: 0 0 10px var(--alien-green);
   border: solid 2px #00ffcc;
+}
+
+.like-button.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
   

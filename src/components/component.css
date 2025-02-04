@@ -260,7 +260,7 @@ button:hover {
     margin: 20px 0;
     padding: 20px;
     background: #00ffcc15;
-    border: 1px solid var(--alien-green);
+    border: 1px solid #00ffcc;
     border-radius: 10px;
     box-shadow: inset #00ffcc15;
   }
@@ -274,7 +274,7 @@ button:hover {
     line-height: 2;
     letter-spacing: 0.5px;
     background: radial-gradient(circle, #0a0a1a, #000011);
-    color: var(--alien-green);
+    color: #00ffcc;
     margin: 20px 0;
     padding: 20px;
     border: 1px solid #00ffcc;
@@ -289,11 +289,11 @@ button:hover {
     to { opacity: 1; }
   }
   
-  :root {
+  /* :root {
     --alien-green: #39FF14;
     --deep-space: #0A0A0A;
     --text-glow: rgba(57, 255, 20, 0.3);
-  }
+  } */
   
   /* Typing Animation for Story */
   .typing-text {

@@ -259,10 +259,10 @@ button:hover {
     color: radial-gradient(circle, #0a0a1a, #000011);
     margin: 20px 0;
     padding: 20px;
-    background: radial-gradient(circle, #0a0a1a, #000011);
+    background: linear-gradient(45deg, #00ffcc, #0088ff);
     border: 1px solid var(--alien-green);
     border-radius: 10px;
-    box-shadow: inset 0 0 20px linear-gradient(45deg, #00ffcc, #0088ff);
+    box-shadow: inset 0 0 20px radial-gradient(circle, #0a0a1a, #000011);
   }
   
   .story-text p {

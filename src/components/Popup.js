@@ -35,30 +35,11 @@ function Popup({ story, onClose }) {
     fetchLikeStatus();
   }, [storyId, userId]);
 
-  // ✅ Typewriter Effect
-   // Show complete story initially
-   useEffect(() => {
+    // Set story text with fade effect
+  // Set story text with fade effect
+  useEffect(() => {
     if (!story?.story) return;
-    
-    // Set complete story first
     setDisplayedText(story.story);
-    
-    // Start typing effect
-    setIsTyping(true);
-    typingIndex.current = 0;
-    setDisplayedText("");
-
-    const interval = setInterval(() => {
-      if (typingIndex.current < story.story.length) {
-        setDisplayedText((prev) => prev + story.story[typingIndex.current]);
-        typingIndex.current += 1;
-      } else {
-        setIsTyping(false);
-        clearInterval(interval);
-      }
-    }, 20);
-
-    return () => clearInterval(interval);
   }, [story?.story]);
 
   // ✅ Handle Like Action
@@ -82,17 +63,23 @@ function Popup({ story, onClose }) {
     <div className="popup-overlay">
       <div className="popup-content">
         <h2>{story.title || "Untitled"}</h2>
-        <p style={{ whiteSpace: 'pre-wrap' }}>{displayedText}</p>
-        <p>{displayedText}</p>
+        <p className="story-text" 
+          style={{ 
+            whiteSpace: 'pre-wrap',
+            opacity: displayedText ? 1 : 0,
+            transition: 'opacity 1s ease-in'
+          }}>
+          {displayedText}
+        </p>
         <p><strong>Category:</strong> {story.category || "Unknown"}</p>
-        <button 
-          onClick={handleLikeClick} 
-          className={`like-button ${likedByUser ? "liked" : ""}`}
-        >
-          {likedByUser ? "❤️" : "🤍"} {likeCount} 
-          
-        </button>
-        <button onClick={onClose}>Close</button>
+        <div className="button-container">
+          <button 
+            onClick={handleLikeClick} 
+            className={`like-button ${likedByUser ? "liked" : ""}`}>
+            {likedByUser ? "❤️" : "🤍"} {likeCount}
+          </button>
+          <button onClick={onClose}>Close</button>
+        </div>
       </div>
     </div>
   );

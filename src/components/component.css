@@ -229,6 +229,15 @@ button:hover {
     text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
     margin-bottom: 15px;
   }
+
+  .story-text {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
   
   /* Typing Animation for Story */
   .typing-text {

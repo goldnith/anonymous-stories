@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './pages.css';
+import { API_URL } from '../config/api';
 
 const STORY_CATEGORIES = [
   "funny",
@@ -64,7 +65,7 @@ function SubmitStory() {
     setError(null);
 
     try {
-      await axios.post('https://anonymous-app-backend.onrender.com/api/stories', {
+      await axios.post(`${API_URL}/api/stories`, {
         title: formData.title,
         story: formData.story,
         category: formData.category

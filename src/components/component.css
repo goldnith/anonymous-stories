@@ -1,34 +1,95 @@
+/* Root Variables and Media Queries */
+:root {
+  --mobile-padding: 10px;
+  --tablet-padding: 20px;
+  --desktop-padding: 30px;
+  --alien-green: #00ffcc;
+  --deep-space: #060606;
+  --nav-height: 60px;
+}
+
 /* 👽 Alien-Themed Navigation */
 nav {
-    display: flex;
-    position: sticky;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background: linear-gradient(45deg, #060606, #0a0a32);
-    border-bottom: 2px solid #00ffcc;
-    box-shadow: 0 0 10px #00ffcc;
-    top: 0;
-    z-index: 1000; /* Make sure the nav stays on top of the content */
+  display: flex;
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--mobile-padding);
+  background: linear-gradient(45deg, var(--deep-space), #0a0a32);
+  border-bottom: 2px solid var(--alien-green);
+  box-shadow: 0 0 10px var(--alien-green);
+  top: 0;
+  z-index: 1000;
+  height: 20px;
 }
 
 nav ul {
-    list-style: none;
-    display: flex;
-    gap: 15px;
-    font-style: italic;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
 }
 
 nav a {
-    text-decoration: none;
-    color: #00ffcc;
-    font-size: 18px;
-    transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
-    position: relative;
+  text-decoration: none;
+  color: var(--alien-green);
+  transition: all 0.3s ease;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
-nav a:hover {
-    color: #ff00ff;
-    text-shadow: 0 0 10px #ff00ff;
+/* Mobile Navigation */
+@media screen and (max-width: 480px) {
+  nav {
+    flex-direction: column;
+    height: auto;
+    padding: 8px var(--mobile-padding)
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  nav a {
+    font-size: 0.9rem;
+    padding: 5px;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* Tablet Navigation */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  nav {
+    padding: var(--tablet-padding);
+  }
+
+  nav ul {
+    gap: 20px;
+  }
+}
+
+/* Desktop Navigation */
+@media screen and (min-width: 769px) {
+  nav {
+    padding: var(--desktop-padding);
+  }
+
+  nav ul {
+    gap: 30px;
+  }
+
+  nav a:hover {
+    text-shadow: 0 0 10px var(--alien-green);
+    transform: scale(1.1);
+  }
 }
 
 nav h1 {
@@ -40,7 +101,6 @@ nav h1 {
 
 /* Typing Effect */
 .alien-typing {
-    font-size: 16px;
     color: #00ffcc;
     font-family: "Orbitron", sans-serif;
     text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
@@ -48,8 +108,9 @@ nav h1 {
     white-space: nowrap;
     overflow: hidden;
     border-right: 3px solid #00ffcc;
-    padding-right: 5px;
-    min-height: 24px;
+    font-size: clamp(12px, 2vw, 14px);
+    padding: clamp(5px, 2vw, 10px);
+    min-height: clamp(20px, 4vw, 24px);
 }
 
 .cursor {
@@ -63,26 +124,27 @@ nav h1 {
 }
 
 .main-content {
-  margin-top: 60px; /* Adjust this value to match the height of your nav */
+  margin-top: var(--nav-height);
+  padding: clamp(10px, 3vw, 20px); /* Adjust this value to match the height of your nav */
 }
 
 /* 🛸 Alien Story Cards */
 
 .stories-container {
-  max-width: 1200px;
+  max-width: min(1200px, 95vw);
   margin: 0 auto;
-  padding: 20px;
+  padding: clamp(10px, 3vw, 20px);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  gap: clamp(10px, 3vw, 20px);
   justify-items: center;
 }
 
 .story-card {
-  width: 100%;
+  width: clamp(280px, 90vw, 350px);
+  padding: clamp(15px, 3vw, 20px);
+  margin: clamp(10px, 2vw, 15px);
   max-width: 350px;
-  margin: 15px;
-  padding: 20px;
   border: 2px solid #00ffcc;
   border-radius: 10px;
   margin-bottom: 15px;
@@ -98,6 +160,7 @@ nav h1 {
 }
 
 .story-card h3 {
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     margin: 0 0 10px;
     font-family: 'Orbitron', sans-serif;
 }
@@ -132,62 +195,47 @@ nav h1 {
   color: #666;
 }
 
-@media (max-width: 768px) {
+/* Media Queries */
+@media (max-width: 480px) {
   .stories-container {
-    padding: 10px;
     grid-template-columns: 1fr;
+  }
+  
+  .story-card:hover {
+    transform: scale(1.02);
+  }
+  
+  .like-container {
+    padding: 10px 0;
   }
 }
 
-/* 🚀 Alien Form */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.9);
-    border: 2px solid #00ffcc;
-    border-radius: 8px;
+@media (min-width: 481px) and (max-width: 768px) {
+  .stories-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .stories-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1025px) {
+  .stories-container {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+/* Touch Device Optimization */
+@media (hover: none) {
+  .story-card:hover {
+    transform: none;
     box-shadow: 0 0 15px #00ffcc;
-    color: #00ffcc;
-    font-family: 'Orbitron', sans-serif;
+  }
 }
 
-/* Futuristic Inputs */
-input, textarea, select {
-    padding: 12px;
-    font-size: 16px;
-    background: black;
-    color: #00ffcc;
-    border: 2px solid #00ffcc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px #00ffcc;
-    font-family: 'Orbitron', sans-serif;
-}
-
-input:focus, textarea:focus, select:focus {
-    box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
-}
-
-/* 👾 Alien Button */
-button {
-    background: linear-gradient(45deg, #00ffcc, #ff00ff);
-    border: none;
-    color: black;
-    padding: 12px 18px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50px;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px #00ffcc;
-    transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-    box-shadow: 0 0 25px #ff00ff, 0 0 40px #00ffcc;
-    transform: scale(1.1);
-}
 
 /* Overlay */
 .popup-overlay {
@@ -207,8 +255,8 @@ button:hover {
   /* Popup Container */
   .popup-content {
     background: radial-gradient(circle, #0a0a1a, #000011);
-    padding: 25px;
-    border-radius: 12px;
+    padding: clamp(15px, 3vw, 25px);
+    border-radius: clamp(8px, 2vw, 12px);
     color: radial-gradient(circle, #0a0a1a, #000011);
     box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff;
     text-align: center;
@@ -225,6 +273,46 @@ button:hover {
     
   }
 
+  /* Mobile Styles */
+@media (max-width: 480px) {
+  .popup-content {
+    width: 95%;
+    max-height: 90vh;
+    margin: 10px;
+    font-size: 14px;
+  }
+  
+  .popup-content h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-content {
+    width: 85%;
+    max-height: 85vh;
+    max-width: 600px;
+    font-size: 16px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .popup-content {
+    width: 70%;
+    max-width: 800px;
+    max-height: 80vh;
+    font-size: 18px;
+  }
+}
+
+/* Touch Device Optimization */
+@media (hover: none) {
+  .popup-content {
+    -webkit-overflow-scrolling: touch;
+  }
+}
 
   
   /* Scrollbar Customization */
@@ -289,31 +377,7 @@ button:hover {
     to { opacity: 1; }
   }
   
-  /* :root {
-    --alien-green: #39FF14;
-    --deep-space: #0A0A0A;
-    --text-glow: rgba(57, 255, 20, 0.3);
-  } */
-  
-  /* Typing Animation for Story */
-  .typing-text {
-    font-size: 1.2rem;
-    color: #d1f7ff;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    white-space: pre-wrap;
-    overflow: hidden;
-    display: inline-block;
-    border-right: 2px solid #00ffcc;
-    animation: blinkCursor 0.8s infinite;
-  }
-  
-  /* Cursor Blinking Animation */
-  @keyframes blinkCursor {
-    50% {
-      border-color: transparent;
-    }
-  }
+
 
   .button-container {
     display: flex;
@@ -367,6 +431,8 @@ button:hover {
       opacity: 1;
     }
 }
+
+
 
 .popup-like-container {
   display: flex;
@@ -429,6 +495,7 @@ button:hover {
 nav, .story-card, form, .popup-content {
     animation: glow 2s infinite alternate;
 }
+
 
 
 .floating-button {
@@ -556,4 +623,53 @@ nav, .story-card, form, .popup-content {
 
 .alien {
   animation: float 2s infinite ease-in-out;
+}
+
+.comment-section {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  border: 1px solid var(--alien-green);
+}
+
+.comments-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.comment {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(57, 255, 20, 0.2);
+}
+
+.comment-text {
+  color: #E0FFF0;
+  margin-bottom: 5px;
+}
+
+.comment-date {
+  color: rgba(57, 255, 20, 0.7);
+  font-size: 0.8rem;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--alien-green);
+  color: #E0FFF0;
+  border-radius: 5px;
+}
+
+.comment-form button {
+  background: var(--alien-green);
+  color: var(--deep-space);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

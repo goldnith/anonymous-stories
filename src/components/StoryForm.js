@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import style from './component.css';
+import { API_URL } from '../config/api';
 
 const STORY_CATEGORIES = [
   "funny",
@@ -39,7 +40,7 @@ function StoryForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("https://anonymous-app-backend.onrender.com/api/stories", formData);
+      await axios.post(`${API_URL}/api/stories`, formData);
       alert("Story submitted successfully!");
       setFormData({ title: "", story: "", category: "" });
     } catch (error) {

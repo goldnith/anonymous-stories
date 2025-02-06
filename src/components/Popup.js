@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import "./component.css";
 import useUniqueId from "../hooks/useUniqueId";
 import axios from "axios";
+import { API_URL } from '../config/api';
+import CommentSection from "./CommentSection";
 
-const BASE_URL = "https://anonymous-app-backend.onrender.com";
+const BASE_URL = `${API_URL}`;
 
 function Popup({ story, onClose }) {
   const [displayedText, setDisplayedText] = useState("");
@@ -13,6 +15,7 @@ function Popup({ story, onClose }) {
   const userId = useUniqueId();
   const storyId = story?._id;
   const [isLikeLoading, setIsLikeLoading] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
 
   const handleOverlayClick = (e) => {
@@ -98,8 +101,14 @@ function Popup({ story, onClose }) {
             className={`like-button ${isLikeLoading ? "loading" : ""}`}>
             {likedByUser ? "❤️" : "🤍"} {likeCount}
           </button>
+          {/* <button onClick={() => setShowComments(!showComments)}>
+            💭 Comments
+          </button> */}
           <button onClick={onClose}>Close</button>
         </div>
+        {showComments && (
+          <CommentSection storyId={story._id} />
+        )}
       </div>
     </div>
   );

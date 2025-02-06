@@ -4,6 +4,8 @@ import Popup from "../components/Popup"; // Import the Popup component
 import FloatingButton from "../components/FloatingButton";
 import axios from "axios";
 import "./pages.css";
+import { API_URL } from '../config/api';
+import Loader from '../components/Loader';
 
 function Home() {
   const [stories, setStories] = useState([]);
@@ -12,6 +14,9 @@ function Home() {
   const [selectedStory, setSelectedStory] = useState(null); // Track selected story
   const [searchTerm, setSearchTerm] = useState(""); // Search input state
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortByLikes, setSortByLikes] = useState(false);
+  const [showControls, setShowControls] = useState(false);
+  
 
   const STORY_CATEGORIES = [
     "funny",
@@ -37,8 +42,9 @@ function Home() {
   ];
 
   useEffect(() => {
+    setIsLoading(true);
     axios
-      .get("https://anonymous-app-backend.onrender.com/api/stories")
+      .get(`${API_URL}/api/stories`)
       .then((response) => {
         setStories(response.data);
         setIsLoading(false);
@@ -48,6 +54,9 @@ function Home() {
         setIsLoading(false);
       });
   }, []);
+
+  if (isLoading) return <Loader />;
+  if (error) return <div>Error: {error}</div>;
 
   const handleCardClick = (story) => {
     setSelectedStory(story); // Set the selected story
@@ -74,7 +83,6 @@ function Home() {
     return matchesSearch && matchesCategory;
   });
 
-  const [sortByLikes, setSortByLikes] = useState(false);
 
   // Sort stories by likes
   const sortedStories = filteredStories.sort((a, b) => {
@@ -88,7 +96,13 @@ function Home() {
     <div className="home">
       <div className="top-bar">
         <h1>Stories</h1>
-        <div className="controls">
+        <button 
+          className={`toggle-controls ${showControls ? 'active' : ''}`}
+          onClick={() => setShowControls(!showControls)}
+        >
+          ▼
+        </button>
+        <div className={`controls-wrapper ${showControls ? 'show' : ''}`}>
           <input
             type="text"
             placeholder="Search stories..."

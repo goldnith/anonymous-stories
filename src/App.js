@@ -6,7 +6,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import SubmitStory from "./pages/SubmitStory";
 import Alien from "./components/Alien";
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { Analytics } from '@vercel/analytics/react';
 
 function AppContent() {
   const { isLoading, setIsLoading } = useLoading();
@@ -24,7 +25,7 @@ function AppContent() {
   return (
     <>
       <SpeedInsights/>
-      <Navbar />
+      <Navbar /> 
       <Alien />
       {isLoading && <Loader />}
       <Routes>
@@ -40,6 +41,8 @@ function App() {
     <LoadingProvider>
       <Router>
         <AppContent />
+        <Analytics />
+        <SpeedInsights />
       </Router>
     </LoadingProvider>
   );

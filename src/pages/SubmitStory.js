@@ -47,6 +47,25 @@ function SubmitStory() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError(null);
     setSuccess(false);
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Auto-scroll when typing in textarea
+    if (name === 'story' && textareaRef.current) {
+      const textarea = textareaRef.current;
+      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
+      const numberOfLines = textarea.value.split('\n').length;
+      const scrollPosition = lineHeight * numberOfLines;
+      
+      // Scroll to keep cursor in view
+      setTimeout(() => {
+        textarea.scrollTop = textarea.scrollHeight;
+        window.scrollTo({
+          top: textarea.offsetTop + scrollPosition - window.innerHeight / 3,
+          behavior: 'smooth'
+        });
+      }, 0);
+    }
   };
 
   const autoResize = () => {
@@ -118,15 +137,19 @@ function SubmitStory() {
           required
         />
         <textarea
+          onFocus={handleFocus}
           ref={textareaRef}
           name="story"
           placeholder="Your story..."
           value={formData.story}
           onChange={handleChange}
           required
+          style={{
+            minHeight: '150px',
+            marginBottom: '60px'
+          }}
         />
         <select 
-          onFocus={handleFocus}
           name="category" 
           value={formData.category} 
           onChange={handleChange}

@@ -53,18 +53,25 @@ function SubmitStory() {
     // Auto-scroll when typing in textarea
     if (name === 'story' && textareaRef.current) {
       const textarea = textareaRef.current;
-      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
       const numberOfLines = textarea.value.split('\n').length;
-      const scrollPosition = lineHeight * numberOfLines;
+      const cursorPosition = textarea.selectionStart;
+      const text = textarea.value;
       
-      // Scroll to keep cursor in view
-      setTimeout(() => {
-        textarea.scrollTop = textarea.scrollHeight;
-        window.scrollTo({
-          top: textarea.offsetTop + scrollPosition - window.innerHeight / 3,
-          behavior: 'smooth'
-        });
-      }, 0);
+      // Calculate cursor line position
+      const lines = text.substr(0, cursorPosition).split('\n');
+      const currentLine = lines.length;
+      
+      // Get line height and calculate scroll position
+      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
+      const scrollPosition = (currentLine * lineHeight) - (window.innerHeight / 3);
+
+      // Smooth scroll to cursor position
+      window.scrollTo({
+        top: textarea.offsetTop + scrollPosition,
+        behavior: 'smooth'
+      });
+      // Ensure textarea is visible
+      textarea.scrollTop = Math.max(0, textarea.scrollHeight - textarea.clientHeight);
     }
   };
 
@@ -80,12 +87,7 @@ function SubmitStory() {
     autoResize();
   }, [formData.story]);
 
-  const handleFocus = (e) => {
-    e.target.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'center'
-    });
-  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -137,7 +139,6 @@ function SubmitStory() {
           required
         />
         <textarea
-          onFocus={handleFocus}
           ref={textareaRef}
           name="story"
           placeholder="Your story..."
@@ -146,7 +147,8 @@ function SubmitStory() {
           required
           style={{
             minHeight: '150px',
-            marginBottom: '60px'
+            marginBottom: '80px',
+            paddingBottom: '20px'
           }}
         />
         <select 

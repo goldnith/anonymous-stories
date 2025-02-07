@@ -40,35 +40,34 @@ function SubmitStory() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   
+  const formRef = useRef(null);
   const textareaRef = useRef(null);
   const navigate = useNavigate();
 
-  
+  useEffect(() => {
+    const adjustViewport = () => {
+      const viewport = window.visualViewport;
+      if (formRef.current && viewport) {
+        const offsetTop = viewport.offsetTop;
+        const height = viewport.height;
+        formRef.current.style.height = `${height}px`;
+        formRef.current.style.top = `${offsetTop}px`;
+      }
+    };
+
+    window.visualViewport?.addEventListener('resize', adjustViewport);
+    window.visualViewport?.addEventListener('scroll', adjustViewport);
+
+    return () => {
+      window.visualViewport?.removeEventListener('resize', adjustViewport);
+      window.visualViewport?.removeEventListener('scroll', adjustViewport);
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-
-    // Handle textarea scrolling
-    if (name === 'story') {
-      const textarea = e.target;
-      const selection = textarea.selectionStart;
-      const linesBeforeCursor = value.substr(0, selection).split('\n');
-      const currentLineNumber = linesBeforeCursor.length;
-      
-      // Calculate position to scroll to
-      const lineHeight = 24; // matches style fontSize
-      const scrollPosition = textarea.offsetTop + (currentLineNumber * lineHeight);
-      const scrollToY = scrollPosition - (window.innerHeight / 3);
-
-      // Scroll into view
-      window.scrollTo({
-        top: scrollToY,
-        // behavior: 'smooth'
-      });
-    }
-  };
-  
+  };  
 
   const autoResize = () => {
     const textarea = textareaRef.current;
@@ -144,8 +143,7 @@ function SubmitStory() {
             minHeight: '150px',
             fontSize: '16px',
             lineHeight: '24px',
-            paddingBottom: '100px',
-            scrollMarginTop: '100px'
+            paddingBottom: '60px'
           }}
           
         />

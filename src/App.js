@@ -8,6 +8,12 @@ import SubmitStory from "./pages/SubmitStory";
 import Alien from "./components/Alien";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from '@vercel/analytics/react';
+import { Helmet } from "react-helmet-async";
+
+<Helmet>
+  <title>Anonymous Stories</title>
+  <meta name="description" content="Share anonymous stories and read other's experiences." />
+</Helmet>
 
 function AppContent() {
   const { isLoading, setIsLoading } = useLoading();

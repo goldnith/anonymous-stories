@@ -42,9 +42,8 @@ function Navbar() {
       <h1>👽 Alien Stories</h1>
       <span className="alien-typing">{text}<span className="cursor">|</span></span>
       <ul>
-        <li><a href="/">Home</a></li>
-        {/* <li><a href="/explore">Explore</a></li> */}
         <li><a href="https://buymeacoffee.com/anonymousstoriea">Support Us</a></li>
+        <li><a href="/"><b>🗘</b></a></li>
       </ul>
     </nav>
   );

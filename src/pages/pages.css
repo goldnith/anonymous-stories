@@ -170,30 +170,26 @@ input, textarea, select {
   border-radius: 8px;
   font-size: 16px;
   box-shadow: 0 0 10px #00ffcc;
-  scroll-margin-bottom: 100vh;
 }
 
 input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff; /* Glowing focus effect */
 }
 
-@media screen and (max-width: 480px) {
-  textarea {
-    scroll-margin-bottom: 50vh;
-  }
 
-  textarea:focus {
-    position: relative;
-    scroll-margin-bottom: 50vh;
-    scroll-behavior: smooth;
-  }
-
-  .form-container {
-    padding-bottom: 50vh;
-    min-height: calc(100vh + 50vh);
-  }
+textarea {
+  min-height: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+  resize: vertical;
 }
 
+@media (max-width: 600px) {
+  textarea {
+    min-height: 100px;
+    font-size: 16px; /* Bigger text for better readability */
+  }
+}
 
 
 /* 👾 Alien-Themed Button */

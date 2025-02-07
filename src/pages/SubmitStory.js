@@ -40,34 +40,14 @@ function SubmitStory() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   
-  const formRef = useRef(null);
   const textareaRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const adjustViewport = () => {
-      const viewport = window.visualViewport;
-      if (formRef.current && viewport) {
-        const offsetTop = viewport.offsetTop;
-        const height = viewport.height;
-        formRef.current.style.height = `${height}px`;
-        formRef.current.style.top = `${offsetTop}px`;
-      }
-    };
-
-    window.visualViewport?.addEventListener('resize', adjustViewport);
-    window.visualViewport?.addEventListener('scroll', adjustViewport);
-
-    return () => {
-      window.visualViewport?.removeEventListener('resize', adjustViewport);
-      window.visualViewport?.removeEventListener('scroll', adjustViewport);
-    };
-  }, []);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };  
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(null);
+    setSuccess(false);
+  };
 
   const autoResize = () => {
     const textarea = textareaRef.current;
@@ -76,6 +56,18 @@ function SubmitStory() {
       textarea.style.height = `${textarea.scrollHeight}px`; 
     }
   };
+  
+  const adjustForKeyboard = () => {
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", () => {
+        document.body.style.height = `${window.visualViewport.height}px`;
+      });
+    }
+  };
+  
+  useEffect(() => {
+    adjustForKeyboard();
+  }, []);
 
   useEffect(() => {
     autoResize();
@@ -133,19 +125,13 @@ function SubmitStory() {
           required
         />
         <textarea
+          // onFocus={handleFocus}
           ref={textareaRef}
           name="story"
           placeholder="Your story..."
           value={formData.story}
           onChange={handleChange}
           required
-          style={{
-            minHeight: '150px',
-            fontSize: '16px',
-            lineHeight: '24px',
-            paddingBottom: '60px'
-          }}
-          
         />
         <select 
           name="category" 

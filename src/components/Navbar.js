@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./component.css"; // Ensure you have your CSS file linked
+import { RotateCcw } from 'lucide-react';
 
 const alienPhrases = [
   "Decoding extraterrestrial signal...",
@@ -43,7 +44,11 @@ function Navbar() {
       <span className="alien-typing">{text}<span className="cursor">|</span></span>
       <ul>
         <li><a href="https://buymeacoffee.com/anonymousstoriea">Support Us</a></li>
-        <li><a href="/"><b>🗘</b></a></li>
+        <li>
+          <a href="/" className="refresh-link">
+            <RotateCcw size={20} className="refresh-icon" aria-label="Refresh" />
+          </a>
+        </li>
       </ul>
     </nav>
   );

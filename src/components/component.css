@@ -527,7 +527,24 @@ nav, .story-card, form, .popup-content {
     animation: glow 2s infinite alternate;
 }
 
+.refresh-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
 
+.refresh-icon {
+  color: var(--alien-green);
+  stroke-width: 2;
+}
+
+@media screen and (max-width: 480px) {
+  .refresh-icon {
+    width: 24px;
+    height: 24px;
+  }
+}
 
 .floating-button {
   position: fixed;

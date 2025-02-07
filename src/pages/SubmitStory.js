@@ -118,7 +118,6 @@ function SubmitStory() {
           required
         />
         <textarea
-          onFocus={handleFocus}
           ref={textareaRef}
           name="story"
           placeholder="Your story..."
@@ -127,6 +126,7 @@ function SubmitStory() {
           required
         />
         <select 
+          onFocus={handleFocus}
           name="category" 
           value={formData.category} 
           onChange={handleChange}

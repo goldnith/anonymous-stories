@@ -170,11 +170,31 @@ input, textarea, select {
   border-radius: 8px;
   font-size: 16px;
   box-shadow: 0 0 10px #00ffcc;
+  scroll-margin-bottom: 100vh;
 }
 
 input:focus, textarea:focus, select:focus {
   box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff; /* Glowing focus effect */
 }
+
+@media screen and (max-width: 480px) {
+  textarea {
+    scroll-margin-bottom: 50vh;
+  }
+
+  textarea:focus {
+    position: relative;
+    scroll-margin-bottom: 50vh;
+    scroll-behavior: smooth;
+  }
+
+  .form-container {
+    padding-bottom: 50vh;
+    min-height: calc(100vh + 50vh);
+  }
+}
+
+
 
 /* 👾 Alien-Themed Button */
 button {

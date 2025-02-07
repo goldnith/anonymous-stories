@@ -43,8 +43,8 @@ function Navbar() {
       <span className="alien-typing">{text}<span className="cursor">|</span></span>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/submit">Submit Story</a></li>
         {/* <li><a href="/explore">Explore</a></li> */}
+        <li><a href="https://buymeacoffee.com/anonymousstoriea">Support Us</a></li>
       </ul>
     </nav>
   );

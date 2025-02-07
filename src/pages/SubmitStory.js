@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import './pages.css';
 import { API_URL } from '../config/api';
+import FloatingButton from "../components/FloatingButton";
+
 
 const STORY_CATEGORIES = [
   "funny",
@@ -59,6 +61,13 @@ function SubmitStory() {
     autoResize();
   }, [formData.story]);
 
+  const handleFocus = (e) => {
+    e.target.scrollIntoView({ 
+      behavior: 'smooth',
+      block: 'center'
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -109,6 +118,7 @@ function SubmitStory() {
           required
         />
         <textarea
+          onFocus={handleFocus}
           ref={textareaRef}
           name="story"
           placeholder="Your story..."
@@ -140,6 +150,8 @@ function SubmitStory() {
           🎉 Successfully submitted!
         </div>
       )}
+
+      <FloatingButton />
     </div>
   );
 }

@@ -43,37 +43,32 @@ function SubmitStory() {
   const textareaRef = useRef(null);
   const navigate = useNavigate();
 
+  
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError(null);
-    setSuccess(false);
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
-    
-    // Auto-scroll when typing in textarea
-    if (name === 'story' && textareaRef.current) {
-      const textarea = textareaRef.current;
-      const numberOfLines = textarea.value.split('\n').length;
-      const cursorPosition = textarea.selectionStart;
-      const text = textarea.value;
-      
-      // Calculate cursor line position
-      const lines = text.substr(0, cursorPosition).split('\n');
-      const currentLine = lines.length;
-      
-      // Get line height and calculate scroll position
-      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
-      const scrollPosition = (currentLine * lineHeight) - (window.innerHeight / 3);
 
-      // Smooth scroll to cursor position
+    // Handle textarea scrolling
+    if (name === 'story') {
+      const textarea = e.target;
+      const selection = textarea.selectionStart;
+      const linesBeforeCursor = value.substr(0, selection).split('\n');
+      const currentLineNumber = linesBeforeCursor.length;
+      
+      // Calculate position to scroll to
+      const lineHeight = 24; // matches style fontSize
+      const scrollPosition = textarea.offsetTop + (currentLineNumber * lineHeight);
+      const scrollToY = scrollPosition - (window.innerHeight / 3);
+
+      // Scroll into view
       window.scrollTo({
-        top: textarea.offsetTop + scrollPosition,
-        behavior: 'smooth'
+        top: scrollToY,
+        // behavior: 'smooth'
       });
-      // Ensure textarea is visible
-      textarea.scrollTop = Math.max(0, textarea.scrollHeight - textarea.clientHeight);
     }
   };
+  
 
   const autoResize = () => {
     const textarea = textareaRef.current;
@@ -147,9 +142,12 @@ function SubmitStory() {
           required
           style={{
             minHeight: '150px',
-            marginBottom: '80px',
-            paddingBottom: '20px'
+            fontSize: '16px',
+            lineHeight: '24px',
+            paddingBottom: '100px',
+            scrollMarginTop: '100px'
           }}
+          
         />
         <select 
           name="category" 

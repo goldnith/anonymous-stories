@@ -6,6 +6,17 @@ import { API_URL } from '../config/api';
 import FloatingButton from "../components/FloatingButton";
 
 
+function StarField() {
+  return (
+    <div className="star-field">
+      <div className="stars-layer-1"></div>
+      <div className="stars-layer-2"></div>
+      <div className="stars-layer-3"></div>
+    </div>
+  );
+}
+
+
 const STORY_CATEGORIES = [
   "funny",
   "awkward",
@@ -106,6 +117,7 @@ function SubmitStory() {
 
   return (
     <div className="submit-story">
+      <StarField />
       {isNavigating && (
         <div className="loading-screen">
           <div className="loading-spinner"></div>

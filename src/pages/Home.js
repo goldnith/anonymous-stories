@@ -7,6 +7,16 @@ import "./pages.css";
 import { API_URL } from '../config/api';
 import Loader from '../components/Loader';
 
+function StarField() {
+  return (
+    <div className="star-field">
+      <div className="stars-layer-1"></div>
+      <div className="stars-layer-2"></div>
+      <div className="stars-layer-3"></div>
+    </div>
+  );
+}
+
 function Home() {
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -94,7 +104,10 @@ function Home() {
 
   return (
     <div className="home">
+      <StarField />
+      
       <div className="top-bar">
+        
         <h1>Stories</h1>
         <button 
           className={`toggle-controls ${showControls ? 'active' : ''}`}
@@ -131,6 +144,8 @@ function Home() {
           </button>
         </div>
       </div>
+
+      
 
       <div className="stories-grid">
         {sortedStories.length > 0 ? (

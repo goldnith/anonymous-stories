@@ -32,6 +32,8 @@ nav ul {
   border-radius: 15px;
   background: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 10px var(--alien-green);
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 nav a {
@@ -50,21 +52,23 @@ nav a:hover {
   box-shadow: 0 0 15px var(--alien-green);
   transform: scale(1.1);
   background: rgba(0, 255, 204, 0.1);
-}
+} 
 
 /* Mobile Navigation */
 @media screen and (max-width: 480px) {
   nav {
     flex-direction: column;
     height: auto;
-    padding: 8px var(--mobile-padding)
+    /* padding: 8px var(--mobile-padding) */
+    
+    
   }
 
   nav ul {
     flex-direction: row;
-    align-items: center;
+    justify-content:center;
     width: 90%;
-    gap: 10px;
+    gap: 10px; 
     margin: 10px auto;
   }
 
@@ -73,7 +77,7 @@ nav a:hover {
     padding: 8px 15px;
     width: 100%;
     text-align: center;
-    margin-left: 60px;
+    margin-left: 30px;
   }
 }
 
@@ -82,10 +86,11 @@ nav a:hover {
 @media screen and (min-width: 481px) and (max-width: 768px) {
   nav {
     padding: var(--tablet-padding);
+    height: 100px;
   }
 
   nav ul {
-    gap: 20px;
+    gap: 10px;
   }
   nav a {
     font-size: 1.15rem;
@@ -132,16 +137,21 @@ nav h1 {
 
 /* Typing Effect */
 .alien-typing {
-    color: #00ffcc;
-    font-family: "Orbitron", sans-serif;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid #00ffcc;
-    font-size: clamp(12px, 2vw, 14px);
-    padding: clamp(5px, 2vw, 10px);
-    min-height: clamp(20px, 4vw, 24px);
+  color: #00ffcc;
+  font-family: "Orbitron", sans-serif;
+  text-shadow: 0 0 10px #00ffcc, 0 0 20px #0088ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #00ffcc;
+  font-size: clamp(12px, 2vw, 14px);
+  padding: clamp(5px, 2vw, 10px);
+  min-height: clamp(20px, 4vw, 24px);
+  margin: 0 auto;
+  flex: 1;
 }
 
 .cursor {

@@ -21,11 +21,15 @@ body {
   line-height: 1.6;
 }
 
+
+
 /* 🚀 Home Page Container */
 .home-container {
   max-width: var(--content-width);
   margin: 0 auto;
   padding: var(--spacing-md);
+  position: relative;
+  overflow: hidden;
 }
 
 /* ✨ Page Title */
@@ -37,6 +41,71 @@ body {
   color: #00ffcc; /* Alien green glow */
   text-transform: uppercase;
   text-shadow: 0 0 10px #00ffcc;
+}
+
+.star-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  perspective: 600px;
+  z-index: -1;
+  background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+}
+
+.stars-layer-1,
+.stars-layer-2,
+.stars-layer-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(1px 1px at 25% 25%, rgba(255, 215, 0, 0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgba(0, 255, 255, 0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 75%, rgba(255, 105, 180, 0.2) 0%, transparent 100%),
+    radial-gradient(2px 2px at 100% 100%, rgba(127, 255, 0, 0.2) 0%, transparent 100%);
+  background-size: 250px 250px;
+  animation: twinkle 4s infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.stars-layer-2 {
+  transform: translateZ(100px);
+  opacity: 0.3;
+  animation-delay: -1s;
+  background-image: 
+    radial-gradient(1px 1px at 25% 25%, rgba(255, 20, 147, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgba(0, 255, 0, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 75%, rgba(255, 69, 0, 0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 45%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 35% 85%, rgba(147, 112, 219, 0.4) 0%, transparent 100%);
+  background-size: 300px 300px, 250px 250px, 200px 200px;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
+}
+
+.stars-layer-3 {
+  transform: translateZ(200px) scale(0.8);
+  opacity: 0.4;
+  animation-delay: -2s;
+  background-image: 
+    radial-gradient(1px 1px at 25% 25%, rgba(65, 105, 225, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgba(148, 0, 211, 0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 75%, rgba(0, 191, 255, 0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 65% 35%, rgba(255, 215, 0, 0.5) 0%, transparent 100%);
+  background-size: 200px 200px;
+  filter: drop-shadow(0 0 4px rgba(65, 105, 225, 0.3));
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.4; transform: scale(1); }
+  25% { opacity: 0.8; transform: scale(1.1); }
+  50% { opacity: 1; transform: scale(1.2); }
+  75% { opacity: 0.8; transform: scale(1.1); }
+  100% { opacity: 0.4; transform: scale(1); }
 }
 
 /* 🛸 Story Cards Grid */

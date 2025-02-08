@@ -3,11 +3,15 @@ import "./component.css"; // Ensure you have your CSS file linked
 import { RotateCcw } from 'lucide-react';
 
 const alienPhrases = [
-  "Decoding extraterrestrial signal...",
-  "Uploading alien data...",
-  "Welcome to the Galactic Network...",
-  "Transmission from Planet X received...",
-  "Encrypting cosmic message...",
+  "Share your story anonymously...",
+  "Your secrets are safe with aliens...",
+  "Join our cosmic community...",
+  "Stories from another dimension...",
+  "Where anonymity meets storytelling...",
+  "Your story matters to the universe...",
+  "Safe space for earthly confessions...",
+  "Every story deserves to be told...",
+  "Don't use offensive words...."
 ];
 
 function Navbar() {

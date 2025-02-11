@@ -15,7 +15,7 @@ const CommentSection = ({ storyId, onClose }) => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/stories/${storyId}/comments`);
+      const response = await axios.get(`${API_URL}/api/comments/${storyId}`);
       setComments(response.data);
     } catch (error) {
       console.error('Error fetching comments:', error);
@@ -28,7 +28,7 @@ const CommentSection = ({ storyId, onClose }) => {
 
     setIsLoading(true);
     try {
-      await axios.post(`${API_URL}/api/stories/${storyId}/comments`, {
+      await axios.post(`${API_URL}/api/comments/${storyId}`, {
         userId,
         content: newComment
       });
@@ -41,18 +41,21 @@ const CommentSection = ({ storyId, onClose }) => {
     }
   };
 
+  const handleDelete = async (commentId) => {
+    if (!window.confirm('Are you sure you want to delete this comment?')) return;
+    
+    try {
+      await axios.delete(`${API_URL}/api/comments/${commentId}`, {
+        data: { userId }
+      });
+      fetchComments();
+    } catch (error) {
+      console.error('Error deleting comment:', error);
+    }
+  };
+
   return (
     <div className="comment-section">
-      <div className="comments-list">
-        {comments.map((comment) => (
-          <div key={comment._id} className="comment">
-            <p className="comment-text">{comment.content}</p>
-            <small className="comment-date">
-              {new Date(comment.createdAt).toLocaleDateString()}
-            </small>
-          </div>
-        ))}
-      </div>
       <form onSubmit={handleSubmit} className="comment-form">
         <textarea
           value={newComment}
@@ -64,6 +67,34 @@ const CommentSection = ({ storyId, onClose }) => {
           {isLoading ? 'Posting...' : 'Post Comment'}
         </button>
       </form>
+      <div className="comments-list">
+      {comments.map((comment) => (
+        <div key={comment._id} className="comment">
+          <div className="comment-header">
+            <div className="avatar">
+              👽
+            </div>
+            <div className="user-info">
+              <span className="user-id">Anonymous {comment.userId.slice(-4)}</span>
+              <small className="comment-date">
+                {new Date(comment.createdAt).toLocaleDateString()}
+              </small>
+            </div>
+            {comment.userId === userId && (
+                <button 
+                  className="delete-comment"
+                  onClick={() => handleDelete(comment._id)}
+                  aria-label="Delete comment"
+                >
+                  ❌
+                </button>
+              )}
+          </div>
+          <p className="comment-text">{comment.content}</p>
+        </div>
+      ))}
+    </div>
+      
     </div>
   );
 };

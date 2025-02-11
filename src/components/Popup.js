@@ -101,14 +101,10 @@ function Popup({ story, onClose }) {
             className={`like-button ${isLikeLoading ? "loading" : ""}`}>
             {likedByUser ? "❤️" : "🤍"} {likeCount}
           </button>
-          {/* <button onClick={() => setShowComments(!showComments)}>
-            💭 Comments
-          </button> */}
+          
           <button onClick={onClose}>Close</button>
         </div>
-        {showComments && (
-          <CommentSection storyId={story._id} />
-        )}
+        <CommentSection storyId={storyId} />
       </div>
     </div>
   );

@@ -63,10 +63,10 @@ body {
   right: 0;
   bottom: 0;
   background-image: 
-    radial-gradient(1px 1px at 25% 25%, rgba(255, 215, 0, 0.3) 0%, transparent 100%),
-    radial-gradient(2px 2px at 50% 50%, rgba(0, 255, 255, 0.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 75% 75%, rgba(255, 105, 180, 0.2) 0%, transparent 100%),
-    radial-gradient(2px 2px at 100% 100%, rgba(127, 255, 0, 0.2) 0%, transparent 100%);
+    radial-gradient(1px 1px at 25% 25%, rgb(255, 255, 255) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgb(253, 112, 112) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 75%, rgb(255, 255, 255) 0%, transparent 100%),
+    radial-gradient(3px 3px at 100% 100%, rgb(255, 255, 255) 0%, transparent 100%);
   background-size: 250px 250px;
   animation: twinkle 4s infinite;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
@@ -78,11 +78,11 @@ body {
   opacity: 0.3;
   animation-delay: -1s;
   background-image: 
-    radial-gradient(1px 1px at 25% 25%, rgba(255, 20, 147, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 50% 50%, rgba(0, 255, 0, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 75% 75%, rgba(255, 69, 0, 0.4) 0%, transparent 100%),
-    radial-gradient(1px 1px at 15% 45%, rgba(255, 255, 255, 0.4) 0%, transparent 100%),
-    radial-gradient(2px 2px at 35% 85%, rgba(147, 112, 219, 0.4) 0%, transparent 100%);
+    radial-gradient(1px 1px at 25% 25%, #ffffff 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgb(255, 255, 255) 0%, transparent 100%),
+    radial-gradient(3px 3px at 75% 75%, rgb(0, 255, 255) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 45%, rgb(255, 255, 255) 0%, transparent 100%),
+    radial-gradient(2px 2px at 35% 85%, rgb(255, 238, 0) 0%, transparent 100%);
   background-size: 300px 300px, 250px 250px, 200px 200px;
   filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
 }
@@ -92,10 +92,10 @@ body {
   opacity: 0.4;
   animation-delay: -2s;
   background-image: 
-    radial-gradient(1px 1px at 25% 25%, rgba(65, 105, 225, 0.5) 0%, transparent 100%),
-    radial-gradient(2px 2px at 50% 50%, rgba(148, 0, 211, 0.5) 0%, transparent 100%),
-    radial-gradient(1px 1px at 75% 75%, rgba(0, 191, 255, 0.5) 0%, transparent 100%),
-    radial-gradient(2px 2px at 65% 35%, rgba(255, 215, 0, 0.5) 0%, transparent 100%);
+    radial-gradient(1px 1px at 25% 25%, rgb(255, 255, 255) 0%, transparent 100%),
+    radial-gradient(2px 2px at 50% 50%, rgb(162, 0, 255) 0%, transparent 100%),
+    radial-gradient(3px 3px at 75% 75%, rgba(255, 255, 255, 0.925) 0%, transparent 100%),
+    radial-gradient(2px 2px at 65% 35%, rgb(255, 243, 177) 0%, transparent 100%);
   background-size: 200px 200px;
   filter: drop-shadow(0 0 4px rgba(65, 105, 225, 0.3));
 }
@@ -337,7 +337,7 @@ button:hover {
 }
 
 /* 👽 Alien-Themed Typing Effect */
-.alien-typing {
+/* .alien-typing {
   font-size: 16px;
   color: #00ffcc;
   font-family: "Orbitron", sans-serif;
@@ -345,10 +345,9 @@ button:hover {
   display: inline-block;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid #00ffcc;
   padding-right: 5px;
   min-height: 24px;
-}
+} */
 
 /* Blinking Cursor Effect */
 .cursor {
@@ -479,7 +478,7 @@ button:hover {
 .sort-button.active {
   background: black;
   color: #00ffcc;
-  border: 2px solid linear-gradient(45deg, #00ffcc, #0088ff);
+  border: 2px solid #00ffcc;
 }
 
 .category-filter {

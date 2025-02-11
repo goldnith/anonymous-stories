@@ -106,6 +106,7 @@ function Home() {
     <div className="home">
       <StarField />
       
+      
       <div className="top-bar">
         
         <h1>Stories</h1>

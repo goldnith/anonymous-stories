@@ -232,7 +232,7 @@ nav h1 {
 
 .like-count {
   font-size: 1rem;
-  color: #666;
+  color: #dfd9d9;
 }
 
 /* Media Queries */
@@ -298,19 +298,31 @@ nav h1 {
     padding: clamp(15px, 3vw, 25px);
     border-radius: clamp(8px, 2vw, 12px);
     color: radial-gradient(circle, #0a0a1a, #000011);
-    box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff;
+    /* box-shadow: 0 0 20px #00ffcc, 0 0 40px #0088ff; */
     text-align: center;
     width: 90%;
     max-width: 600px;
     position: relative;
-    animation: popupAppear 0.3s ease-in-out;
+    animation: popup-glow 3s infinite alternate;
     font-family: 'Orbitron', sans-serif;
-    border: 2px solid #00ffcc;
-    max-height: 80vh;
+    border: 2px solid #00ffccce;
+    max-height: 80vh; 
     overflow-y: auto; /* Enables scrolling */
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
     
+  }
+
+  @keyframes popup-glow {
+    from {
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.2),
+                  inset 0 0 8px rgba(0, 255, 204, 0.1);
+    }
+    to {
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.3),
+                  inset 0 0 12px rgba(0, 255, 204, 0.2);
+    }
   }
 
   /* Mobile Styles */
@@ -382,34 +394,49 @@ nav h1 {
     animation: fadeIn 1s ease-in;
     font-family: 'Space Mono', monospace;
     font-size: 1.2rem;
-    line-height: 2;
-    letter-spacing: 0.5px;
+    line-height: 1.8;
+    letter-spacing: 0.3px;
     color: #E0FFF0;
-    margin: 20px 0;
-    padding: 20px;
-    background: #00ffcc15;
-    border: 1px solid #00ffcc;
-    border-radius: 10px;
-    box-shadow: inset #00ffcc15;
+    margin: 25px auto;
+    padding: 30px;
+    max-width: 800px;
+    background: rgba(0, 255, 204, 0.05);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    border-radius: 12px;
+    box-shadow: 
+      inset 0 0 20px rgba(0, 255, 204, 0.1),
+      0 0 15px rgba(0, 255, 204, 0.1);
   }
   
   .story-text p {
     opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeIn 1s ease-in;
+    transform: translateY(-10px);
+    animation: textReveal 0.8s ease-out forwards;
     font-family: 'Space Mono', monospace;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    text-align: left;
     line-height: 2;
     letter-spacing: 0.5px;
     background: radial-gradient(circle, #0a0a1a, #000011);
-    color: #00ffcc;
-    margin: 20px 0;
-    padding: 20px;
+    margin: 0;
+    padding: 15px 0;
+    color: #E0FFF0;
     border: 1px solid #00ffcc;
     border-radius: 10px;
     box-shadow: inset 0 0 20px linear-gradient(45deg, #00ffcc13, #0088ff1f);
-    text-shadow: 0 0 5px rgba(57, 255, 20, 0.3);
+    text-shadow: 0 0 3px rgba(0, 255, 204, 0.2);
     
+  }
+
+  @keyframes textReveal {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   @keyframes fadeIn {
@@ -497,12 +524,12 @@ nav h1 {
 
 }
 
-.like-button.liked {
+/* .like-button.liked {
   background: var(--alien-green);
   color: var(--deep-space);
   box-shadow: 0 0 10px var(--alien-green);
   border: solid 2px #00ffcc;
-}
+} */
 
 .like-button.loading {
   opacity: 0.7;
@@ -531,10 +558,69 @@ nav h1 {
     100% { opacity: 1; }
 }
 
-/* Apply glow effect */
-nav, .story-card, form, .popup-content {
-    animation: glow 2s infinite alternate;
+/* 🎭 Popup Animations */
+.popup-overlay {
+  animation: fadeIn 0.3s ease-out;
 }
+
+.popup-content {
+  animation: slideUp 0.5s ease-out;
+  transform-origin: bottom;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.comment-form button:active {
+  transform: scale(0.95);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.comment {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.like-button:active {
+  transform: scale(0.8);
+  transition: transform 0.2s ease;
+}
+
+/* Apply glow effect */
+/* nav, .story-card, form, .popup-content {
+    animation: glow 2s infinite alternate;
+} */
 
 .refresh-link {
   display: flex;
@@ -749,15 +835,16 @@ nav, .story-card, form, .popup-content {
   margin-top: 20px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  border: 1px solid var(--alien-green);
+  border-radius: 0px;
+  /* border: 1px solid var(--alien-green); */
 }
 
 .comments-list {
   max-height: 300px;
   overflow-y: auto;
   margin-bottom: 20px;
-  padding-right: 10px;
+  /* padding-right: 10px; */
+  padding-top: 10px;
 }
 
 .comments-list::-webkit-scrollbar {
@@ -842,7 +929,7 @@ nav, .story-card, form, .popup-content {
 
 .comment-form textarea {
   width: 97%;
-  padding: 10px;
+  /* padding: 10px; */
   margin-bottom: 10px;
   background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--alien-green);
@@ -851,11 +938,11 @@ nav, .story-card, form, .popup-content {
 }
 
 .comment-form button {
-  background: var(--alien-green);
+  background: linear-gradient(45deg, #00ffcc, #0088ff);
   color: var(--deep-space);
   padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   cursor: pointer;
 }
 
@@ -891,11 +978,12 @@ nav, .story-card, form, .popup-content {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: var(--alien-green);
-  font-size: 0.9em;
+  color: #DFD9D9;
+  font-size: 0.5em;
 }
 
 .comment-icon {
   font-size: 1.2em;
   opacity: 0.8;
 }
+

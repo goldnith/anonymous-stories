@@ -6,6 +6,9 @@ import axios from "axios";
 import "./pages.css";
 import { API_URL } from '../config/api';
 import Loader from '../components/Loader';
+import { updateMetaDescription } from '../utils/metaDescription';
+
+
 
 function StarField() {
   return (
@@ -65,6 +68,12 @@ function Home() {
       });
   }, []);
 
+  useEffect(() => {
+    if (stories.length > 0) {
+      updateMetaDescription(stories);
+    }
+  }, [stories]);
+
   if (isLoading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
 
@@ -92,6 +101,7 @@ function Home() {
     const matchesCategory = selectedCategory === 'all' || story.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
 
 
   // Sort stories by likes
@@ -150,18 +160,24 @@ function Home() {
 
       <div className="stories-grid">
         {sortedStories.length > 0 ? (
-          sortedStories.map((story) => (
-            <div key={story._id} onClick={() => handleCardClick(story)}>
-              <StoryCard
-                _id={story._id}
-                title={story.title}
-                story={story.story}
-                category={story.category}
-                likeCount={story.likeCount}
-                likedUsers={story.likedUsers}
-              />
-            </div>
-          ))
+          sortedStories.map((story) => {
+            const commentCount = story.comments ? story.comments.length : 0;
+            
+            return (
+              <div key={story._id} onClick={() => handleCardClick(story)}>
+                <StoryCard
+                  _id={story._id}
+                  title={story.title}
+                  story={story.story}
+                  category={story.category}
+                  likeCount={story.likeCount}
+                  likedUsers={story.likedUsers}
+                  commentCount={commentCount}
+                  comments={story.comments}
+                />
+              </div>
+            );
+          })
         ) : (
           <p>No stories found.</p>
         )}

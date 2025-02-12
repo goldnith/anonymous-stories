@@ -63,7 +63,7 @@ const CommentSection = ({ storyId, onClose }) => {
           placeholder="Write a comment..."
           rows="3"
         />
-        <button type="submit" disabled={isLoading}>
+        <button className="PostComment" type="submit" disabled={isLoading}>
           {isLoading ? 'Posting...' : 'Post Comment'}
         </button>
       </form>

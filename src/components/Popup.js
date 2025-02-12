@@ -47,7 +47,6 @@ function Popup({ story, onClose }) {
   }, [storyId, userId]);
 
     // Set story text with fade effect
-  // Set story text with fade effect
   useEffect(() => {
     if (!story?.story) return;
     setDisplayedText(story.story);

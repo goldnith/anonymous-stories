@@ -13,7 +13,7 @@
 /* 🌌 General Body */
 body {
   background: radial-gradient(circle, #080808, #000011);
-  color: rgb(0, 255, 204);
+  color: rgba(0, 255, 204);
   font-family: 'Orbitron', sans-serif;
   margin: 0;
   padding: 0;
@@ -30,7 +30,6 @@ body {
   padding: var(--spacing-md);
   position: relative;
   overflow: hidden;
-  
 }
 
 /* ✨ Page Title */
@@ -143,8 +142,8 @@ body {
 }
 
 /* 🛸 Alien Story Card */
-/* .story-card {
-  border: 2px solid rgba(0, 255, 204);
+.story-card {
+  border: 1px solid rgba(0, 255, 204);
   border-radius: clamp(8px, 2vw, 10px);
   box-shadow: 0 2px 4px rgba(0, 255, 204, 0.3);
   padding: clamp(15px, 3vw, 20px);
@@ -153,7 +152,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: clamp(280px, 90vw, 800px);
   margin: 0 auto;
-} */
+}
 
 .story-card:hover {
   transform: translateY(-5px);
@@ -223,10 +222,8 @@ form {
   flex-direction: column;
   gap: 10px;
   padding: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 255, 204, 0.2);
+  background: rgba(0, 0, 0, 0.9); /* Dark background for form */
+  border: 1px solid rgba(0, 255, 204); /* Alien neon border */
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 255, 204); /* Glowing box-shadow */
   color: rgba(0, 255, 204);
@@ -235,73 +232,25 @@ form {
 
 /* 👽 Glowing Input Fields */
 input, textarea, select {
-  background: rgba(1, 31, 25, 0.3);
-  backdrop-filter: blur(10px) contrast(120%);
-  -webkit-backdrop-filter: blur(10px) contrast(120%);
-  border: 2px solid rgba(0, 255, 204, 0.2);
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 12px;
-  box-shadow: 
-    inset 0 0 50px rgba(0, 255, 204, 0.05),
-    inset 0 0 100px rgba(0, 0, 0, 0.5),
-    0 0 15px rgba(0, 255, 204, 0.1);
+  background: black;
   color: rgba(0, 255, 204);
+  border: 1px solid rgba(0, 255, 204);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 16px;
+  /* box-shadow: 0 0 10px rgba(0, 255, 204); */
 }
 
 input:focus, textarea:focus, select:focus {
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 204), 0 0 10px #0088ff; /* Glowing focus effect */
 }
-  
+
 
 textarea {
   min-height: 150px;
   max-height: 300px;
   overflow-y: auto;
   resize: vertical;
-}
-
-select {
-  background: rgba(1, 31, 25, 0.3);
-  backdrop-filter: blur(10px) contrast(120%);
-  -webkit-backdrop-filter: blur(10px) contrast(120%);
-  border: 2px solid rgba(0, 255, 204, 0.2);
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 12px;
-  box-shadow: 
-    inset 0 0 50px rgba(0, 255, 204, 0.05),
-    inset 0 0 100px rgba(0, 0, 0, 0.5),
-    0 0 15px rgba(0, 255, 204, 0.1);
-  color: rgba(0, 255, 204);
-  cursor: pointer;
-  appearance: none;
-  padding-right: 30px;
-  background-image: linear-gradient(45deg, transparent 50%, rgba(0, 255, 204, 0.5) 50%),
-                    linear-gradient(135deg, rgba(0, 255, 204, 0.5) 50%, transparent 50%);
-  background-position: 
-    calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px);
-  background-size: 
-    5px 5px,
-    5px 5px;
-  background-repeat: no-repeat;
-}
-
-select:focus {
-  outline: none;
-  border-color: rgba(0, 255, 204, 0.5);
-  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-}
-
-select option {
-  background-color: rgba(0, 0, 0, 0.95);
-  color: rgba(0, 255, 204);
-  padding: 10px;
-}
-
-select option:hover {
-  background-color: rgba(0, 255, 204, 0.1);
 }
 
 @media (max-width: 600px) {
@@ -323,12 +272,16 @@ button {
   cursor: pointer;
   border-radius: 50px;
   text-transform: uppercase;
-  box-shadow: 0 0 10px rgba(0, 255, 204);
+  /* box-shadow: 0 0 10px rgba(0, 255, 204); */
   transition: all 0.3s ease-in-out;
 }
 
+form.button {
+  width: 60%;
+}
+
 button:hover {
-  box-shadow: 0 0 20px rgba(0, 255, 204); /* Stronger glowing hover */
+  box-shadow: 0 0 10px rgba(0, 255, 204), 0 0 10px #0088ff; /* Stronger glowing hover */
   transform: scale(1.1);
 }
 
@@ -417,33 +370,27 @@ button:hover {
   justify-content: space-between;
   align-items: center;
   padding: clamp(10px, 2vw, 20px);
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 255, 204, 0.5);
-  box-shadow: 0 8px 32px 0 rgba(0, 255, 204, 0.1),
-  inset 0 0 32px rgba(0, 255, 204, 0.05);
+  background: black;
+  box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
   position: relative;
 }
 
 .search-bar {
   padding: clamp(8px, 2vw, 12px);
-  border: 1px solid rgba(0, 255, 204, 0.2);
+  border: 1px solid rgba(0, 255, 204);
   border-radius: 20px;
   background: black;
-  color: rgba(0, 255, 204, 0.2);
+  color: rgba(0, 255, 204);
   font-size: clamp(14px, 2vw, 16px);
   width: clamp(200px, 30vw, 300px);
-  box-shadow: 0 8px 32px 0 rgba(0, 255, 204, 0.1),
-  inset 0 0 32px rgba(0, 255, 204, 0.05);
 }
 
 .search-bar::placeholder {
-  color: rgba(0, 255, 204);
+  color: rgba(0, 255, 204)88;
 }
 
 .search-bar:focus {
-  box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 204);
 }
 
 
@@ -525,39 +472,26 @@ button:hover {
 
 .sort-button {
   padding: 8px 16px;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 20px;
   background: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
   cursor: pointer;
-  box-shadow: 
-    0 8px 32px 0 rgba(0, 255, 204, 0.1),
-    inset 0 0 32px rgba(0, 255, 204, 0.05);
+  box-shadow: 0 0 15px linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
 }
 
 .sort-button.active {
-  background: rgba(0, 0, 0, 0.2);
+  background: black;
   color: rgba(0, 255, 204);
-  border: 1px solid rgba(0, 255, 204, 0.2);
-}
-
-.sort-button.active:hover {
   border: 1px solid rgba(0, 255, 204);
 }
 
 .category-filter {
   padding: 8px;
-  color: rgba(0, 255, 204);
-  border: 2px solid linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+  border: 1px solid linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
   border-radius: 20px;
   background: black;
   cursor: pointer;
-  box-shadow: 
-    0 8px 32px 0 rgba(0, 255, 204, 0.1),
-    inset 0 0 32px rgba(0, 255, 204, 0.05);
-}
-
-.category-filter:hover {
-  border: 1px solid rgba(0, 255, 204);
+  box-shadow: 0 0 15px linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
 }
 
 .controls {
@@ -610,35 +544,36 @@ button:hover {
   display: flex;
   align-items: center;
   gap: 10px;
-  z-index: 100;
 }
 
 @media (max-width: 480px) {
+  .toggle-controls {
+    display: block;
+  }
+
   .controls-wrapper {
     display: none;
     width: 90%;
     flex-direction: column;
     gap: 10px;
-    padding: 15px;
+    padding: 10px;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: black;
     position: absolute;
     top: 100%;
     left: 0;
-    border: 1px solid rgba(0, 255, 204, 0.2);
-    border-radius: 0 0 12px 12px;
-    box-shadow: 
-      0 8px 32px rgba(0, 255, 204, 0.1),
-      inset 0 0 32px rgba(0, 255, 204, 0.05);
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
     margin-left: 5%;
-    transition: all 0.3s ease-out;
   }
 
   .controls-wrapper.show {
     display: flex;
     animation: slideDown 0.3s ease-out;
+  }
+
+  .toggle-controls.active {
+    transform: rotate(180deg);
   }
 }
 

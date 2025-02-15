@@ -658,7 +658,7 @@ nav h1 {
   cursor: pointer;
   transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 
-  animation: float 2s ease-in-out infinite;
+  animation: floats 2s ease-in-out infinite;
 }
 
 .floating-button:hover {
@@ -666,7 +666,7 @@ nav h1 {
   box-shadow: 0 0 10px rgba(0, 255, 204), 0 0 10px #0088ff;
 }
 
-@keyframes float {
+@keyframes floats {
   0% {
     transform: translateY(0);
   }
@@ -822,13 +822,13 @@ nav h1 {
   left: 5px;
 }
 
-@keyframes float {
+@keyframes floatt {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
 .alien {
-  animation: float 2s infinite ease-in-out;
+  animation: floatt 2s infinite ease-in-out;
 }
 
 .comment-section {

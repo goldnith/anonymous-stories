@@ -1,13 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './pages.css';
 
 function Birthday() {
 
-    const [timeUntilBirthday, setTimeUntilBirthday] = useState(null);
+  const [timeUntilBirthday, setTimeUntilBirthday] = useState(null);
   const [showContent, setShowContent] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  // Handle audio playback
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play().catch(e => console.log('Audio play failed:', e));
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Add audio effect when content is revealed
+  useEffect(() => {
+    if (showContent && audioRef.current) {
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => setIsPlaying(true))
+          .catch(e => {
+            console.log('Autoplay prevented:', e);
+            setIsPlaying(false);
+          });
+      }
+    }
+  }, [showContent]);
 
   useEffect(() => {
-    const birthdayDate = new Date('2025-02-16T00:00:00');
+    const birthdayDate = new Date('2025-02-15T19:30:00');
     
     const updateCountdown = () => {
       const now = new Date();
@@ -29,6 +58,19 @@ function Birthday() {
     updateCountdown();
 
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    // Hide navigation bar when component mounts
+    document.body.style.overflow = 'hidden';
+    const nav = document.querySelector('nav');
+    if (nav) nav.style.display = 'none';
+
+    // Restore navigation bar when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+      if (nav) nav.style.display = 'flex';
+    };
   }, []);
 
   const generateCrackers = () => {
@@ -84,6 +126,17 @@ function Birthday() {
 
   return (
     <div className="birthday-page">
+      <audio
+        ref={audioRef}
+        src="/birthday-music.mp3"
+        loop
+      />
+      <button 
+        className="audio-control"
+        onClick={toggleAudio}
+      >
+        {isPlaying ? '🔊' : '🔇'}
+      </button>
       <div className="particles-container">
         {generateParticles()}
       </div>

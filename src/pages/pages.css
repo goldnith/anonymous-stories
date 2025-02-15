@@ -623,16 +623,53 @@ button:hover {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   border-radius: 15px;
-  border: 1px solid rgba(0, 255, 204, 0.2);
+  border: 3px solid rgba(255, 0, 221, 0.747);
   box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+  overflow: hidden;
+}
+
+/* Add Glowing Border Animation */
+.birthday-content::before,
+.birthday-content::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    black,
+    #ff000015,
+    black,
+    transparent
+  );
+  border-radius: inherit;
+  z-index: -1;
+  animation: rotate 4s linear infinite;
+  background-size: 400% 400%;
+}
+
+.birthday-content::after {
+  filter: blur(5px);
+}
+
+/* Add Rotating Border Animation */
+@keyframes rotate {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .birthday-title {
   text-align: center;
-  color: var(--alien-green);
+  color: red;
   font-family: 'Orbitron', sans-serif;
   margin-bottom: 30px;
-  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+  text-shadow: 0 0 10px rgba(4, 0, 255, 0.5);
 }
 
 @keyframes float {
@@ -657,6 +694,43 @@ button:hover {
     0 0 30px rgba(0, 255, 204, 0.1),
     inset 0 0 50px rgba(0, 255, 204, 0.05);
   animation: glow 2s infinite alternate;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Border Light Effect */
+.birthday-message::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px; /* Border thickness */
+  border-radius: 20px;
+  background: linear-gradient(135deg,
+    transparent,
+    rgb(255, 0, 0),
+    #1eff00,
+    rgb(0, 17, 255),
+    transparent
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  background-size: 200% 200%;
+  animation: borderLight 3s linear infinite;
+}
+
+@keyframes borderLight {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 200% 200%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .large-emoji {
@@ -889,4 +963,151 @@ button:hover {
 
 .cracker:nth-child(even) .cracker-particles::after {
   transform: rotate(-135deg);
+}
+
+.birthday-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: radial-gradient(circle at center, #0a0a2e, #000011);
+  overflow-y: auto;
+}
+
+.countdown-page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: radial-gradient(circle at center, #0a0a2e, #000011);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-control {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--alien-green);
+  color: var(--alien-green);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.audio-control:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px var(--alien-green);
+}
+
+:root {
+  --birthday-primary: #ff71ce;
+  --birthday-secondary: #01cdfe;
+  --birthday-accent: #05ffa1;
+  --birthday-gold: #fffb96;
+  --birthday-purple: #b967ff;
+}
+
+.birthday-title {
+  text-align: center;
+  background: linear-gradient(45deg, var(--birthday-primary), var(--birthday-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 30px;
+  text-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
+}
+
+.birthday-message {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 2px solid var(--birthday-secondary);
+  box-shadow: 
+    0 0 30px rgba(1, 205, 254, 0.2),
+    inset 0 0 50px rgba(1, 205, 254, 0.1);
+  animation: glow 2s infinite alternate;
+}
+/* 
+.birthday-message::before {
+  background: linear-gradient(135deg,
+    transparent,
+    var(--birthday-primary),
+    var(--birthday-secondary),
+    var(--birthday-accent),
+    transparent
+  );
+} */
+
+.birthday-image {
+  border: 3px solid var(--birthday-purple);
+  box-shadow: 
+    0 0 20px rgba(185, 103, 255, 0.3),
+    inset 0 0 30px rgba(185, 103, 255, 0.2);
+}
+
+.countdown-container {
+  border: 2px solid var(--birthday-accent);
+  box-shadow: 0 0 30px rgba(5, 255, 161, 0.2);
+}
+
+.countdown-title {
+  color: var(--birthday-gold);
+  text-shadow: 0 0 15px rgba(255, 251, 150, 0.5);
+}
+
+.countdown-timer {
+  background: linear-gradient(45deg, 
+    var(--birthday-primary),
+    var(--birthday-secondary)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(1, 205, 254, 0.5);
+}
+
+/* @keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(255, 113, 206, 0.2);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(1, 205, 254, 0.4);
+  }
+} */
+
+.wish-list li {
+  color: var(--birthday-gold);
+  text-shadow: 0 0 8px rgba(255, 251, 150, 0.3);
+}
+
+.closing-text {
+  background: linear-gradient(45deg, 
+    var(--birthday-accent),
+    var(--birthday-secondary)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.signature {
+  color: var(--birthday-purple);
+  text-shadow: 0 0 10px rgba(185, 103, 255, 0.4);
 }

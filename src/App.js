@@ -9,6 +9,7 @@ import Alien from "./components/Alien";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from '@vercel/analytics/react';
 import { Helmet } from "react-helmet-async";
+import Birthday from './pages/Birthday';
 
 <Helmet>
   <title>Anonymous Stories</title>
@@ -37,6 +38,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<SubmitStory />} />
+        <Route path="/rifan" element={<Birthday />} />
       </Routes>
     </>
   );

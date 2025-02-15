@@ -587,3 +587,306 @@ button:hover {
     transform: translateY(0);
   }
 }
+
+.birthday-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0a0a2e, #000011);
+  position: relative;
+  overflow: hidden;
+}
+
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--alien-green);
+  border-radius: 50%;
+  animation: float 5s infinite linear;
+  animation-delay: var(--delay);
+  left: var(--x);
+  opacity: 0;
+}
+
+.birthday-content {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 255, 204, 0.2);
+  box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+}
+
+.birthday-title {
+  text-align: center;
+  color: var(--alien-green);
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+}
+
+.birthday-message {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  text-align: center;
+  border: 2px solid rgba(0, 255, 204, 0.3);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 204, 0.1),
+    inset 0 0 50px rgba(0, 255, 204, 0.05);
+  animation: glow 2s infinite alternate;
+}
+
+.large-emoji {
+  font-size: 4rem;
+  display: block;
+  margin: 20px 0;
+  animation: bounce 2s infinite;
+}
+
+.wish-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  font-size: 1.2rem;
+}
+
+.wish-list li {
+  margin: 15px 0;
+  opacity: 0;
+  animation: slideIn 0.5s forwards;
+}
+
+.wish-list li:nth-child(1) { animation-delay: 0.2s; }
+.wish-list li:nth-child(2) { animation-delay: 0.4s; }
+.wish-list li:nth-child(3) { animation-delay: 0.6s; }
+.wish-list li:nth-child(4) { animation-delay: 0.8s; }
+.wish-list li:nth-child(5) { animation-delay: 1.0s; }
+
+.closing-text {
+  font-size: 1.3rem;
+  margin: 30px 0;
+  color: var(--alien-green);
+  text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.signature {
+  font-family: 'Orbitron', sans-serif;
+  margin-top: 30px;
+  font-size: 1.2rem;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+  }
+  to {
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+  }
+}
+
+.birthday-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin: 20px auto;
+  border: 3px solid rgba(0, 255, 204, 0.5);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 204, 0.2),
+    inset 0 0 30px rgba(0, 255, 204, 0.1);
+  animation: imageGlow 3s infinite alternate;
+  position: relative;
+  overflow: hidden;
+}
+
+.birthday-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.birthday-image:hover img {
+  transform: scale(1.1);
+}
+
+@keyframes imageGlow {
+  from {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 204, 0.2),
+      inset 0 0 30px rgba(0, 255, 204, 0.1);
+  }
+  to {
+    box-shadow: 
+      0 0 30px rgba(0, 255, 204, 0.4),
+      inset 0 0 50px rgba(0, 255, 204, 0.2);
+  }
+}
+
+@media (max-width: 480px) {
+  .birthday-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.countdown-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0a0a2e, #000011);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.countdown-container {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  border: 2px solid rgba(0, 255, 204, 0.3);
+  animation: glow 2s infinite alternate;
+}
+
+.countdown-title {
+  color: var(--alien-green);
+  font-family: 'Orbitron', sans-serif;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+}
+
+.countdown-timer {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  color: var(--alien-green);
+  text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+  letter-spacing: 5px;
+}
+
+.countdown-timer span {
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from { text-shadow: 0 0 20px rgba(0, 255, 204, 0.5); }
+  to { text-shadow: 0 0 40px rgba(0, 255, 204, 0.8); }
+}
+
+.crackers-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.cracker {
+  position: absolute;
+  top: 50%;
+  left: var(--x);
+  transform: translateY(-50%);
+  animation: shoot 1s ease-out forwards var(--delay);
+}
+
+.cracker-particles {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: explode 1s ease-out forwards var(--delay);
+  opacity: 0;
+}
+
+.cracker-particles::before,
+.cracker-particles::after {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color1), var(--color2));
+  transform-origin: left;
+}
+
+@keyframes shoot {
+  0% {
+    transform: translateY(100vh) scale(0);
+  }
+  50% {
+    transform: translateY(40vh) scale(1);
+  }
+  100% {
+    transform: translateY(40vh) scale(0);
+  }
+}
+
+@keyframes explode {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2) rotate(360deg);
+  }
+}
+
+.cracker:nth-child(odd) .cracker-particles::before {
+  transform: rotate(45deg);
+}
+
+.cracker:nth-child(odd) .cracker-particles::after {
+  transform: rotate(-45deg);
+}
+
+.cracker:nth-child(even) .cracker-particles::before {
+  transform: rotate(135deg);
+}
+
+.cracker:nth-child(even) .cracker-particles::after {
+  transform: rotate(-135deg);
+}

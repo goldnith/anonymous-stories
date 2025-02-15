@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './pages.css';
 
+function StarField() {
+  return (
+    <div className="star-field">
+      <div className="stars-layer-1"></div>
+      <div className="stars-layer-2"></div>
+      <div className="stars-layer-3"></div>
+    </div>
+  );
+}
+
 function Birthday() {
 
   const [timeUntilBirthday, setTimeUntilBirthday] = useState(null);
@@ -91,25 +101,12 @@ function Birthday() {
   };
 
     
-  const generateParticles = () => {
-    return Array(50).fill().map((_, i) => (
-      <div 
-        key={i} 
-        className="particle"
-        style={{
-          '--delay': `${Math.random() * 5}s`,
-          '--x': `${Math.random() * 100}vw`
-        }}
-      />
-    ));
-  };
+
 
   if (!showContent) {
     return (
       <div className="countdown-page">
-        <div className="particles-container">
-          {generateParticles()}
-        </div>
+        
         <div className="countdown-container">
           <h2 className="countdown-title">👽 Cosmic Timeline Until Revelation</h2>
           {timeUntilBirthday && (
@@ -126,6 +123,8 @@ function Birthday() {
 
   return (
     <div className="birthday-page">
+
+      <StarField />
       <audio
         ref={audioRef}
         src="/birthday-music.mp3"
@@ -137,9 +136,7 @@ function Birthday() {
       >
         {isPlaying ? '🔊' : '🔇'}
       </button>
-      <div className="particles-container">
-        {generateParticles()}
-      </div>
+      
 
       <div className="crackers-container">
         {showContent && generateCrackers()}

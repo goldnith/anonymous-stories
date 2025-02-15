@@ -169,6 +169,20 @@ function Birthday() {
                 Be yourself, don't change yourself for anyone, and always be happy.
               </li>
               <li>I'm glad that alien like me got such a good human friendship :)</li>
+              <li> Its been 4 years of our friendship, i guess... I want our friendship grow more and let it be good</li>
+              <li>😂 I know i took some advantages, It's all my fault... and sorry for made you uncomfortable..</li>
+              <li>
+                At last im not a bad guy, im just a kid who wants to be happy and make others happy.
+                I know you also same.... I want our friendship to continue like before.... 🙃
+              </li>
+              <li>💝 I'm there to support you in any situation as a brother/ friend...</li>
+              <li>🐕 Anyways wish you again many more happy returns of the day</li>
+              <li>At last be happy, trip around the world, learn more, improve knowledge, don't kill your kids...lol</li>
+              <li>All friends are good, but be concious with some characters, they don't know about your background</li>
+              <li>Enjoy your life as you playing a game... 😀</li>
+              <li>✨ Wishing you to begin year in good way and get more good friends..</li>
+              <li>At last being bad also isn't wrong 😈... Nee panrathunala yarukum keduthal nadakalana athu thappu illa... and dont over think hehe</li>
+              <li>🎂 Once again Happy Birthday to you 🎂, spend precious time in good way...b y e 👋 and Love you my bro 🥰 </li>
             </ul>
             <p className="closing-text">May your day be as infinite as space and as bright as a supernova!</p>
             <div className="signature">

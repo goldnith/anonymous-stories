@@ -734,7 +734,7 @@ button:hover {
   font-size: 4rem;
   display: block;
   margin: 20px 0;
-  animation: bounce 2s infinite;
+  /* animation: bounce 2s infinite; */
 }
 
 .wish-list {
@@ -750,11 +750,11 @@ button:hover {
   animation: slideIn 0.5s forwards;
 }
 
-.wish-list li:nth-child(1) { animation-delay: 0.2s; }
+/* .wish-list li:nth-child(1) { animation-delay: 0.2s; }
 .wish-list li:nth-child(2) { animation-delay: 0.4s; }
 .wish-list li:nth-child(3) { animation-delay: 0.6s; }
 .wish-list li:nth-child(4) { animation-delay: 0.8s; }
-.wish-list li:nth-child(5) { animation-delay: 1.0s; }
+.wish-list li:nth-child(5) { animation-delay: 1.0s; } */
 
 .closing-text {
   font-size: 1.3rem;

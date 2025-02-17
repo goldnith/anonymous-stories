@@ -38,13 +38,13 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<SubmitStory />} />
-        <Route path="/rifan" element={<Birthday />} />
+        {/* <Route path="/rifan" element={<Birthday />} /> */}
       </Routes>
     </>
   );
 }
 
-function App() {
+function App() {  
   return (
     <LoadingProvider>
       <Router>

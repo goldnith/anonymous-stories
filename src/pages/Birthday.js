@@ -50,7 +50,7 @@ function Birthday() {
   };
 
   useEffect(() => {
-    const birthdayDate = new Date('2025-02-19T19:40:00');
+    const birthdayDate = new Date('2025-02-19T21:00:00');
     
     const updateCountdown = () => {
       const now = new Date();

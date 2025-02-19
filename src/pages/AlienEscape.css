@@ -1,0 +1,104 @@
+.alien-escape {
+    text-align: center;
+    padding: 20px;
+    background: #000011;
+    min-height: 100vh;
+    color: var(--alien-green);
+  }
+  
+  .game-area {
+    background: linear-gradient(to bottom, #001f3f, #000);
+    position: relative;
+    width: 800px;
+    height: 500px;
+    margin: 20px auto;
+    border: 2px solid var(--alien-green);
+    overflow: hidden;
+  }
+
+  .alien {
+    position: absolute;
+    left: 50px;
+    width: 40px;
+    height: 40px;
+    background: var(--alien-green);
+    border-radius: 50%;
+    transition: top 0.1s ease;
+    box-shadow: 0 0 20px var(--alien-green);
+    clip-path: polygon(50% 0%, 80% 40%, 100% 100%, 0 100%, 20% 40%);
+  }
+
+  .human.civilian {
+    background: #ff9900;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  }
+  
+  .human.soldier {
+    background: #ff3366;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Orbitron', sans-serif;
+    color: var(--alien-green);
+    margin: 20px;
+  }
+
+  .spaceship {
+    position: absolute;
+    left: 30px;
+    width: 40px;
+    height: 40px;
+    background: var(--alien-green);
+    border-radius: 50%;
+    transition: top 0.1s ease;
+    box-shadow: 0 0 15px var(--alien-green);
+  }
+  
+  .obstacle {
+    position: absolute;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    background: #ff3366;
+    border-radius: 4px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 15px #ff3366;
+  }
+  
+  .score {
+    font-size: 24px;
+    margin: 20px;
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  .game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid var(--alien-green);
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.3);
+  }
+  
+  button {
+    margin: 10px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 2px solid var(--alien-green);
+    color: var(--alien-green);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    background: var(--alien-green);
+    color: #000011;
+    box-shadow: 0 0 15px var(--alien-green);
+  }

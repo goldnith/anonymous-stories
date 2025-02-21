@@ -39,7 +39,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/submit" element={<SubmitStory />} />
-        <Route path="/kamal" element={<Birthday />} />
+        {/* <Route path="/kamal" element={<Birthday />} /> */}
         {/* <Route path="/alien-escape" element={<AlienEscape />} /> */}
       </Routes>
     </>

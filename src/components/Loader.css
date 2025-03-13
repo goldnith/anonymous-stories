@@ -1,0 +1,142 @@
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .loader-content {
+    background: rgba(0, 20, 40, 0.8);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid #00ffc8;
+    box-shadow: 0 0 30px rgba(0, 255, 200, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .alien-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(0, 20, 40, 0.8);
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 2px solid var(--alien-green);
+    box-shadow: 
+      0 0 30px rgba(0, 255, 204, 0.2),
+      inset 0 0 50px rgba(0, 255, 204, 0.1);
+    transform: translateY(-20px);
+    animation: float 3s infinite ease-in-out;
+  }
+  
+  .alien-icon {
+    font-size: 3.5rem;
+    animation: hover 2s infinite ease-in-out;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 204, 0.5));
+  }
+
+  .alien-emoji {
+    font-size: 4rem;
+    animation: float 2s infinite ease-in-out;
+  }
+  
+  .typing-container {
+    position: relative;
+    min-height: 2rem;
+  }
+  
+  .typing-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--alien-green);
+    min-height: 1.5em;
+    min-width: 20ch;
+    position: relative;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    white-space: nowrap;
+  }
+  
+  .cursor {
+    position: absolute;
+    right: -12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 1.2em;
+    background-color: var(--alien-green);
+    animation: blink 1s infinite;
+    box-shadow: 0 0 8px var(--alien-green);
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(-20px); }
+    50% { transform: translateY(-30px); }
+  }
+  
+  @keyframes hover {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Add cross-browser compatibility */
+  @supports not (backdrop-filter: blur(8px)) {
+    .loader-overlay {
+      background: rgba(0, 0, 0, 0.98);
+    }
+  }
+  
+  /* Mobile optimization */
+  @media (max-width: 480px) {
+    .alien-loader {
+      padding: 2rem;
+      width: 90%;
+      max-width: 320px;
+    }
+  
+    .typing-text {
+      font-size: 1rem;
+      min-width: 15ch;
+    }
+  
+    .alien-icon {
+      font-size: 3rem;
+    }
+  }

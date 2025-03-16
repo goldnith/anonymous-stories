@@ -45,7 +45,7 @@ function Navbar() {
   return (
     <nav>
       <h1>👽 Alien Stories</h1>
-      <span className="alien-typing">{text}<span className="cursor">|</span></span>
+      <span className="alien-typing">{text}</span>
       <ul>
         <li><a href="https://buymeacoffee.com/anonymousstoriea">Support Us</a></li>
         <li>

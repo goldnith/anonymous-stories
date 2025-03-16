@@ -95,7 +95,7 @@ const INITIAL_STATE = {
         
         <div className="game-area" ref={gameAreaRef}>
           <div 
-            className="alien"
+            className="alien1"
             style={{ top: `${alienPosition}%` }}
           />
           {humans.map((human, index) => (

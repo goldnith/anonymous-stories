@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { LoadingProvider, useLoading } from './context/LoadingContext';
 import Loader from './components/Loader';
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import SubmitStory from "./pages/SubmitStory";
 import Alien from "./components/Alien";
@@ -42,6 +43,7 @@ function AppContent() {
         {/* <Route path="/kamal" element={<Birthday />} /> */}
         {/* <Route path="/alien-escape" element={<AlienEscape />} /> */}
       </Routes>
+      <Footer />
     </>
   );
 }

@@ -1,0 +1,84 @@
+.alien-footer {
+    background: rgba(0, 0, 0, 0.9);
+    border-top: 2px solid var(--alien-green);
+    padding: 2rem 0;
+    margin-top: auto;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .footer-section {
+    color: #fff;
+  }
+  
+  .footer-section h3,
+  .footer-section h4 {
+    color: var(--alien-green);
+    margin-bottom: 1rem;
+    font-family: 'Share Tech Mono', monospace;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-section a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+  
+  .footer-section a::before {
+    content: '👽';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .footer-section a:hover {
+    color: var(--alien-green);
+    padding-left: 20px;
+  }
+  
+  .footer-section a:hover::before {
+    opacity: 1;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 255, 204, 0.1);
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+  
+    .footer-section a::before {
+      display: none;
+    }
+  
+    .footer-section a:hover {
+      padding-left: 0;
+    }
+  }

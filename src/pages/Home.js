@@ -29,6 +29,7 @@ function Home() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortByLikes, setSortByLikes] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   
 
   const STORY_CATEGORIES = [
@@ -74,16 +75,42 @@ function Home() {
     }
   }, [stories]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollButton(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (isLoading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
 
   const handleCardClick = (story) => {
     setSelectedStory(story); // Set the selected story
+    const scrollPosition = window.scrollY;
+    story.scrollPosition = scrollPosition;
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   };
 
   const handleClosePopup = () => {
     setSelectedStory(null); // Clear the selected story
+    setTimeout(() => {
+      window.scrollTo({
+        top: window.scrollY,
+        behavior: 'smooth'
+      });
+    }, 100);
   };
+
+
 
   // const filteredStories = stories.filter((story) =>
   //   story.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -116,7 +143,14 @@ function Home() {
     <div className="home">
       <StarField />
       
-      
+      {/* <button 
+        className={`scroll-top-button ${showScrollButton ? 'visible' : ''}`}
+        onClick={scrollToTop}
+        aria-label="Scroll to top"
+      >
+        ↑
+      </button> */}
+
       <div className="top-bar">
         
         <h1>Stories</h1>

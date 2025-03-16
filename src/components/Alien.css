@@ -1,0 +1,115 @@
+.alien {
+  position: fixed;
+  z-index: 1000;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.alien.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.alien-body {
+  position: relative;
+  animation: float90 3s infinite ease-in-out;
+}
+
+.alien-head {
+  width: 80px;
+  height: 120px;
+  background: linear-gradient(145deg, rgba(0, 255, 204, 0.8), rgba(0, 255, 204, 0.6));
+  border-radius: 60% 60% 40% 40%;
+  position: relative;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 204, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+.antenna-container {
+  position: absolute;
+  width: 100%;
+  top: -20px;
+}
+
+.antenna {
+  position: absolute;
+  width: 4px;
+  height: 30px;
+  background: linear-gradient(to top, rgba(0, 255, 204, 0.8), transparent);
+  top: 0;
+}
+
+.antenna-left {
+  left: 25px;
+  transform: rotate(-15deg);
+  animation: wiggleLeft 2s infinite ease-in-out;
+}
+
+.antenna-right {
+  right: 25px;
+  transform: rotate(15deg);
+  animation: wiggleRight 2s infinite ease-in-out;
+}
+
+.alien-face {
+  position: relative;
+  top: 40px;
+}
+
+.alien-eyes {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.eye {
+  width: 25px;
+  height: 35px;
+  background: #000;
+  border-radius: 50%;
+  position: relative;
+  transform: rotate(30deg);
+  transition: all 0.2s ease;
+}
+
+.eye.blink {
+  transform: scaleY(0.1) rotate(30deg);
+}
+
+.pupil {
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 255, 204, 0.8);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px rgba(0, 255, 204, 0.8);
+}
+
+.alien-mouth {
+  width: 15px;
+  height: 3px;
+  background: #000;
+  margin: 15px auto 0;
+  border-radius: 2px;
+}
+
+@keyframes float90 {
+  0%, 100% { transform: translateY(0) rotate(1deg); }
+  50% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes wiggleLeft {
+  0%, 100% { transform: rotate(-15deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+@keyframes wiggleRight {
+  0%, 100% { transform: rotate(15deg); }
+  50% { transform: rotate(20deg); }
+}

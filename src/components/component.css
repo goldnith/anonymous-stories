@@ -711,7 +711,7 @@ nav h1 {
 
 
 
-.alien {
+/* .alien {
   position: fixed;
   z-index: 1000;
   transition: all 2s ease-in-out;
@@ -776,7 +776,7 @@ nav h1 {
 
 .alien {
   animation: floatt 2s infinite ease-in-out;
-}
+} */
 
 .comment-section {
   margin-top: 20px;

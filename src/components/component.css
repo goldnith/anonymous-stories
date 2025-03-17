@@ -6,6 +6,9 @@
   --alien-green: rgba(0, 255, 204);
   --deep-space: #060606;
   --nav-height: 60px;
+  --z-nav: 1000;
+  --z-floating: 1001;
+  --z-popup: 1003;
 }
 
 /* 👽 Alien-Themed Navigation */
@@ -19,7 +22,7 @@ nav {
   border-bottom: 1px solid var(--alien-green);
   /* box-shadow: 0 0 10px var(--alien-green); */
   top: 0;
-  z-index: 1000;
+  z-index: var(--z-nav);
   height: 20px;
 }
 
@@ -298,7 +301,7 @@ nav h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: var(--z-popup);
     animation: fadeIn 0.3s ease-in-out;
   }
   
@@ -504,6 +507,17 @@ nav h1 {
     box-shadow: 0 0 20px rgba(0, 255, 204), 0 0 40px #0088ff;
     transform: scale(1.1);
   }
+
+  body.popup-open {
+    overflow: hidden;
+  }
+
+  .popup-open .floating-button,
+  .popup-open .scroll-top-button {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
   
   /* UFO Glow Animation */
   @keyframes fadeIn {
@@ -689,22 +703,35 @@ nav h1 {
   transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
 
   animation: floats 2s ease-in-out infinite;
+  z-index: var(--z-floating);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+  /* Ensure button stays above footer on mobile */
+  margin-bottom: env(safe-area-inset-bottom, 20px);
 }
 
 .floating-button:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0, 255, 204), 0 0 10px #0088ff;
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 204, 0.5),
+    0 0 40px rgba(0, 136, 255, 0.3);
 }
 
 @keyframes floats {
-  0% {
-    transform: translateY(0);
+  0%, 100% {
+    transform: translateY(0) scale(1);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.05);
   }
-  100% {
-    transform: translateY(0);
+}
+
+/* Update floating button position for mobile */
+@media screen and (max-width: 768px) {
+  .floating-button {
+    bottom: 70px; /* Increased bottom margin on mobile */
+    right: 20px;
+    width: 50px;
+    height: 50px;
   }
 }
 

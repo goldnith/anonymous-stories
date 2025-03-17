@@ -7,6 +7,7 @@
   --font-size-sm: clamp(14px, 2vw, 16px);
   --font-size-md: clamp(16px, 3vw, 20px);
   --font-size-lg: clamp(24px, 4vw, 32px);
+  
 }
 
 
@@ -1204,12 +1205,14 @@ html {
 
 .scroll-top-button {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  /* bottom: 120px; */
+  top: 120px;
+  right: 50px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--alien-green);
+  border: 2px solid rgb(0, 0, 0);
+  background: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
   color: #000;
   border: none;
   cursor: pointer;
@@ -1217,7 +1220,7 @@ html {
   visibility: hidden;
   transform: translateY(20px) scale(0.8);
   transition: all 0.4s var(--scroll-timing);
-  z-index: 9999;
+  z-index: 999;
   box-shadow: 
     0 0 15px rgba(0, 255, 204, 0.3),
     inset 0 0 10px rgba(0, 0, 0, 0.2);
@@ -1231,7 +1234,7 @@ html {
 /* Add responsive positioning */
 @media (max-width: 768px) {
   .scroll-top-button {
-    bottom: 20px;
+    /* bottom: 20px; */
     right: 20px;
     width: 45px;
     height: 45px;
@@ -1242,9 +1245,11 @@ html {
 @supports (padding: max(0px)) {
   .scroll-top-button {
     padding-bottom: max(30px, env(safe-area-inset-bottom));
-    right: max(30px, env(safe-area-inset-right));
+    /* right: max(30px, env(safe-area-inset-right)); */
   }
 }
+
+
 
 /* Improve hover and active states */
 .scroll-top-button:hover {
@@ -1253,6 +1258,7 @@ html {
   box-shadow: 
     0 0 25px rgba(0, 255, 204, 0.5),
     inset 0 0 15px rgba(0, 0, 0, 0.3);
+  border: 2px solid rgb(0, 0, 0);
 }
 
 .scroll-top-button:active {
@@ -1267,6 +1273,7 @@ html {
   animation: floatButton 3s ease-in-out infinite;
 }
 
+
 @keyframes bounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -1274,7 +1281,7 @@ html {
 
 .scroll-top-button {
   position: fixed !important;
-  z-index: 9999 !important;
+  z-index: 99 !important;
 }
 
 @keyframes floatButton {
@@ -1294,8 +1301,9 @@ html {
 
 @media (max-width: 768px) {
   .scroll-top-button {
-    bottom: 20px;
+    /* bottom: 20px; */
     right: 20px;
+    top: 250px;
     width: 45px;
     height: 45px;
   }

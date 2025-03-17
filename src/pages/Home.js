@@ -140,16 +140,16 @@ function Home() {
   });
 
   return (
-    <div className="home">
+    <div className={`home ${selectedStory ? 'popup-open' : ''}`}>
       <StarField />
       
-      {/* <button 
+      <button 
         className={`scroll-top-button ${showScrollButton ? 'visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Scroll to top"
       >
         ↑
-      </button> */}
+      </button>
 
       <div className="top-bar">
         

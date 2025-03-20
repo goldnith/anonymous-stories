@@ -304,11 +304,64 @@ nav h1 {
     z-index: var(--z-popup);
     animation: fadeIn 0.3s ease-in-out;
   }
+
+  .popup-close-btn {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(29vw, -45vh); /* Adjust based on popup width/height */
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: black;
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+    border: 1px solid --alien-green;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    line-height: 0.5;
+    padding: 0;
+    z-index: calc(var(--z-popup) + 1);
+    box-shadow: 
+      0 0 10px rgba(0, 255, 204, 0.3),
+      inset 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+  }
+  
+  .popup-close-btn:hover {
+    transform: translate(29vw, -44vh) scale(1.1);
+    background: rgb(0, 0, 0);
+    box-shadow: 
+      0 0 15px rgba(0, 255, 204, 0.5),
+      inset 0 0 8px rgba(0, 0, 0, 0.3);
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+  }
+  
+  .popup-close-btn:active {
+    transform: translate(29vw, -45vh) scale(0.95);
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+  }
+
+  /* Mobile adjustments */
+@media (max-width: 768px) {
+  .popup-close-btn {
+    transform: translate(39vw, -45vh);
+  }
+
+  .popup-close-btn:hover {
+    transform: translate(39vw, -45vh) scale(1.1);
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+  }
+}
   
   /* Popup Container */
   .popup-content {
     background: radial-gradient(circle, #0a0a1a, #000011);
     padding: clamp(15px, 3vw, 25px);
+    padding-top: 50px;
     border-radius: clamp(8px, 2vw, 12px);
     color: radial-gradient(circle, #0a0a1a, #000011);
     /* box-shadow: 0 0 20px rgba(0, 255, 204), 0 0 40px #0088ff; */
@@ -328,6 +381,7 @@ nav h1 {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     line-height: 1.6;
     letter-spacing: 0.3px;
+    
 
     
   }
@@ -485,7 +539,7 @@ nav h1 {
   }
   
   /* Close Button */
-  .popup-content button {
+  /* .popup-content button {
     background: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
     color: black;
     border: none;
@@ -501,12 +555,12 @@ nav h1 {
     margin-right: auto;
     margin-top: 20px;
     
-  }
+  } */
   
-  .popup-content button:hover {
+  /* .popup-content button:hover {
     box-shadow: 0 0 20px rgba(0, 255, 204), 0 0 40px #0088ff;
     transform: scale(1.1);
-  }
+  } */
 
   body.popup-open {
     overflow: hidden;
@@ -548,20 +602,28 @@ nav h1 {
   gap: 10px;
   justify-content: center;
   margin-top: 15px;
+  
 }
   
 .popup-like-container p {
     font-size: 1.2rem;
-    color: rgba(0, 255, 204);
+    color: rgb(0, 0, 0);
 }
 
 .like-button {
   display: flex;
   align-items: center;
+  background: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
   gap: 5px;
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 50px;
   transition: all 0.3s ease;
+  border: 2px solid rgb(0, 0, 0);
+  color: black;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  text-transform: uppercase;
 
 }
 
@@ -918,6 +980,9 @@ nav h1 {
   border: none;
   border-radius: 50px;
   cursor: pointer;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
 }
 
 .delete-comment {

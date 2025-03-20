@@ -12,8 +12,7 @@ const StoryCard = ({title, story, _id, likeCount: initialLikeCount, likedUsers, 
   const userId = useUniqueId();
   const [currentLikeCount, setCurrentLikeCount] = useState(initialLikeCount);
   
-
-
+  
   useEffect(() => {
     // Check if current user has liked the story
     if (likedUsers && userId) {
@@ -25,12 +24,6 @@ const StoryCard = ({title, story, _id, likeCount: initialLikeCount, likedUsers, 
   //   setCurrentLikeCount(newCount);
   //   setIsLiked(newLikedStatus);
   // };
-
-
-
-
-
-
 
 
   return (

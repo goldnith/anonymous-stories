@@ -99,6 +99,6 @@
   
   button:hover {
     background: var(--alien-green);
-    color: #000011;
+    /* color: #000011; */
     box-shadow: 0 0 15px var(--alien-green);
   }

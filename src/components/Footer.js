@@ -31,11 +31,11 @@ const Footer = () => {
           <ul>
             <li>
               <a 
-                href="https://twitter.com/Alien_storiess" 
+                href="https://X.com/Alien_storiess" 
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                Twitter
+                x.com
               </a>
             </li>
             <li>

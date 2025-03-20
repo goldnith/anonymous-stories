@@ -83,6 +83,13 @@ function Popup({ story, onClose }) {
       onClick={handleOverlayClick} // Close when clicking overlay
     >
       <div className="popup-content">
+        <button 
+          className="popup-close-btn" 
+          onClick={onClose}
+          aria-label="Close popup"
+        >
+          X
+        </button>
         <h2>{story.title || "Untitled"}</h2>
         <p className="story-text" 
           style={{ 
@@ -101,7 +108,7 @@ function Popup({ story, onClose }) {
             {likedByUser ? "❤️" : "🤍"} {likeCount}
           </button>
           
-          <button onClick={onClose}>Close</button>
+          {/* <button onClick={onClose}>Close</button> */}
         </div>
         <CommentSection storyId={storyId} />
       </div>

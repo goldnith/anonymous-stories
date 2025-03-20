@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import StoryCard from "../components/StoryCard";
 import Popup from "../components/Popup"; // Import the Popup component
 import FloatingButton from "../components/FloatingButton";
@@ -69,6 +69,30 @@ function Home() {
       });
   }, []);
 
+  const fetchStories = useCallback(async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/stories`);
+      setStories(response.data);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  // Initial fetch and polling setup
+  useEffect(() => {
+    setIsLoading(true);
+    fetchStories();
+
+    // Set up polling interval
+    const pollInterval = setInterval(fetchStories, 100000); // 10 seconds
+
+    // Cleanup on unmount
+    return () => clearInterval(pollInterval);
+  }, [fetchStories]);
+
   useEffect(() => {
     if (stories.length > 0) {
       updateMetaDescription(stories);
@@ -86,6 +110,8 @@ function Home() {
 
   if (isLoading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
+
+  
 
   const handleCardClick = (story) => {
     setSelectedStory(story); // Set the selected story

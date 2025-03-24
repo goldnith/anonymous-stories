@@ -84,12 +84,36 @@ function SubmitStory() {
     autoResize();
   }, [formData.story]);
 
+  const [submitStatus, setSubmitStatus] = useState({
+    loading: false,
+    success: false,
+    error: null
+  });
+
+  // Add server ping mechanism
+  useEffect(() => {
+    const pingServer = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/api/ping`);
+        console.log('Server status:', response.data);
+      } catch (error) {
+        console.error('Server ping failed:', error.message);
+      }
+    };
+  
+    pingServer();
+  
+    // Ping every 2 minutes (120000ms)
+    const pingInterval = setInterval(pingServer, 120000);
+  
+    return () => clearInterval(pingInterval);
+  }, []);
+
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
+    setSubmitStatus({ loading: true, success: false, error: null });
 
     try {
       await axios.post(`${API_URL}/api/stories`, {
@@ -98,26 +122,38 @@ function SubmitStory() {
         category: formData.category
       });
 
-      setSuccess(true);
+      setSubmitStatus({ loading: false, success: true, error: null });
       setFormData({ title: "", story: "", category: "" });
 
-      // Show navigation loader before redirecting
+      // Show success message and redirect
       setTimeout(() => {
-        setSuccess(false);
         setIsNavigating(true);
-        setTimeout(() => navigate("/"), 2000); // Simulating loading time
-      }, 200);
+        setTimeout(() => navigate("/"), 2000);
+      }, 1500);
       
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to submit story');
-    } finally {
-      setIsSubmitting(false);
+      setSubmitStatus({ 
+        loading: false, 
+        success: false, 
+        error: err.response?.data?.message || 'Failed to submit story'
+      });
     }
   };
 
   return (
     <div className="submit-story">
       <StarField />
+
+      {/* Loading Overlay */}
+      {submitStatus.loading && (
+        <div className="loading1-overlay">
+          <div className="loading1-content">
+            <div className="alien-loader1"></div>
+            <p>Transmitting your story to alien servers...</p>
+          </div>
+        </div>
+      )}
+
       {isNavigating && (
         <div className="loading-screen">
           <div className="loading-spinner"></div>
@@ -158,15 +194,20 @@ function SubmitStory() {
             </option>
           ))}
         </select>
-        <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? <div className="button-loader"></div> : 'Submit Story'}
+        <button 
+          type="submit" 
+          disabled={submitStatus.loading}
+          className={submitStatus.loading ? 'loading' : ''}
+        >
+          {isSubmitting ? <div className="button-loader1"></div> : 'Submit Story'}
         </button>
       </form>
 
       {/* ✅ Floating Success Message */}
-      {success && (
+      {submitStatus.success && (
         <div className="success-message">
-          🎉 Successfully submitted!
+          <span>🛸</span>
+          Story successfully transmitted!
         </div>
       )}
 

@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Alien Stories",
+  "name": "Anonymous Alien Stories",
+  "description": "Anonymous Alien Stories",
   "icons": [
     {
       "src": "logo.jpg",

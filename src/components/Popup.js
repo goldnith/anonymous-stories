@@ -16,6 +16,7 @@ function Popup({ story, onClose }) {
   const storyId = story?._id;
   const [isLikeLoading, setIsLikeLoading] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
 
 
   const handleOverlayClick = (e) => {
@@ -77,15 +78,22 @@ function Popup({ story, onClose }) {
 
   if (!story) return null;
 
+  const handleClose = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, 500); // Match animation duration
+  };
+
   return (
     <div 
-      className="popup-overlay"
-      onClick={handleOverlayClick} // Close when clicking overlay
+      className={`popup-overlay ${isClosing ? 'closing' : ''}`}
+      onClick={handleOverlayClick}
     >
-      <div className="popup-content">
+      <div className={`popup-content ${isClosing ? 'closing' : ''}`}>
         <button 
-          className="popup-close-btn" 
-          onClick={onClose}
+          className="popup-close-btn"
+          onClick={handleClose}
           aria-label="Close popup"
         >
           X

@@ -1461,7 +1461,7 @@ button.loading1 {
   50% { opacity: 0.5; }
 }
 
-@keyframes slideUp {
+@keyframes slideUp1 {
   from { transform: translate(-50%, 100%); opacity: 0; }
   to { transform: translate(-50%, 0); opacity: 1; }
 }

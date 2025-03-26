@@ -91,7 +91,11 @@ const Footer = () => {
           <h4>Quick Links</h4>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About Us</Link></li>
+            <li>
+              <a onClick={() => handleNavigation('/about')} style={{ cursor: 'pointer' }}>
+                About Us
+              </a>
+            </li>
             <li>
               <a 
                 href="https://buymeacoffee.com/anonymousstoriea" 

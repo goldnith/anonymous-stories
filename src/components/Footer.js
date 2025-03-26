@@ -12,39 +12,46 @@ const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscriptionStatus, setSubscriptionStatus] = useState('');
 
-  const handleSubscribe = async (e) => {
-  e.preventDefault();
-  setSubscriptionStatus('pending');
-  
-  try {
-    // Validate email
-    if (!NEWSLETTER_CONFIG.validation.emailPattern.test(email)) {
-      throw new Error('Invalid email format');
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
+  }, []);
+
+  // Add message timeout effect
+  useEffect(() => {
+    let timeoutId;
+    if (subscriptionStatus === 'success' || subscriptionStatus === 'error') {
+      timeoutId = setTimeout(() => {
+        setSubscriptionStatus('');
+      }, 3000);
     }
+    return () => clearTimeout(timeoutId);
+  }, [subscriptionStatus]);
 
-    // Store subscriber
-    const subscribers = JSON.parse(
-      localStorage.getItem(NEWSLETTER_CONFIG.storage.subscribersKey) || '[]'
-    );
-    subscribers.push({
-      email,
-      dateSubscribed: new Date().toISOString(),
-    });
-    localStorage.setItem(
-      NEWSLETTER_CONFIG.storage.subscribersKey, 
-      JSON.stringify(subscribers)
-    );
-
-    // Send welcome email
-    await sendWeeklyNewsletter();
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    setSubscriptionStatus('pending');
     
-    setSubscriptionStatus('success');
-    setEmail('');
-  } catch (error) {
-    console.error('Subscription error:', error);
-    setSubscriptionStatus('error');
-  }
-};
+    try {
+      const templateParams = {
+        to_email: email,
+        subject: '🛸 Welcome to Alien Stories!',
+        message: 'Thank you for subscribing to our newsletter!'
+      };
+
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        templateParams
+      );
+
+      setSubscriptionStatus('success');
+      setEmail('');
+    } catch (error) {
+      console.error('Subscription error:', error);
+      setSubscriptionStatus('error');
+    }
+  };
 
   const handleNavigation = (path) => {
     window.scrollTo(0, 0);

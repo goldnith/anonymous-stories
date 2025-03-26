@@ -15,7 +15,7 @@
 body {
   background: radial-gradient(circle, #080808, #000011);
   color: rgba(0, 255, 204);
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   margin: 0;
   padding: 0;
   font-size: var(--font-size-sm);
@@ -230,7 +230,7 @@ form {
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 255, 204); /* Glowing box-shadow */
   color: rgba(0, 255, 204);
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
 }
 
 /* 👽 Glowing Input Fields */
@@ -674,7 +674,7 @@ button:hover {
 .birthday-title {
   text-align: center;
   color: red;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   margin-bottom: 30px;
   text-shadow: 0 0 10px rgba(4, 0, 255, 0.5);
 }
@@ -774,7 +774,7 @@ button:hover {
 }
 
 .signature {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   margin-top: 30px;
   font-size: 1.2rem;
 }
@@ -870,13 +870,13 @@ button:hover {
 
 .countdown-title {
   color: var(--alien-green);
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   margin-bottom: 30px;
   font-size: 1.5rem;
 }
 
 .countdown-timer {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   font-size: 4rem;
   color: var(--alien-green);
   text-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
@@ -1034,7 +1034,7 @@ button:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
   margin-bottom: 30px;
   text-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
 }
@@ -1133,7 +1133,7 @@ button:hover {
   justify-content: center;
   gap: 1rem;
   margin-top: 2rem;
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-primary);
 }
 
 .time-segment {
@@ -1360,7 +1360,7 @@ html {
 
 .loading1-content p {
   color: var(--alien-green);
-  font-family: 'Share Tech Mono', monospace;
+  font-family: var(--font-primary);
   margin-top: 1rem;
   animation: pulse 2s infinite;
 }
@@ -1497,4 +1497,90 @@ button.loading1 {
     width: 85%;
     padding: 1.5rem;
   }
+}
+
+/* .ad-container {
+  margin: 2rem auto;
+  max-width: 100%;
+  overflow: hidden;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+} */
+
+/* Ad Container Styles */
+
+.ad-section {
+  margin: 3rem auto;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ad-container {
+  margin: 0 auto; /* Remove top/bottom margin since parent handles spacing */
+  max-width: 60%;
+  min-height: 90px;
+  width: 100%;
+  overflow: hidden;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--alien-green);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Ad Container */
+@media (max-width: 768px) {
+  .ad-container {
+    max-width: 320px;
+    min-height: 50px;
+  }
+  
+  .ad-section {
+    padding: 0.5rem;
+  }
+}
+
+/* Ad Loading State */
+.ad-container.loading {
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Ad Placement Rules */
+.ad-section {
+  margin: 2rem 0;
+  clear: both;
+  display: flex;
+  justify-content: center;
+}
+
+/* Space between content and ads */
+.stories-grid + .ad-section {
+  margin-top: 3rem;
+}
+
+.ad-section + .stories-grid {
+  margin-top: 3rem;
+}
+
+/* Stories Section Layout */
+.stories-section {
+  margin: 2rem auto;
+  max-width: 1200px;
+  width: 100%;
 }

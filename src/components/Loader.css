@@ -71,7 +71,7 @@
   }
   
   .typing-text {
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-primary);
     font-size: 1.2rem;
     color: var(--alien-green);
     min-height: 1.5em;

@@ -1,3 +1,5 @@
+@import '../pages/variables.css';
+
 .alien-footer {
     background: rgba(0, 0, 0, 0.9);
     border-top: 2px solid var(--alien-green);
@@ -14,6 +16,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
+    font-family: var(--font-primary);
+    font-weight: --font-light;
   }
   
   .footer-section {
@@ -24,7 +28,7 @@
   .footer-section h4 {
     color: var(--alien-green);
     margin-bottom: 1rem;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: var(--font-primary);
   }
   
   .footer-section ul {
@@ -41,6 +45,8 @@
     text-decoration: none;
     transition: color 0.3s ease;
     position: relative;
+    cursor: pointer;
+    user-select: none;
   }
   
   .footer-section a::before {
@@ -66,6 +72,8 @@
     padding-top: 1rem;
     border-top: 1px solid rgba(0, 255, 204, 0.1);
     color: #fff;
+    font-family: var(--font-primary);
+    font-size: --text-3xl;
   }
   
   @media (max-width: 768px) {
@@ -82,3 +90,118 @@
       padding-left: 0;
     }
   }
+
+  .footer-section a:active {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .footer-stats {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(0, 255, 204, 0.1);
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .newsletter-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--alien-green);
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    border-radius: 4px;
+  }
+  
+  .newsletter-form input.success {
+    border-color: #4CAF50;
+  }
+  
+  .newsletter-form input.error {
+    border-color: #f44336;
+  }
+  
+  .newsletter-form button {
+    padding: 0.5rem 1rem;
+    background: var(--alien-green);
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .newsletter-form button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--alien-green);
+  }
+  
+  .newsletter-form button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .success-message {
+    color: #4CAF50;
+    margin-top: 0.5rem;
+  }
+  
+  .error-message {
+    color: #f44336;
+    margin-top: 0.5rem;
+  }
+  
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-credits {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .newsletter-form {
+      flex-direction: column;
+    }
+    
+    .footer-stats {
+      justify-content: center;
+    }
+  }
+
+.success-message,
+.error-message {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}

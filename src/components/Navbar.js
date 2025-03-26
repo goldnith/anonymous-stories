@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./component.css"; // Ensure you have your CSS file linked
 import { RotateCcw } from 'lucide-react';
 
@@ -44,7 +45,9 @@ function Navbar() {
 
   return (
     <nav>
-      <h1>👽 Alien Stories</h1>
+      <Link to="/" className="nav-title">
+        <h1>👽 Alien Stories</h1>
+      </Link>
       <span className="alien-typing">{text}</span>
       <ul>
         <li><a href="https://buymeacoffee.com/anonymousstoriea">Support Us</a></li>

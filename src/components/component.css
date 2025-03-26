@@ -1,3 +1,84 @@
+@import '../pages/variables.css';
+
+/* Global Styles */
+/* Global Typography */
+body {
+  font-family: var(--font-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.01em;
+}
+
+/* Remove all other font-family declarations */
+nav,
+.story-card,
+.popup-content,
+.comment-text,
+.alien-typing,
+input,
+select,
+textarea,
+button {
+  font-family: var(--font-primary);
+}
+
+/* Code elements */
+code, pre {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+}
+
+/* Heading Sizes */
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+
+/* Story Card */
+.story-card {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+/* Navigation */
+nav {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+/* Comments */
+.comment-text {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+/* Form Elements */
+input, select, textarea {
+  font-size: var(--text-base);
+}
+
+/* Buttons */
+button {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+/* Meta Information */
+.meta-info {
+  font-size: var(--text-xs);
+}
+
+/* Remove all other font-family references */
+.story-text,
+.popup-content h2,
+.alien-typing,
+.comment-form textarea {
+  font-family: var(--font-primary);
+}
+
+
 /* Root Variables and Media Queries */
 :root {
   --mobile-padding: 10px;
@@ -24,6 +105,21 @@ nav {
   top: 0;
   z-index: var(--z-nav);
   height: 20px;
+}
+
+.nav-title {
+  text-decoration: none;
+  color: var(--alien-green);
+  transition: all 0.3s ease;
+}
+
+.nav-title:hover {
+  text-shadow: 0 0 10px var(--alien-green);
+  transform: scale(1.02);
+}
+
+.nav-title h1 {
+  margin: 0;
 }
 
 nav ul {
@@ -135,13 +231,14 @@ nav h1 {
     color: rgba(0, 255, 204);
     font-size: 24px;
     text-transform: uppercase;
-    font-family: 'Orbitron', sans-serif;
+    font-family: var(--font-primary);
 }
 
 /* Typing Effect */
 .alien-typing {
   color: rgba(0, 255, 204);
-  font-family: "Orbitron", sans-serif;
+  /* font-family: "Orbitron", sans-serif; */
+  font-family: var(--font-primary);
   text-shadow: 0 0 10px rgba(0, 255, 204), 0 0 20px #0088ff;
   display: flex;
   justify-content: center;
@@ -193,9 +290,10 @@ nav h1 {
   margin-bottom: 15px;
   background: rgba(0, 0, 0, 0.8);
   color: rgba(0, 255, 204);
+  font-family: var(--font-primary);
   box-shadow: 0 0 15px rgba(0, 255, 204);
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; */
 }
 
 .story-card:hover {
@@ -206,9 +304,10 @@ nav h1 {
 .story-card h3 {
     font-size: clamp(1.2rem, 4vw, 1.5rem);
     margin: 0 0 10px;
-    font-family: 'Orbitron', sans-serif;
+    /* font-family: 'Orbitron', sans-serif; */
     font-weight: 600;
     margin-bottom: 1rem;
+    font-family: var(--font-primary);
 }
 
 .story-card .story-preview {
@@ -318,9 +417,9 @@ nav h1 {
     width: 35px;
     height: 35px;
     border-radius: 50%;
-    background: black;
-    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
-    border: 1px solid --alien-green;
+    background: black !important;
+    color: var(--alien-green) !important;
+    border: 1px solid var(--alien-green);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -339,16 +438,16 @@ nav h1 {
   
   .popup-close-btn:hover {
     transform: translate(29vw, -44vh) scale(1.1);
-    background: rgb(0, 0, 0);
+    background: rgb(0, 0, 0) !important;
     box-shadow: 
       0 0 15px rgba(0, 255, 204, 0.5),
       inset 0 0 8px rgba(0, 0, 0, 0.3);
-    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff) !important;
   }
   
   .popup-close-btn:active {
     transform: translate(29vw, -45vh) scale(0.95);
-    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
+    color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff) !important;
   }
 
   /* Mobile adjustments */
@@ -361,6 +460,10 @@ nav h1 {
     transform: translate(39vw, -45vh) scale(1.1);
     color: linear-gradient(45deg, rgba(0, 255, 204), #0088ff);
   }
+
+  .popup-close-btn:active {
+    transform: translate(39vw, -45vh) scale(0.95);
+}
 }
   
   /* Popup Container */
@@ -376,7 +479,7 @@ nav h1 {
     max-width: 600px;
     position: relative;
     animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    font-family: 'Orbitron', sans-serif;
+    /* font-family: 'Orbitron', sans-serif; */
     border: 1px solid rgba(0, 255, 204)ce;
     max-height: 80vh; 
     overflow-y: auto; /* Enables scrolling */
@@ -384,12 +487,10 @@ nav h1 {
     flex-direction: column;
     border-radius: 20px;
     border: 1px solid rgba(0, 255, 204);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; */
     line-height: 1.6;
-    letter-spacing: 0.3px;
-    
-
-    
+    letter-spacing: 0.3px; 
+    font-family: var(--font-primary);
   }
 
   .popup-content.closing {
@@ -470,12 +571,13 @@ nav h1 {
     color: rgba(0, 255, 204);
     text-shadow: rgba(0, 255, 204)2d;
     margin-bottom: 20px;
-    font-family: 'Space Mono', monospace;
+    /* font-family: 'Space Mono', monospace; */
+    font-family: var(--font-primary);
   }
   
   .story-text {
     animation: fadeIn 1s ease-in;
-    font-family: 'Space Mono', monospace;
+    /* font-family: 'Space Mono', monospace; */
     font-size: 1.2rem;
     line-height: 1.8;
     letter-spacing: 0.3px;
@@ -489,14 +591,16 @@ nav h1 {
     box-shadow: 
       inset 0 0 20px rgba(0, 255, 204, 0.1),
       0 0 15px rgba(0, 255, 204, 0.1);
+    font-family: var(--font-primary);
   }
   
   .story-text p {
     opacity: 0;
     transform: translateY(-10px);
     animation: textReveal 0.8s ease-out forwards;
-    font-family: 'Space Mono', monospace;
-    font-size: 1.1rem;
+    /* font-family: 'Space Mono', monospace; */
+    font-family: var(--font-primary);
+    font-size: --text-base;
     text-align: left;
     line-height: 2;
     letter-spacing: 0.5px;
@@ -680,7 +784,8 @@ nav h1 {
   animation: popupSlideIn 0.5s ease-out;
   /* animation: popupSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; */
   transform-origin: bottom;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; */
+  font-family: var(--font-primary);
   line-height: 1.6;
   letter-spacing: 0.3px;
   cursor: default;
@@ -821,76 +926,6 @@ nav h1 {
     height: 50px;
   }
 }
-
-
-
-
-/* .alien {
-  position: fixed;
-  z-index: 1000;
-  transition: all 2s ease-in-out;
-}
-
-.alien-head {
-  width: 50px;
-  height: 70px;
-  background: rgba(0, 255, 204);
-  border-radius: 40% 40% 60% 60%;
-  position: relative;
-  box-shadow: 0 0 20px rgba(0, 255, 204);
-}
-
-.antenna-left, .antenna-right {
-  position: absolute;
-  width: 4px;
-  height: 20px;
-  background: rgba(0, 255, 204);
-  top: -20px;
-}
-
-.antenna-left {
-  left: 15px;
-  transform: rotate(-15deg);
-}
-
-.antenna-right {
-  right: 15px;
-  transform: rotate(15deg);
-}
-
-.alien-eyes {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 20px;
-}
-
-.eye {
-  width: 15px;
-  height: 25px;
-  background: #000;
-  border-radius: 50%;
-  position: relative;
-}
-
-.eye::after {
-  content: '';
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  background: rgba(0, 255, 204);
-  border-radius: 50%;
-  top: 5px;
-  left: 5px;
-}
-
-@keyframes floatt {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-.alien {
-  animation: floatt 2s infinite ease-in-out;
-} */
 
 .comment-section {
   margin-top: 20px;
@@ -1050,4 +1085,3 @@ nav h1 {
   font-size: 1.2em;
   opacity: 0.8;
 }
-

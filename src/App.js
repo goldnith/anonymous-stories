@@ -11,7 +11,9 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from '@vercel/analytics/react';
 import { Helmet } from "react-helmet-async";
 import Birthday from './pages/Birthday';
-import AlienEscape from "./pages/AlienEscape";
+import Privacy from "./pages/privacy";
+import Terms from "./pages/terms";
+import About from "./pages/about";
 
 <Helmet>
   <title>Anonymous Stories</title>
@@ -42,6 +44,9 @@ function AppContent() {
         <Route path="/submit" element={<SubmitStory />} />
         {/* <Route path="/kamal" element={<Birthday />} /> */}
         {/* <Route path="/alien-escape" element={<AlienEscape />} /> */}
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
     </>

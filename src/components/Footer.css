@@ -205,3 +205,22 @@
   85% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+.footer-license {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+
+.license-link {
+  color: var(--alien-green);
+  text-decoration: none;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.license-link:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--alien-green);
+}

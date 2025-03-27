@@ -1,1 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"><url><loc>https://alien-stories.vercel.app/</loc><changefreq>daily</changefreq><priority>1.0</priority></url><url><loc>https://alien-stories.vercel.app/submit</loc><changefreq>weekly</changefreq><priority>0.8</priority></url></urlset>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+    <url>
+      <loc>https://alien-stories.vercel.app/</loc>
+      <changefreq>daily</changefreq>
+      <priority>1</priority>
+      <lastmod>2025-03-27T07:27:57.647Z</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://alien-stories.vercel.app/submit</loc>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+      <lastmod>2025-03-27T07:27:57.648Z</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://alien-stories.vercel.app/privacy</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      <lastmod>2025-03-27T07:27:57.648Z</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://alien-stories.vercel.app/terms</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      <lastmod>2025-03-27T07:27:57.648Z</lastmod>
+    </url>
+  
+    <url>
+      <loc>https://alien-stories.vercel.app/about</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.7</priority>
+      <lastmod>2025-03-27T07:27:57.648Z</lastmod>
+    </url>
+  
+</urlset>

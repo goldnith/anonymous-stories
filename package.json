@@ -1,7 +1,8 @@
 {
   "name": "anonymous-stories",
-  "version": "0.1.0",
+  "version": "3.2.0",
   "private": true,
+  "license": "UNLICENSED",
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@testing-library/jest-dom": "^6.6.3",
@@ -22,9 +23,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "generate-sitemap": "node scripts/generateSitemap.js",
+    "build": "npm run generate-sitemap && react-scripts build"
   },
   "eslintConfig": {
     "extends": [

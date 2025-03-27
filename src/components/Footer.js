@@ -193,6 +193,16 @@ const Footer = () => {
       <div className="footer-bottom">
         <p>Made with 🛸 by aliens, for humans | &copy; {currentYear} Alien Stories</p>
         <p className="footer-credits">All stories are anonymously shared by our earthling friends</p>
+        <p className="footer-license">
+          All rights reserved. This software is proprietary and confidential. 
+          <Link 
+            to="/terms" 
+            className="license-link"
+            onClick={() => handleNavigation('/terms')}
+          >
+            Terms of Use
+          </Link>
+        </p>
       </div>
     </footer>
   );

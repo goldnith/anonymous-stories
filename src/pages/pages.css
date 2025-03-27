@@ -1511,17 +1511,17 @@ button.loading1 {
 
 /* Ad Container Styles */
 
-.ad-section {
+/* .ad-section {
   margin: 3rem auto;
   padding: 1rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.ad-container {
-  margin: 0 auto; /* Remove top/bottom margin since parent handles spacing */
+/* .ad-container {
+  margin: 0 auto; 
   max-width: 60%;
   min-height: 90px;
   width: 100%;
@@ -1538,10 +1538,10 @@ button.loading1 {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 /* Responsive Ad Container */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .ad-container {
     max-width: 320px;
     min-height: 50px;
@@ -1550,37 +1550,37 @@ button.loading1 {
   .ad-section {
     padding: 0.5rem;
   }
-}
+} */
 
 /* Ad Loading State */
-.ad-container.loading {
+/* .ad-container.loading {
   min-height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.4);
-}
+} */
 
 /* Ad Placement Rules */
-.ad-section {
+/* .ad-section {
   margin: 2rem 0;
   clear: both;
   display: flex;
   justify-content: center;
-}
+} */
 
 /* Space between content and ads */
-.stories-grid + .ad-section {
+/* .stories-grid + .ad-section {
   margin-top: 3rem;
-}
+} */
 
-.ad-section + .stories-grid {
+/* .ad-section + .stories-grid {
   margin-top: 3rem;
-}
+} */
 
 /* Stories Section Layout */
-.stories-section {
+/* .stories-section {
   margin: 2rem auto;
   max-width: 1200px;
   width: 100%;
-}
+} */

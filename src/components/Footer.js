@@ -11,6 +11,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [email, setEmail] = useState('');
   const [subscriptionStatus, setSubscriptionStatus] = useState('');
+  const [error, setError] = useState(null);
 
   // Initialize EmailJS
   useEffect(() => {
@@ -18,37 +19,71 @@ const Footer = () => {
   }, []);
 
   // Add message timeout effect
-  useEffect(() => {
-    let timeoutId;
-    if (subscriptionStatus === 'success' || subscriptionStatus === 'error') {
-      timeoutId = setTimeout(() => {
-        setSubscriptionStatus('');
-      }, 3000);
-    }
-    return () => clearTimeout(timeoutId);
-  }, [subscriptionStatus]);
-
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setSubscriptionStatus('pending');
     
     try {
-      const templateParams = {
-        to_email: email,
-        subject: '🛸 Welcome to Alien Stories!',
-        message: 'Thank you for subscribing to our newsletter!'
-      };
-
-      await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-        templateParams
+      // Validate email
+      if (!NEWSLETTER_CONFIG.validation.emailPattern.test(email)) {
+        throw new Error(NEWSLETTER_CONFIG.errors.invalidEmail);
+      }
+  
+      // Check existing subscribers
+      const subscribers = JSON.parse(
+        localStorage.getItem(NEWSLETTER_CONFIG.storage.subscribersKey) || '[]'
       );
+  
+      // Check max subscribers limit
+      if (subscribers.length >= NEWSLETTER_CONFIG.validation.maxSubscribers) {
+        throw new Error(NEWSLETTER_CONFIG.errors.maxSubscribersReached);
+      }
+  
+      // Check if already subscribed
+      if (subscribers.some(sub => sub.email === email)) {
+        throw new Error(NEWSLETTER_CONFIG.errors.alreadySubscribed);
+      }
 
+      const unsubscribeLink = `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
+  
+      // Send welcome email
+      const welcomeEmailParams = {
+        to_email: email,
+        template_params: {
+          head_message: 'Greetings from Alien Stories, Thank you for your subscription',
+          subject: '👽 Welcome to Alien Stories!',
+          greeting: 'Welcome Earthling!',
+          message_html: `
+            Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!
+            You'll receive our first digest in the next weekly transmission.
+          `,
+          footer_text: 'Stay weird, stay anonymous! 👽',
+          unsubscribe_link: unsubscribeLink
+        }
+      };
+  
+      await emailjs.send(
+        NEWSLETTER_CONFIG.template.serviceId,
+        NEWSLETTER_CONFIG.template.templateId,
+        welcomeEmailParams,
+        NEWSLETTER_CONFIG.template.publicKey
+      );
+  
+      // Store new subscriber
+      subscribers.push({
+        email,
+        dateSubscribed: new Date().toISOString()
+      });
+      localStorage.setItem(
+        NEWSLETTER_CONFIG.storage.subscribersKey, 
+        JSON.stringify(subscribers)
+      );
+  
       setSubscriptionStatus('success');
       setEmail('');
     } catch (error) {
       console.error('Subscription error:', error);
+      setError(error);
       setSubscriptionStatus('error');
     }
   };
@@ -184,7 +219,9 @@ const Footer = () => {
               <p className="success-message">Welcome to our alien community! 🛸</p>
             )}
             {subscriptionStatus === 'error' && (
-              <p className="error-message">Subscription failed. Please try again.</p>
+              <p className="error-message">
+                {error?.message || 'Subscription failed. Please try again.'}
+              </p>
             )}
           </div>
         </div>

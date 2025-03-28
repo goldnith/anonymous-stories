@@ -30,11 +30,21 @@
 }
 
 /* Section Styles */
-section {
+/* section {
   margin: 2.5rem 0;
   padding: 1rem;
   border-radius: 8px;
   background: rgba(0, 255, 204, 0.05);
+} */
+
+/* Section Styles */
+.policy-container section,
+.about-container section {
+  margin: 2.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(0, 255, 204, 0.05);
+  border: 1px solid rgba(0, 255, 204, 0.1);
 }
 
 /* Heading Styles */

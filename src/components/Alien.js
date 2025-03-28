@@ -25,15 +25,15 @@ const Alien = () => {
     moveAlien();
 
     // Set up intervals for movement and blinking
-    const moveInterval = setInterval(moveAlien, 5000);
+    const moveInterval = setInterval(moveAlien, 2000);
     const blinkInterval = setInterval(blink, 3000);
     const showAlienInterval = setInterval(() => {
       setIsVisible(true);
       // Hide alien after 5 seconds
       setTimeout(() => {
         setIsVisible(false);
-      }, 10000);
-    }, 20000);
+      }, 5000); // Changed to 5 seconds
+    }, 200000); // Changed to 200 seconds
 
     // Cleanup intervals
     return () => {

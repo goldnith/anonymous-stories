@@ -49,17 +49,17 @@ const Footer = () => {
       // Send welcome email
       const welcomeEmailParams = {
         to_email: email,
-        template_params: {
-          head_message: 'Greetings from Alien Stories, Thank you for your subscription',
-          subject: '👽 Welcome to Alien Stories!',
-          greeting: 'Welcome Earthling!',
-          message_html: `
-            Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!
-            You'll receive our first digest in the next weekly transmission.
-          `,
-          footer_text: 'Stay weird, stay anonymous! 👽',
-          unsubscribe_link: unsubscribeLink
-        }
+        head_message: 'Greetings from Alien Stories! 👽',
+        subject: 'Welcome to Our Alien Community',
+        message_html: `
+          <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
+            <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
+            <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
+            <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
+          </div>
+        `,
+        footer_text: 'Stay weird, stay anonymous! 👽',
+        unsubscribe_link: unsubscribeLink
       };
   
       await emailjs.send(

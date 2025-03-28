@@ -7,6 +7,7 @@ import "./pages.css";
 import { API_URL } from '../config/api';
 import Loader from '../components/Loader';
 import { updateMetaDescription } from '../utils/metaDescription';
+import TestNewsletter from '../components/TestNewsletter';
 
 
 
@@ -367,6 +368,8 @@ function Home() {
           </div>
         </div>
       )} */}
+
+      <TestNewsletter />
 
       <FloatingButton />
 

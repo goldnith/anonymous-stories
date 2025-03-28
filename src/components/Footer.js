@@ -15,7 +15,7 @@ const Footer = () => {
 
   // Initialize EmailJS
   useEffect(() => {
-    emailjs.init(process.env.REACT_APP_EMAILJS_PUBLIC_KEY);
+    emailjs.init("AH-d0-lcWG02jSv6f");
   }, []);
 
   // Add message timeout effect
@@ -63,10 +63,10 @@ const Footer = () => {
       };
   
       await emailjs.send(
-        NEWSLETTER_CONFIG.template.serviceId,
-        NEWSLETTER_CONFIG.template.templateId,
+        'service_yow1wec',
+        'template_g1swapc',
         welcomeEmailParams,
-        NEWSLETTER_CONFIG.template.publicKey
+        'AH-d0-lcWG02jSv6f'
       );
   
       // Store new subscriber

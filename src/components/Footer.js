@@ -52,14 +52,25 @@ const Footer = () => {
         head_message: 'Greetings from Alien Stories! 👽',
         subject: 'Welcome to Our Alien Community',
         message_html: `
-          <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
-            <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
-            <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
-            <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
+          <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000;">
+            <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
+              <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
+              <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
+              <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
+              <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #00ffcc;">
+                <p style="font-style: italic; color: #00ffcc;">Stay weird, stay anonymous! 👽</p>
+                <p style="font-size: 12px; margin-top: 20px; color: #666;">
+                  Don't want to receive our transmissions? 
+                  <a href="${unsubscribeLink}" 
+                    style="color: #00ffcc; text-decoration: underline;">
+                    Unsubscribe here
+                  </a>
+                </p>
+              </div>
+            </div>
           </div>
         `,
         footer_text: 'Stay weird, stay anonymous! 👽',
-        unsubscribe_link: unsubscribeLink
       };
   
       await emailjs.send(

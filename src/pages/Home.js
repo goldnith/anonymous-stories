@@ -312,7 +312,7 @@ function Home() {
       </section>
 
       {/* First Ad Placement */}
-      {contentLoaded && (
+      {/* {contentLoaded && (
         <div className="ad-section">
           <div className="ad-container">
             <ins className="adsbygoogle"
@@ -324,7 +324,7 @@ function Home() {
             </ins>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* Remaining Stories Section */}
       <section className="stories-section">
@@ -354,7 +354,7 @@ function Home() {
       </section>
 
       {/* Bottom Ad Placement */}
-      {contentLoaded && remainingStories.length > 3 && (
+      {/* {contentLoaded && remainingStories.length > 3 && (
         <div className="ad-section">
           <div className="ad-container">
             <ins className="adsbygoogle"
@@ -366,7 +366,7 @@ function Home() {
             </ins>
           </div>
         </div>
-      )}
+      )} */}
 
       <FloatingButton />
 

@@ -1,9 +1,18 @@
 import emailjs from '@emailjs/browser';
 import { NEWSLETTER_CONFIG } from '../config/newsletter.config';
+import { newsletterApi } from '../config/api';
+import { newsletterService } from '../services/newsletterService';
 
 export const sendTestNewsletter = async (testEmail, stories) => {
   try {
     const { template } = NEWSLETTER_CONFIG;
+
+    // Validate email and check subscription
+    const subscribers = await getSubscribers();
+    const isSubscribed = subscribers.some(sub => sub.email === testEmail);
+    if (!isSubscribed) {
+      throw new Error('Email is not subscribed to the newsletter');
+    }
 
     // Validate environment configuration
     if (!template.serviceId || !template.templateId || !template.publicKey) {
@@ -108,8 +117,61 @@ export const sendTestNewsletter = async (testEmail, stories) => {
         await new Promise(resolve => setTimeout(resolve, 1000));
       }
     }
+
+    // Send through both EmailJS and backend for redundancy
+    const emailjsPromise = emailjs.send(
+      template.serviceId,
+      template.templateId,
+      templateParams,
+      template.publicKey
+    );
+
+    const backendPromise = newsletterService.sendNewsletter([testEmail], stories);
+
+    await Promise.all([emailjsPromise, backendPromise]);
+    return true;
+
   } catch (error) {
     console.error('Newsletter error:', error);
     throw error;
+  }
+};
+
+export const getSubscribers = async () => {
+  try {
+    const response = await newsletterService.getSubscribers();
+    return response;
+  } catch (error) {
+    console.error('Error getting subscribers:', error);
+    throw new Error(error.response?.data?.message || 'Failed to fetch subscribers');
+  }
+};
+
+export const addSubscriber = async (email) => {
+  try {
+    // Validate email
+    if (!email || !email.includes('@')) {
+      throw new Error('Invalid email address');
+    }
+
+    const response = await newsletterService.addSubscriber(email);
+    return response;
+  } catch (error) {
+    console.error('Error adding subscriber:', error);
+    throw new Error(error.response?.data?.message || 'Failed to save subscriber');
+  }
+};
+
+export const removeSubscriber = async (email) => {
+  try {
+    if (!email) {
+      throw new Error('Email is required');
+    }
+
+    const response = await newsletterService.removeSubscriber(email);
+    return response;
+  } catch (error) {
+    console.error('Error removing subscriber:', error);
+    throw new Error(error.response?.data?.message || 'Failed to remove subscriber');
   }
 };

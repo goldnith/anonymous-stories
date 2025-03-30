@@ -1,32 +1,100 @@
-.unsubscribe-container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid var(--alien-green);
-    border-radius: 8px;
-    color: #fff;
-    text-align: center;
+.alien-unsubscribe-container {
+  max-width: 600px;
+  width: 90%;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.alien-loading-spinner {
+  border: 3px solid #00ffcc;
+  border-radius: 50%;
+  border-top: 3px solid transparent;
+  width: 30px;
+  height: 30px;
+  animation: alienSpinner 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes alienSpinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alien-success-message, .alien-error-message {
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border: 1px solid #00ffcc;
+  background: rgba(0, 255, 204, 0.05);
+  word-wrap: break-word;
+}
+
+.alien-success-message h2, .alien-error-message h2 {
+  font-size: clamp(1.2rem, 4vw, 1.5rem);
+  margin-bottom: 15px;
+}
+
+.alien-success-message p, .alien-error-message p {
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.alien-success-message h2 {
+  color: #00ffcc;
+}
+
+.alien-error-message h2 {
+  color: #ff4444;
+}
+
+.alien-return-home-btn {
+  margin-top: 20px;
+  padding: clamp(8px, 2vw, 10px) clamp(15px, 4vw, 20px);
+  background: #00ffcc;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+  width: fit-content;
+  min-width: 120px;
+}
+
+.alien-return-home-btn:hover {
+  opacity: 0.8;
+}
+
+.alien-processing-message {
+  color: #00ffcc;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+  .alien-unsubscribe-container {
+    margin: 30px auto;
+    padding: 15px;
   }
-  
-  .unsubscribe-container h1 {
-    color: var(--alien-green);
-    margin-bottom: 20px;
+
+  .alien-success-message, .alien-error-message {
+    padding: 12px;
   }
-  
-  .success-message,
-  .error-message {
-    padding: 20px;
-    border-radius: 4px;
-    margin-top: 20px;
+
+  .alien-loading-spinner {
+    width: 25px;
+    height: 25px;
+    border-width: 2px;
   }
-  
-  .success-message {
-    background: rgba(0, 255, 204, 0.1);
-    border: 1px solid var(--alien-green);
+}
+
+/* Support for dark mode */
+@media (prefers-color-scheme: dark) {
+  .alien-unsubscribe-container {
+    background: rgba(0, 0, 0, 0.6);
   }
-  
-  .error-message {
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid #ff0000;
-  }
+}

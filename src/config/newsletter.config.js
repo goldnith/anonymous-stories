@@ -4,9 +4,9 @@ export const NEWSLETTER_CONFIG = {
     subject: '🛸 Your Weekly Alien Stories Digest',
     greeting: 'Greetings Earthling!',
     footer: 'Stay weird, stay anonymous! 👽',
-    serviceId: process.env.REACT_APP_EMAILJS_SERVICE_ID,
-    templateId: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-    publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+    serviceId: 'service_yow1wec',
+    templateId: 'template_g1swapc',
+    publicKey: 'AH-d0-lcWG02jSv6f',
     styles: {
       backgroundColor: '#000000',
       textColor: '#ffffff',

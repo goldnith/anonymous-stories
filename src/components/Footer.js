@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
 import './Footer.css';
-import { sendWeeklyNewsletter } from '../utils/newsletter';
 import { NEWSLETTER_CONFIG } from '../config/newsletter.config';
+import { newsletterService } from '../services/newsletterService';
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -18,84 +18,88 @@ const Footer = () => {
     emailjs.init("AH-d0-lcWG02jSv6f");
   }, []);
 
-  // Add message timeout effect
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setSubscriptionStatus('pending');
+    setError(null);
     
     try {
       // Validate email
       if (!NEWSLETTER_CONFIG.validation.emailPattern.test(email)) {
         throw new Error(NEWSLETTER_CONFIG.errors.invalidEmail);
       }
-  
-      // Check existing subscribers
-      const subscribers = JSON.parse(
-        localStorage.getItem(NEWSLETTER_CONFIG.storage.subscribersKey) || '[]'
-      );
-  
-      // Check max subscribers limit
-      if (subscribers.length >= NEWSLETTER_CONFIG.validation.maxSubscribers) {
-        throw new Error(NEWSLETTER_CONFIG.errors.maxSubscribersReached);
-      }
-  
+
       // Check if already subscribed
-      if (subscribers.some(sub => sub.email === email)) {
-        throw new Error(NEWSLETTER_CONFIG.errors.alreadySubscribed);
+      try {
+        const response = await newsletterService.getSubscribers();
+        const subscribers = response.data || [];
+        
+        const existingSubscriber = subscribers.find(sub => 
+          sub.email.toLowerCase() === email.toLowerCase() && sub.isActive
+        );
+
+        if (existingSubscriber) {
+          setError({ message: 'You are already part of our alien community! 👽' });
+          setSubscriptionStatus('error');
+          return;
+        }
+      } catch (error) {
+        console.error('Error checking subscription status:', error);
       }
 
-      const unsubscribeLink = `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
-  
-      // Send welcome email
-      const welcomeEmailParams = {
-        to_email: email,
-        head_message: 'Greetings from Alien Stories! 👽',
-        subject: 'Welcome to Our Alien Community',
-        message_html: `
-          <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000;">
-            <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
-              <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
-              <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
-              <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
-              <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #00ffcc;">
-                <p style="font-style: italic; color: #00ffcc;">Stay weird, stay anonymous! 👽</p>
-                <p style="font-size: 12px; margin-top: 20px; color: #666;">
-                  Don't want to receive our transmissions? 
-                  <a href="${unsubscribeLink}" 
-                    style="color: #00ffcc; text-decoration: underline;">
-                    Unsubscribe here
-                  </a>
-                </p>
+      // Add subscriber through API
+      const response = await newsletterService.addSubscriber(email);
+      
+      // Only send welcome email if it's a new subscription
+      if (response.success && response.message !== 'Subscription reactivated') {
+        const unsubscribeLink = `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
+        
+        const welcomeEmailParams = {
+          to_email: email,
+          head_message: 'Greetings from Alien Stories! 👽',
+          subject: 'Welcome to Our Alien Community',
+          message_html: `
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000;">
+              <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
+                <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
+                <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
+                <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #00ffcc;">
+                  <p style="font-style: italic; color: #00ffcc;">Stay weird, stay anonymous! 👽</p>
+                  <p style="font-size: 12px; margin-top: 20px; color: #666;">
+                    Don't want to receive our transmissions? 
+                    <a href="${unsubscribeLink}" 
+                      style="color: #00ffcc; text-decoration: underline;">
+                      Unsubscribe here
+                    </a>
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        `,
-        footer_text: 'Stay weird, stay anonymous! 👽',
-      };
-  
-      await emailjs.send(
-        'service_yow1wec',
-        'template_g1swapc',
-        welcomeEmailParams,
-        'AH-d0-lcWG02jSv6f'
-      );
-  
-      // Store new subscriber
-      subscribers.push({
-        email,
-        dateSubscribed: new Date().toISOString()
-      });
-      localStorage.setItem(
-        NEWSLETTER_CONFIG.storage.subscribersKey, 
-        JSON.stringify(subscribers)
-      );
-  
+          `,
+          footer_text: 'Stay weird, stay anonymous! 👽',
+        };
+
+        await emailjs.send(
+          NEWSLETTER_CONFIG.template.serviceId,
+          NEWSLETTER_CONFIG.template.templateId,
+          welcomeEmailParams,
+          NEWSLETTER_CONFIG.template.publicKey
+        );
+      }
+
       setSubscriptionStatus('success');
       setEmail('');
+      
     } catch (error) {
       console.error('Subscription error:', error);
       setError(error);
       setSubscriptionStatus('error');
+      
+      // Show specific message for already subscribed users
+      if (error.message === 'This email is already subscribed') {
+        setError({ message: 'You are already part of our alien community! 👽' });
+      }
     }
   };
 

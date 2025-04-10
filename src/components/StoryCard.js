@@ -1,24 +1,41 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useCallback} from "react";
 import Popup from "./Popup";
 import useUniqueId from "../hooks/useUniqueId";
 import "./component.css";
 
 
-const StoryCard = ({title, story, _id, likeCount: initialLikeCount, likedUsers, commentCount}) => {
+const StoryCard = ({
+  _id, // This is your story ID
+  title,
+  story,
+  likeCount: initialLikeCount, 
+  likedUsers, 
+  commentCount,
+  authorName,
+  authorDetails,
+  category
+}) => {
   const [showPopup, setShowPopup] = useState(false);
-  const previewStory = story.length > 200 ? story.substring(0, 200) + "..." : story;
-  const storyId = _id;
   const [isLiked, setIsLiked] = useState(false);
-  const userId = useUniqueId();
   const [currentLikeCount, setCurrentLikeCount] = useState(initialLikeCount);
+  const userId = useUniqueId();
   
+  
+  // Ensure we have a valid storyId
+  const storyId = _id?.toString();
+  const previewStory = story.length > 200 ? story.substring(0, 200) + "..." : story;
+  
+  // console.log('Story ID in card:', storyId);
   
   useEffect(() => {
-    // Check if current user has liked the story
     if (likedUsers && userId) {
       setIsLiked(likedUsers.includes(userId));
     }
   }, [likedUsers, userId]);
+
+  const handleCardClick = useCallback(() => {
+    setShowPopup(true);
+  }, []);
 
   // const updateLikeStatus = (newCount, newLikedStatus) => {
   //   setCurrentLikeCount(newCount);
@@ -27,40 +44,56 @@ const StoryCard = ({title, story, _id, likeCount: initialLikeCount, likedUsers, 
 
 
   return (
-    <div className="story-card"
-      onClick={() => setShowPopup(true)}
-      style={{ cursor: "pointer", fontSize: "2rem", textAlign: "left" }}
-    >
-      
-      <h3>{title}</h3>
-      <p>{previewStory}</p> {/* Show truncated story */}
+    <>
+      <div 
+        className="story-card"
+        onClick={handleCardClick}
+        style={{ cursor: "pointer" }}
+      >
+        <h3>{title}</h3>
+        
+        {/* Author section with conditional rendering */}
+        {authorName && authorName !== 'Anonymous' && (
+          <div className="story-author-info">
+            <div className="author-header">
+              <span className="author-emoji">👽</span>
+              <span className="author-name">{authorName}</span>
+            </div>
+            {authorDetails && (
+              <p className="author-details">{authorDetails}</p>
+            )}
+          </div>
+        )}
 
-      <div className="card-footer">
-        <div className="like-container">
-          <span className="like-count">
-            {currentLikeCount}
-          </span>
-          <span className={`heart-icon ${isLiked ? 'liked' : ''}`}>
-            {isLiked ? '❤️' : '🤍'}
-          </span>
+        <p className="story-preview">{previewStory}</p>
+
+        <div className="card-footer">
+          <div className="like-container">
+            <span className="like-count">
+              {currentLikeCount}
+            </span>
+            <span className={`heart-icon ${isLiked ? 'liked' : ''}`}>
+              {isLiked ? '❤️' : '🤍'}
+            </span>
+          </div>
+          <div className="comments-count">
+            <span className="comment-icon">💬</span>
+            <span>{commentCount}</span>
+          </div>
+          <div className="category-tag">
+            {category}
+          </div>
         </div>
-        <div className="comments-count">
-          <span className="comment-icon">💬</span>
-          <span>{commentCount}</span>
-        </div>
+        
+        
       </div>
-      
-      {/* ✅ Popup Component */}
       {showPopup && (
-        <Popup 
-          storyId={storyId} 
-          setShowPopup={setShowPopup}
-          
-          
-        />
-      )}
-    </div>
-    
+          <Popup 
+            storyId={_id}
+            setShowPopup={setShowPopup}
+          />
+        )}
+    </>
   );
 };
 

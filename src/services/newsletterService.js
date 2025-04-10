@@ -114,14 +114,154 @@ export const newsletterService = {
     }
   },
 
-  async sendNewsletter(subscribers, stories) {
+  async sendNewsletterInBatches(subscribers, stories) {
+    const { sending, timing, storage } = NEWSLETTER_CONFIG;
+    
     try {
-      const response = await axios.post(
-        `${API_URL}/api/newsletter/send`,
-        { subscribers, stories },
-        apiConfig
-      );
-      return response.data;
+      // Check if there's an existing batch in progress
+      const savedProgress = localStorage.getItem(storage.batchProgressKey);
+      let startBatch = 0;
+      
+      if (savedProgress) {
+        const progress = JSON.parse(savedProgress);
+        const lastProcessed = new Date(progress.lastProcessed);
+        const now = new Date();
+        
+        // If last batch was processed within 24 hours, resume from next batch
+        if ((now - lastProcessed) < sending.batchDelay) {
+          startBatch = progress.currentBatch;
+        }
+      }
+  
+      // Split subscribers into batches
+      const batches = [];
+      for (let i = 0; i < subscribers.length; i += sending.batchSize) {
+        batches.push(subscribers.slice(i, i + sending.batchSize));
+      }
+  
+      console.log(`Processing ${subscribers.length} subscribers in ${batches.length} batches, starting from batch ${startBatch + 1}`);
+  
+      // Process each batch
+      for (let i = startBatch; i < batches.length; i++) {
+        const batch = batches[i];
+        const batchStartTime = new Date();
+        
+        console.log(`Starting batch ${i + 1}/${batches.length} with ${batch.length} subscribers`);
+  
+        try {
+          await this.sendNewsletter(batch, stories);
+          
+          // Update progress
+          localStorage.setItem(storage.batchProgressKey, JSON.stringify({
+            currentBatch: i + 1,
+            totalBatches: batches.length,
+            lastProcessed: new Date().toISOString(),
+            batchStats: {
+              processed: batch.length,
+              startTime: batchStartTime,
+              endTime: new Date()
+            }
+          }));
+  
+          // If not last batch, wait for next day
+          if (i < batches.length - 1) {
+            console.log(`Batch ${i + 1} complete. Waiting 24 hours before next batch...`);
+            await new Promise(resolve => setTimeout(resolve, sending.batchDelay));
+          }
+  
+        } catch (error) {
+          console.error(`Error processing batch ${i + 1}:`, error);
+          throw error;
+        }
+      }
+  
+      // Clear progress after successful completion
+      localStorage.removeItem(storage.batchProgressKey);
+  
+      return {
+        success: true,
+        message: 'Newsletter campaign completed successfully',
+        stats: {
+          totalSubscribers: subscribers.length,
+          totalBatches: batches.length,
+          completedAt: new Date().toISOString()
+        }
+      };
+  
+    } catch (error) {
+      console.error('Newsletter campaign failed:', error);
+      throw error;
+    }
+  },
+
+  async sendNewsletter(subscribers, stories) {
+    const { template, timing } = NEWSLETTER_CONFIG;
+    
+    try {
+      // Format stories for email
+      const formattedStories = stories.map(story => ({
+        title: story.title,
+        excerpt: story.content.substring(0, NEWSLETTER_CONFIG.content.excerptLength),
+        likes: story.likeCount || 0
+      }));
+  
+      for (const subscriber of subscribers) {
+        let attempts = 0;
+        
+        while (attempts < timing.retryAttempts) {
+          try {
+            const unsubscribeLink = `${window.location.origin}/unsubscribe?email=${encodeURIComponent(subscriber.email)}`;
+            
+            const emailParams = {
+              to_email: subscriber.email,
+              subject: template.subject,
+              head_message: template.greeting,
+              stories: formattedStories,
+              message_html: `
+                <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: ${template.styles.backgroundColor};">
+                  <div style="color: ${template.styles.textColor}; padding: 20px; font-family: ${template.styles.fontFamily}; border: 1px solid ${template.styles.accentColor}; border-radius: 8px;">
+                    <h2 style="color: ${template.styles.accentColor};">${template.greeting}</h2>
+                    
+                    ${formattedStories.map(story => `
+                      <div style="margin: 20px 0; padding: 15px; border: 1px solid ${template.styles.accentColor}; border-radius: 5px;">
+                        <h3 style="color: ${template.styles.accentColor};">${story.title}</h3>
+                        <p>${story.excerpt}...</p>
+                        <small>👽 ${story.likes} aliens liked this</small>
+                      </div>
+                    `).join('')}
+                    
+                    ${NEWSLETTER_CONFIG.footerTemplate(subscriber.email)}
+                  </div>
+                </div>
+              `
+            };
+  
+            await emailjs.send(
+              template.serviceId,
+              template.templateId,
+              emailParams,
+              template.publicKey
+            );
+  
+            // Add delay between sends to avoid rate limiting
+            await new Promise(resolve => setTimeout(resolve, timing.rateLimitDelay));
+            break; // Success - exit retry loop
+  
+          } catch (error) {
+            attempts++;
+            console.error(`Failed to send to ${subscriber.email}, attempt ${attempts}:`, error);
+            
+            if (attempts === timing.retryAttempts) {
+              throw new Error(`Failed to send newsletter to ${subscriber.email} after ${attempts} attempts`);
+            }
+            
+            // Wait before retrying
+            await new Promise(resolve => setTimeout(resolve, timing.retryDelay));
+          }
+        }
+      }
+      
+      return { success: true, message: 'Newsletter sent successfully' };
     } catch (error) {
       console.error('Error sending newsletter:', error);
       throw error;

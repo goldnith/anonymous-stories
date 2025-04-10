@@ -92,6 +92,18 @@ export const sendTestNewsletter = async (testEmail, stories) => {
             </div>
           </body>
         </html>
+      `,
+      footerTemplate: (email) => `
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #00ffcc;">
+          <p style="font-style: italic; color: #00ffcc;">Stay weird, stay anonymous! 👽</p>
+          <p style="font-size: 12px; margin-top: 20px; color: #666;">
+            Don't want to receive our transmissions? 
+            <a href="${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}" 
+              style="color: #00ffcc; text-decoration: underline;">
+              Unsubscribe here
+            </a>
+          </p>
+        </div>
       `
     };
 

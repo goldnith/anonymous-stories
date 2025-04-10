@@ -156,6 +156,16 @@ const Footer = () => {
                 🚀 Support Our Mission
               </a>
             </li>
+            {/* <li>
+              <a 
+                href="https://stenexeb.xyz/4/9192808" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="ad-link"
+              >
+                🚀 Support Our Mission
+              </a>
+            </li> */}
             
           </ul>
         </div>

@@ -1,0 +1,63 @@
+/* Fallback Ad Styles */
+.fallback-ad {
+    padding: 1.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    border: 1px solid var(--alien-green);
+    border-radius: 12px;
+    background: rgba(0, 255, 204, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+  }
+  
+  .fallback-content {
+    text-align: center;
+    color: var(--alien-green);
+  }
+  
+  .fallback-content p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .fallback-content button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    background: var(--alien-green);
+    color: var(--deep-space);
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .fallback-content button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+  }
+  
+  /* Specific ad types */
+  .fallback-ad.banner {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  .fallback-ad.native {
+    background: rgba(0, 255, 204, 0.08);
+  }
+  
+  /* Mobile responsiveness */
+  @media screen and (max-width: 768px) {
+    .fallback-ad {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .fallback-content p {
+      font-size: 1rem;
+    }
+  
+    .fallback-content button {
+      padding: 0.5rem 1rem;
+    }
+  }

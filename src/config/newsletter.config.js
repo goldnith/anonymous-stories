@@ -7,6 +7,13 @@ export const NEWSLETTER_CONFIG = {
     serviceId: 'service_yow1wec',
     templateId: 'template_g1swapc',
     publicKey: 'AH-d0-lcWG02jSv6f',
+    unsubscribeText: "Don't want to receive our transmissions?",
+    unsubscribeStyle: {
+      fontSize: '12px',
+      marginTop: '20px',
+      color: '#666666',
+      linkColor: '#00ffcc'
+    },
     styles: {
       backgroundColor: '#000000',
       textColor: '#ffffff',
@@ -24,20 +31,34 @@ export const NEWSLETTER_CONFIG = {
     excerptLength: 150
   },
 
-  // Timing settings
-  timing: {
-    sendInterval: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
-    retryAttempts: 3,
-    retryDelay: 1000, // 1 second
-    rateLimitDelay: 1000, // Delay between sends
-    timeout: 30000 // 30 seconds timeout
+  // Email sending limits and scheduling
+  sending: {
+    // Monthly schedule
+    interval: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
+    batchSize: 400, // Maximum emails per day
+    dailyLimit: 500, // EmailJS daily limit
+    batchDelay: 24 * 60 * 60 * 1000, // 24 hours between batches
+    startTime: '02:00', // Start sending at 2 AM
+    timeZone: 'UTC',
   },
 
-  // Storage keys
+  // Timing settings for individual sends
+  timing: {
+    retryAttempts: 3,
+    retryDelay: 1000, // 1 second
+    rateLimitDelay: 500, // 0.5 second delay between sends
+    timeout: 30000, // 30 seconds timeout
+    batchTimeout: 2 * 60 * 60 * 1000 // 2 hours max for batch processing
+  },
+
+  // Storage keys for tracking sends
   storage: {
     subscribersKey: 'newsletter_subscribers',
     lastSentKey: 'newsletter_last_sent',
-    failedAttemptsKey: 'newsletter_failed_attempts'
+    failedAttemptsKey: 'newsletter_failed_attempts',
+    currentBatchKey: 'newsletter_current_batch',
+    batchProgressKey: 'newsletter_batch_progress',
+    monthlyStatsKey: 'newsletter_monthly_stats'
   },
 
   // Validation
@@ -55,5 +76,14 @@ export const NEWSLETTER_CONFIG = {
     maxSubscribersReached: 'Maximum subscriber limit reached',
     sendFailed: 'Failed to send newsletter',
     alreadySubscribed: 'This email is already subscribed'
+  },
+
+  // Batch processing status
+  status: {
+    pending: 'PENDING',
+    processing: 'PROCESSING',
+    completed: 'COMPLETED',
+    failed: 'FAILED',
+    paused: 'PAUSED'
   }
 };

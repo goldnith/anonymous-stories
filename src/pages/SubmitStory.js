@@ -45,6 +45,8 @@ function SubmitStory() {
     title: "",
     story: "",
     category: "",
+    authorName: "",
+    authorDetails: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
@@ -119,11 +121,19 @@ function SubmitStory() {
       await axios.post(`${API_URL}/api/stories`, {
         title: formData.title,
         story: formData.story,
-        category: formData.category
+        category: formData.category,
+        authorName: formData.authorName || 'Anonymous',  // Default to 'Anonymous' if empty
+        authorDetails: formData.authorDetails || ''      // Empty string if no details provided
       });
 
       setSubmitStatus({ loading: false, success: true, error: null });
-      setFormData({ title: "", story: "", category: "" });
+      setFormData({ 
+        title: "", 
+        story: "", 
+        category: "", 
+        authorName: "", 
+        authorDetails: "" 
+      });
 
       // Show success message and redirect
       setTimeout(() => {
@@ -172,6 +182,14 @@ function SubmitStory() {
           onChange={handleChange}
           required
         />
+        <input
+          type="text"
+          name="authorName"
+          placeholder="Author Name (optional)"
+          value={formData.authorName}
+          onChange={handleChange}
+          className="optional-field"
+        />
         <textarea
           // onFocus={handleFocus}
           ref={textareaRef}
@@ -180,6 +198,14 @@ function SubmitStory() {
           value={formData.story}
           onChange={handleChange}
           required
+        />
+        {/* Add author details field */}
+        <textarea
+          name="authorDetails"
+          placeholder="Author Details (optional) - Tell us a bit about yourself..."
+          value={formData.authorDetails}
+          onChange={handleChange}
+          className="optional-field author-details"
         />
         <select 
           name="category" 

@@ -279,8 +279,11 @@ button {
   transition: all 0.3s ease-in-out;
 }
 
-form.button {
-  width: 60%;
+form button {
+  width: auto;
+  align-self: center; /* Center the button in form */
+  margin: 1rem auto; /* Add margin for spacing */
+  padding: 12px 30px; /* Slightly larger padding */
 }
 
 button:hover {
@@ -1584,3 +1587,34 @@ button.loading1 {
   max-width: 1200px;
   width: 100%;
 } */
+
+.optional-field {
+  border: 1px solid rgba(0, 255, 204, 0.3) !important;
+}
+
+.optional-field::placeholder {
+  color: rgba(0, 255, 204, 0.5);
+  font-style: italic;
+}
+
+.author-details {
+  min-height: 60px;
+  resize: vertical;
+  margin-top: 10px;
+}
+
+.optional-field:focus {
+  border-color: rgba(0, 255, 204, 0.8) !important;
+}
+
+/* Add a subtle label for optional fields */
+.optional-field::after {
+  content: "(optional)";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+  color: rgba(0, 255, 204, 0.5);
+  pointer-events: none;
+}

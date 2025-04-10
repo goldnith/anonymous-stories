@@ -9,10 +9,23 @@ const FloatingButton = () => {
 
   const isHomePage = location.pathname === "/";
 
+  const handleClick = () => {
+    // Navigate to appropriate route
+    navigate(isHomePage ? "/submit" : "/");
+    
+    // Scroll to top after navigation
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }, 100);
+  };
+
   return (
     <button 
       className="floating-button" 
-      onClick={() => navigate(isHomePage ? "/submit" : "/")}
+      onClick={handleClick}
       aria-label={isHomePage ? "Submit Story" : "Go Home"}
     >
       {isHomePage ? <Plus size={28} /> : <Home size={28} />}

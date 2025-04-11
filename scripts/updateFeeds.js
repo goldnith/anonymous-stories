@@ -25,7 +25,7 @@ const MOCK_STORIES = [
 
 // API configuration
 const API_CONFIG = {
-  baseURL: 'https://alien-stories.vercel.app/api',
+  baseURL: 'https://anonymous-app-backend.onrender.com/api',
   endpoints: {
     stories: '/stories'
   },

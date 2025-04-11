@@ -1,5 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Allow: /submit
+Allow: /privacy
+Allow: /terms
+Allow: /about
 Sitemap: https://alien-stories.vercel.app/sitemap.xml
 Allow: /image.ico

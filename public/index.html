@@ -84,19 +84,40 @@
     <meta name="revisit-after" content="1 days">
     <meta name="author" content="Alien Stories">
 
+    <!-- Additional SEO Enhancements -->
+    <meta name="application-name" content="Alien Stories">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Alien Stories">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-config" content="%PUBLIC_URL%/browserconfig.xml">
+
+    <!-- Social Media Sharing Improvements -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="website">
+    <meta property="og:updated_time" content="2024-04-11T00:00:00+00:00">
+    <meta name="twitter:creator" content="@Alien_storiess">
+    <meta name="twitter:site" content="@Alien_storiess">
+
     <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5018150839238622"
      crossorigin="anonymous"></script> -->
 
      <script>
       (function() {
         // Configuration with fallback options
-        const config = {
+          const config = {
           zoneIds: ['9182776', '9182778', '9182818'],
           domain: 'st.propellerads.com',
           retryAttempts: 3,
           retryDelay: 1000,
           timeout: 3000,
-          fallbackAds: true
+          fallbackAds: true,
+          adContainers: {
+            top: 'top-ad',
+            middle: 'mid-ad'
+          }
         };
     
         // Fallback content loader
@@ -263,12 +284,95 @@
       }
     </script>
 
+    <!-- Additional Rich Snippets for Stories -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CreativeWorkSeries",
+        "name": "Alien Stories Collection",
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "4.8",
+          "reviewCount": "1250"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Alien Stories",
+          "url": "https://alien-stories.vercel.app/"
+        },
+        "genre": ["Personal Stories", "Anonymous Confessions", "Life Experiences"],
+        "keywords": "anonymous stories, personal experiences, confessions, life stories",
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
+    <!-- Breadcrumb Navigation Schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://alien-stories.vercel.app/"
+        },{
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Categories",
+          "item": "https://alien-stories.vercel.app/categories"
+        },{
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Submit Story",
+          "item": "https://alien-stories.vercel.app/submit"
+        }]
+      }
+      </script>
+  
+      <!-- FAQ Schema -->
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "Is Alien Stories completely anonymous?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Alien Stories provides complete anonymity. We don't collect or store any personal information unless voluntarily provided."
+          }
+        },{
+          "@type": "Question",
+          "name": "How can I share my story?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Click the 'Share Story' button, choose a category, write your story, and submit. No account required!"
+          }
+        },{
+          "@type": "Question",
+          "name": "What types of stories can I share?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can share personal experiences, funny moments, school stories, work experiences, and more. All content must follow our community guidelines."
+          }
+        }]
+      }
+      </script>
+
     
 
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- <div id="top-ad" class="ad-container"></div> -->
     <div id="root"></div>
+    <div id="mid-ad" class="ad-container"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

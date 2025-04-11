@@ -229,6 +229,30 @@ function Home() {
   const topStories = sortedStories.slice(0, 3);
   const remainingStories = sortedStories.slice(3);  
 
+  const renderStoriesWithAds = (stories) => {
+    const storyElements = [];
+    
+    stories.forEach((story, index) => {
+      // Add story
+      storyElements.push(
+        <StoryCard key={story._id} {...story} />
+      );
+
+      // Add ad container after every 3rd story
+      if ((index + 1) % 3 === 0) {
+        storyElements.push(
+          <div 
+            key={`ad-${index}`} 
+            id={`story-ad-${Math.floor(index/3)}`}
+            className="story-ad-container native"
+          />
+        );
+      }
+    });
+
+    return storyElements;
+  };
+
   
 
   return (
@@ -286,8 +310,6 @@ function Home() {
         </p> */}
         </div>
       </div>
-
-      
 
       {/* Top Stories Section */}
       <section className="stories-section">

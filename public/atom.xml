@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Alien Stories - Anonymous Story Sharing Platform</title>
+  <subtitle>Share and discover anonymous stories from around the world</subtitle>
+  <link href="https://alien-stories.vercel.app"/>
+  <link rel="self" href="https://alien-stories.vercel.app/atom.xml"/>
+  <updated>2025-04-11T16:18:14.812Z</updated>
+  <id>https://alien-stories.vercel.app/</id>
+  <author>
+    <name>Alien Stories</name>
+    <email>contact@alien-stories.vercel.app</email>
+  </author>
+  <rights>© 2024 Alien Stories</rights>
+  <icon>https://alien-stories.vercel.app/image.ico</icon>
+  <logo>https://alien-stories.vercel.app/logo.jpg</logo>
+  
+      <entry>
+        <title>My First Anonymous Story</title>
+        <link href="https://alien-stories.vercel.app/story/1"/>
+        <id>https://alien-stories.vercel.app/story/1</id>
+        <updated>2025-04-11T16:18:14.806Z</updated>
+        <summary><![CDATA[This is a sample story for testing the feed generation....]]></summary>
+        <content type="html"><![CDATA[This is a sample story for testing the feed generation.]]></content>
+        <category term="Personal"/>
+        <author>
+          <name>Alien Stories</name>
+          <email>contact@alien-stories.vercel.app</email>
+        </author>
+      </entry>
+    
+
+      <entry>
+        <title>School Experience</title>
+        <link href="https://alien-stories.vercel.app/story/2"/>
+        <id>https://alien-stories.vercel.app/story/2</id>
+        <updated>2025-04-11T16:18:14.806Z</updated>
+        <summary><![CDATA[Another sample story for testing feed generation....]]></summary>
+        <content type="html"><![CDATA[Another sample story for testing feed generation.]]></content>
+        <category term="School"/>
+        <author>
+          <name>Alien Stories</name>
+          <email>contact@alien-stories.vercel.app</email>
+        </author>
+      </entry>
+    
+</feed>

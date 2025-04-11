@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" 
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Alien Stories - Anonymous Story Sharing Platform</title>
+    <link>https://alien-stories.vercel.app</link>
+    <description>Share and discover anonymous stories from around the world</description>
+    <language>en-US</language>
+    <lastBuildDate>Fri, 11 Apr 2025 16:18:14 GMT</lastBuildDate>
+    <atom:link href="https://alien-stories.vercel.app/feed.xml" rel="self" type="application/rss+xml"/>
+    <copyright>© 2024 Alien Stories</copyright>
+    <generator>Alien Stories RSS Generator</generator>
+    <image>
+      <url>https://alien-stories.vercel.app/logo.jpg</url>
+      <title>Alien Stories - Anonymous Story Sharing Platform</title>
+      <link>https://alien-stories.vercel.app</link>
+    </image>
+    
+      <item>
+        <title>My First Anonymous Story</title>
+        <link>https://alien-stories.vercel.app/story/1</link>
+        <guid isPermaLink="true">https://alien-stories.vercel.app/story/1</guid>
+        <pubDate>Fri, 11 Apr 2025 16:18:14 GMT</pubDate>
+        <description><![CDATA[This is a sample story for testing the feed generation....]]></description>
+        <content:encoded><![CDATA[This is a sample story for testing the feed generation.]]></content:encoded>
+        <category>Personal</category>
+        <dc:creator>Alien Stories</dc:creator>
+      </item>
+    
+
+      <item>
+        <title>School Experience</title>
+        <link>https://alien-stories.vercel.app/story/2</link>
+        <guid isPermaLink="true">https://alien-stories.vercel.app/story/2</guid>
+        <pubDate>Fri, 11 Apr 2025 16:18:14 GMT</pubDate>
+        <description><![CDATA[Another sample story for testing feed generation....]]></description>
+        <content:encoded><![CDATA[Another sample story for testing feed generation.]]></content:encoded>
+        <category>School</category>
+        <dc:creator>Alien Stories</dc:creator>
+      </item>
+    
+  </channel>
+</rss>

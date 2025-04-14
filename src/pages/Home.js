@@ -4,12 +4,10 @@ import Popup from "../components/Popup"; // Import the Popup component
 import FloatingButton from "../components/FloatingButton";
 import axios from "axios";
 import "./pages.css";
-import { API_URL } from '../config/api';
-import Loader from '../components/Loader';
-import { updateMetaDescription } from '../utils/metaDescription';
-import TestNewsletter from '../components/TestNewsletter';
-
-
+import { API_URL } from "../config/api";
+import Loader from "../components/Loader";
+import { updateMetaDescription } from "../utils/metaDescription";
+import TestNewsletter from "../components/TestNewsletter";
 
 function StarField() {
   return (
@@ -21,26 +19,39 @@ function StarField() {
   );
 }
 
+const debounce = (func, wait) => {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+};
+
 function Home() {
   const [stories, setStories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedStory, setSelectedStory] = useState(null); // Track selected story
   const [searchTerm, setSearchTerm] = useState(""); // Search input state
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [sortByLikes, setSortByLikes] = useState(false);
   const [showControls, setShowControls] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [contentLoaded, setContentLoaded] = useState(false);
   const [adsLoaded, setAdsLoaded] = useState(false);
-
-  
+  const [currentPage, setCurrentPage] = useState(1);
+  const [storiesPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(1);
 
   const STORY_CATEGORIES = [
     "funny",
     "awkward",
     "serious",
-    "embarrassing", 
+    "embarrassing",
     "scary",
     "romantic",
     "mysterious",
@@ -56,38 +67,88 @@ function Home() {
     "friendship",
     "school",
     "college",
-    "travel"
+    "travel",
   ];
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios
-      .get(`${API_URL}/api/stories`)
-      .then((response) => {
-        setStories(response.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setIsLoading(false);
-      });
-  }, []);
-
+  // Update the fetchStories function
   const fetchStories = useCallback(async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/stories`);
-      if (response.data && response.data.length > 0) {
-        setStories(response.data);
-        setContentLoaded(true);
-      } else {
-        setError("No stories available at the moment. Please check back later.");
+      setIsLoading(true);
+      let url = `${API_URL}/api/stories?page=${currentPage}&limit=${storiesPerPage}`;
+
+      // Add search and filter parameters
+      const params = new URLSearchParams();
+      if (searchTerm) params.append("search", searchTerm);
+      if (selectedCategory !== "all")
+        params.append("category", selectedCategory);
+      if (sortByLikes) params.append("sort", "likes");
+
+      // Append parameters to URL
+      if (params.toString()) {
+        url += `&${params.toString()}`;
       }
+
+      console.log("Fetching from URL:", url);
+
+      const response = await axios.get(url);
+
+      // If response is direct array, paginate it
+      if (Array.isArray(response.data)) {
+        const start = (currentPage - 1) * storiesPerPage;
+        const end = start + storiesPerPage;
+        setStories(response.data.slice(start, end));
+        setTotalPages(Math.ceil(response.data.length / storiesPerPage));
+      }
+      // If response has pagination info
+      else if (response.data && response.data.stories) {
+        setStories(response.data.stories);
+        setTotalPages(
+          response.data.totalPages ||
+            Math.ceil(response.data.total / storiesPerPage)
+        );
+      } else {
+        setError("Invalid response format");
+        setStories([]);
+      }
+      setContentLoaded(true);
     } catch (error) {
-      setError("Unable to load stories. Please try again later.");
+      console.error("Fetch error:", error);
+      setError("Unable to fetch stories. Please try again.");
+      setStories([]);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [currentPage, storiesPerPage, searchTerm, selectedCategory, sortByLikes]);
+
+  const debouncedSearch = useCallback(
+    debounce((term) => {
+      setCurrentPage(1); // Reset to first page on new search
+      setSearchTerm(term);
+    }, 500),
+    []
+  );
+
+  const PaginationControls = () => (
+    <div className="pagination-controls">
+      <button
+        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+        disabled={currentPage === 1}
+        className="pagination-button"
+      >
+        Previous
+      </button>
+      <span className="page-info">
+        Page {currentPage} of {totalPages}
+      </span>
+      <button
+        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+        disabled={currentPage === totalPages}
+        className="pagination-button"
+      >
+        Next
+      </button>
+    </div>
+  );
 
   useEffect(() => {
     if (stories.length > 0 && window.adsbygoogle) {
@@ -95,7 +156,7 @@ function Home() {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         setAdsLoaded(true);
       } catch (error) {
-        console.error('AdSense error:', error);
+        console.error("AdSense error:", error);
       }
     }
   }, [stories]);
@@ -105,8 +166,10 @@ function Home() {
     document.title = "Alien Stories - Share Your Anonymous Stories";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', 
-        'Share and read authentic anonymous stories from around the world. Join our community of storytellers and discover unique experiences.');
+      metaDesc.setAttribute(
+        "content",
+        "Share and read authentic anonymous stories from around the world. Join our community of storytellers and discover unique experiences."
+      );
     }
   }, []);
 
@@ -115,13 +178,13 @@ function Home() {
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "Alien Stories",
-      "description": "Anonymous story sharing platform",
-      "url": window.location.origin
+      name: "Alien Stories",
+      description: "Anonymous story sharing platform",
+      url: window.location.origin,
     };
 
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
     script.text = JSON.stringify(structuredData);
     document.head.appendChild(script);
 
@@ -136,22 +199,21 @@ function Home() {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
         setAdsLoaded(true);
       } catch (error) {
-        console.error('AdSense error:', error);
+        console.error("AdSense error:", error);
       }
     }
   }, [contentLoaded]);
 
   // Initial fetch and polling setup
   useEffect(() => {
-    setIsLoading(true);
     fetchStories();
 
     // Set up polling interval
-    const pollInterval = setInterval(fetchStories, 100000); // 10 seconds
+    const pollInterval = setInterval(fetchStories, 300000); // Every 5 minutes
 
     // Cleanup on unmount
     return () => clearInterval(pollInterval);
-  }, [fetchStories]);
+  }, [fetchStories, currentPage]); // Add currentPage as dependency
 
   useEffect(() => {
     if (stories.length > 0) {
@@ -164,14 +226,12 @@ function Home() {
       setShowScrollButton(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   if (isLoading) return <Loader />;
   if (error) return <div>Error: {error}</div>;
-
-  
 
   const handleCardClick = (story) => {
     setSelectedStory(story); // Set the selected story
@@ -182,7 +242,7 @@ function Home() {
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -191,76 +251,18 @@ function Home() {
     setTimeout(() => {
       window.scrollTo({
         top: window.scrollY,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }, 100);
   };
 
 
-
-  // const filteredStories = stories.filter((story) =>
-  //   story.title.toLowerCase().includes(searchTerm.toLowerCase())
-  // );
-
-  // if (isLoading) return <div>Loading stories...</div>;
-  // if (error) return <div>Error: {error}</div>;
-
-
-
-  // Filter stories based on search and category
-  const filteredStories = stories.filter(story => {
-    const matchesSearch = story.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          story.story.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || story.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
-
-
-  // Sort stories by likes
-  const sortedStories = filteredStories.sort((a, b) => {
-    if (sortByLikes) {
-      return Number(b.likeCount) - Number(a.likeCount);
-    }
-    return new Date(b.createdAt) - new Date(a.createdAt);
-  });
-
-  // Split stories into sections
-  const topStories = sortedStories.slice(0, 3);
-  const remainingStories = sortedStories.slice(3);  
-
-  const renderStoriesWithAds = (stories) => {
-    const storyElements = [];
-    
-    stories.forEach((story, index) => {
-      // Add story
-      storyElements.push(
-        <StoryCard key={story._id} {...story} />
-      );
-
-      // Add ad container after every 3rd story
-      if ((index + 1) % 3 === 0) {
-        storyElements.push(
-          <div 
-            key={`ad-${index}`} 
-            id={`story-ad-${Math.floor(index/3)}`}
-            className="story-ad-container native"
-          />
-        );
-      }
-    });
-
-    return storyElements;
-  };
-
-  
-
   return (
-    <div className={`home ${selectedStory ? 'popup-open' : ''}`}>
+    <div className={`home ${selectedStory ? "popup-open" : ""}`}>
       <StarField />
-      
-      <button 
-        className={`scroll-top-button ${showScrollButton ? 'visible' : ''}`}
+
+      <button
+        className={`scroll-top-button ${showScrollButton ? "visible" : ""}`}
         onClick={scrollToTop}
         aria-label="Scroll to top"
       >
@@ -268,71 +270,90 @@ function Home() {
       </button>
 
       <div className="top-bar">
-        
         <h1>Stories</h1>
-        <button 
-          className={`toggle-controls ${showControls ? 'active' : ''}`}
+        <button
+          className={`toggle-controls ${showControls ? "active" : ""}`}
           onClick={() => setShowControls(!showControls)}
         >
           ▼
         </button>
-        <div className={`controls-wrapper ${showControls ? 'show' : ''}`}>
+        <div className="controls-wrapper ${showControls ? 'show' : ''}">
           <input
             type="text"
             placeholder="Search stories..."
             className="search-bar"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => debouncedSearch(e.target.value)}
+            aria-label="Search stories"
           />
-          <select 
+          <select
             value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
+            onChange={(e) => {
+              setSelectedCategory(e.target.value);
+              setCurrentPage(1); // Reset to first page on category change
+            }}
             className="category-filter"
+            aria-label="Filter by category"
           >
             <option value="all">All Categories</option>
-            {STORY_CATEGORIES.map(category => (
+            {STORY_CATEGORIES.map((category) => (
               <option key={category} value={category}>
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </option>
             ))}
           </select>
 
-          <button 
-            className={`sort-button ${sortByLikes ? 'active' : ''}`}
-            onClick={() => setSortByLikes(!sortByLikes)}
+          <button
+            className={`sort-button ${sortByLikes ? "active" : ""}`}
+            onClick={() => {
+              setSortByLikes(!sortByLikes);
+              setCurrentPage(1); // Reset to first page on sort change
+            }}
+            aria-label={sortByLikes ? "Sort by latest" : "Sort by most liked"}
           >
-            {sortByLikes ? '📉 Most Liked' : '⏱️ Latest'}
+            {sortByLikes ? "📉 Most Liked" : "⏱️ Latest"}
           </button>
-
-          {/* <p className="site-description">
-          Share and discover authentic personal stories from around the world. 
-          Our community celebrates real experiences in a safe, anonymous environment.
-        </p> */}
         </div>
       </div>
 
-      {/* Top Stories Section */}
       <section className="stories-section">
-        <div className="stories-grid">
-          {topStories.map((story) => {
-            const commentCount = story.comments?.length || 0;
-            return (
-              <div key={story._id} onClick={() => handleCardClick(story)}>
-                <StoryCard
-                  _id={story._id}
-                  title={story.title}
-                  story={story.story}
-                  category={story.category}
-                  likeCount={story.likeCount}
-                  likedUsers={story.likedUsers}
-                  commentCount={commentCount}
-                  comments={story.comments}
-                />
-              </div>
-            );
-          })}
-        </div>
+        {isLoading ? (
+          <Loader />
+        ) : error ? (
+          <div className="error-message">{error}</div>
+        ) : (
+          <>
+            {totalPages > 1 && <PaginationControls />}
+            <div className="stories-grid">
+              {stories && stories.length > 0 ? (
+                stories.map((story) => {
+                  const commentCount = story.comments?.length || 0;
+                  return (
+                    <div key={story._id} onClick={() => handleCardClick(story)}>
+                      <StoryCard
+                        _id={story._id}
+                        title={story.title}
+                        story={story.story}
+                        category={story.category}
+                        likeCount={story.likeCount}
+                        likedUsers={story.likedUsers}
+                        commentCount={commentCount}
+                        comments={story.comments}
+                      />
+                    </div>
+                  );
+                })
+              ) : (
+                <p className="no-stories">
+                  No stories found. Check back later!
+                </p>
+              )}
+            </div>
+            {totalPages > 1 && <PaginationControls />}
+          </>
+        )}
       </section>
+
+      {/* <PaginationControls /> */}
 
       {/* First Ad Placement */}
       {/* {contentLoaded && (
@@ -350,7 +371,7 @@ function Home() {
       )} */}
 
       {/* Remaining Stories Section */}
-      <section className="stories-section">
+      {/* <section className="stories-section">
         <div className="stories-grid">
           {remainingStories.length > 0 ? (
             remainingStories.map((story) => {
@@ -374,7 +395,7 @@ function Home() {
             <p>No more stories found.</p>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Bottom Ad Placement */}
       {/* {contentLoaded && remainingStories.length > 3 && (
@@ -396,10 +417,9 @@ function Home() {
       <FloatingButton />
 
       {/* Render the Popup if a story is selected */}
-      {selectedStory && <Popup story={selectedStory} onClose={handleClosePopup} />}
-
-
-
+      {selectedStory && (
+        <Popup story={selectedStory} onClose={handleClosePopup} />
+      )}
     </div>
   );
 }

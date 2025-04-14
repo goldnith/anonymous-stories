@@ -74,46 +74,45 @@ function Home() {
   const fetchStories = useCallback(async () => {
     try {
       setIsLoading(true);
-      let url = `${API_URL}/api/stories?page=${currentPage}&limit=${storiesPerPage}`;
-
-      // Add search and filter parameters
-      const params = new URLSearchParams();
-      if (searchTerm) params.append("search", searchTerm);
-      if (selectedCategory !== "all")
-        params.append("category", selectedCategory);
-      if (sortByLikes) params.append("sort", "likes");
-
+      let url = `${API_URL}/api/stories`;
+      
+      // Build query parameters
+      const params = new URLSearchParams({
+        page: currentPage.toString(),
+        limit: storiesPerPage.toString()
+      });
+  
+      // Add search term if exists
+      if (searchTerm.trim()) {
+        params.append('search', searchTerm.trim());
+      }
+  
+      // Add category if not "all"
+      if (selectedCategory !== 'all') {
+        params.append('category', selectedCategory);
+      }
+  
+      // Add sort parameter
+      params.append('sort', sortByLikes ? 'likes' : 'date');
+  
       // Append parameters to URL
-      if (params.toString()) {
-        url += `&${params.toString()}`;
-      }
-
-      console.log("Fetching from URL:", url);
-
+      url = `${url}?${params.toString()}`;
+      console.log('Fetching from URL:', url);
+  
       const response = await axios.get(url);
-
-      // If response is direct array, paginate it
-      if (Array.isArray(response.data)) {
-        const start = (currentPage - 1) * storiesPerPage;
-        const end = start + storiesPerPage;
-        setStories(response.data.slice(start, end));
-        setTotalPages(Math.ceil(response.data.length / storiesPerPage));
-      }
-      // If response has pagination info
-      else if (response.data && response.data.stories) {
+  
+      if (response.data && response.data.success) {
         setStories(response.data.stories);
-        setTotalPages(
-          response.data.totalPages ||
-            Math.ceil(response.data.total / storiesPerPage)
-        );
+        setTotalPages(response.data.totalPages);
+        setError(null);
       } else {
-        setError("Invalid response format");
+        console.error('Invalid response format:', response.data);
+        setError('No stories available');
         setStories([]);
       }
-      setContentLoaded(true);
     } catch (error) {
-      console.error("Fetch error:", error);
-      setError("Unable to fetch stories. Please try again.");
+      console.error('Fetch error:', error);
+      setError('Failed to load stories');
       setStories([]);
     } finally {
       setIsLoading(false);

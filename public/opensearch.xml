@@ -1,3 +1,4 @@
+.xml
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
@@ -7,21 +8,29 @@
   <Tags>stories anonymous confessions experiences personal alien secrets sharing community</Tags>
   <Contact>contact@alien-stories.vercel.app</Contact>
   
-  <!-- HTML search -->
+  <!-- HTML search with advanced parameters -->
   <Url type="text/html" 
-       template="https://alien-stories.vercel.app/search?q={searchTerms}&amp;category={category?}&amp;sort={sort?}"/>
+       template="https://alien-stories.vercel.app/search?q={searchTerms}&amp;category={category?}&amp;sort={sort?}&amp;type={searchType?}">
+    <Param name="category" value="{category?}"/>
+    <Param name="type" value="{searchType?}"/>
+    <Param name="storyId" value="{storyId?}"/>
+    <Param name="date" value="{date?}"/>
+  </Url>
   
-  <!-- JSON API search -->
+  <!-- JSON API search with filters -->
   <Url type="application/json" 
-       template="https://alien-stories.vercel.app/api/search?q={searchTerms}&amp;format=json"/>
+       template="https://alien-stories.vercel.app/api/search?q={searchTerms}&amp;format=json">
+    <Param name="filter" value="{filter?}"/>
+    <Param name="exact" value="{exact?}"/>
+  </Url>
   
-  <!-- Suggestions API -->
+  <!-- Suggestions API with categories -->
   <Url type="application/x-suggestions+json" 
-       template="https://alien-stories.vercel.app/api/suggest?q={searchTerms}"/>
+       template="https://alien-stories.vercel.app/api/suggest?q={searchTerms}&amp;type={searchType?}"/>
   
-  <!-- RSS feed search -->
+  <!-- RSS feed search with filters -->
   <Url type="application/rss+xml" 
-       template="https://alien-stories.vercel.app/feed.xml?q={searchTerms}"/>
+       template="https://alien-stories.vercel.app/feed.xml?q={searchTerms}&amp;category={category?}"/>
 
   <!-- Site icons -->
   <Image height="16" width="16" type="image/x-icon">https://alien-stories.vercel.app/favicon.ico</Image>
@@ -31,6 +40,7 @@
   <Query role="example" searchTerms="school stories"/>
   <Query role="example" searchTerms="work confessions"/>
   <Query role="example" searchTerms="alien encounters"/>
+  <Query role="example" searchTerms="id:67e1b000bf31a3e103d73e5f"/>
 
   <Developer>Alien Stories Team</Developer>
   <Attribution>Search data Copyright 2024, Alien Stories, All Rights Reserved</Attribution>

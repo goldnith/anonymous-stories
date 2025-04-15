@@ -18,8 +18,9 @@
   /* Popup Content */
   .popup-content {
     /* position: relative; */
+    box-sizing: border-box;
     background: radial-gradient(circle at center, #0a0a1a 0%, #000011 100%);
-    width: 90%;
+    width: 90% !important;
     max-width: 800px;
     max-height: 85vh;
     overflow-y: auto;
@@ -30,6 +31,7 @@
     pointer-events: auto;
     z-index: 9999; /* Lower than add button */
     transform-origin: center;
+    margin: 0 auto;
   }
 
   /* Add transition for smooth closing animation */
@@ -71,10 +73,11 @@
   width: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  padding: 1rem;
+  padding: 0;
   background: rgba(0, 255, 204, 0.02);
   border-radius: 16px;
   margin: 2rem 0;
+  box-sizing: border-box;
 }
   
   /* Popup Close Button */
@@ -299,9 +302,10 @@
   /* Mobile Responsiveness */
   @media screen and (max-width: 768px) {
     .popup-content {
-      width: 95%;
-      padding: 1.5rem;
-      margin: 1rem;
+      width: 98% !important;
+      max-width: 100vw;
+      padding: 0.5rem;
+      margin: 0.5rem;
     }
   
     .popup-close-btn {
@@ -312,6 +316,11 @@
     .story-text {
       padding: 1rem;
       font-size: 1rem;
+    }
+
+    .story-content {
+      padding: 0;
+      margin: 1rem 0;
     }
   }
   

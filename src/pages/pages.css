@@ -371,14 +371,15 @@ button:hover {
 }
 
 .top-bar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(10px, 2vw, 20px);
-  background: black;
-  box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
 }
 
 .search-bar {
@@ -538,43 +539,42 @@ button:hover {
 }
 
 .toggle-controls {
-  display: none;
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  background: none;
-  border: none;
-  color: rgba(0, 255, 204);
-  font-size: 24px;
+  display: none; /* Hidden by default on desktop */
+  background: transparent;
+  border: 1px solid var(--alien-green);
+  color: var(--alien-green);
+  padding: 8px;
+  border-radius: 4px;
   cursor: pointer;
   z-index: 10;
 }
 
 .controls-wrapper {
   display: flex;
+  gap: 1rem;
   align-items: center;
-  gap: 10px;
 }
 
 @media (max-width: 480px) {
+
+  .top-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
   .toggle-controls {
-    display: block;
+    display: block; /* Show on mobile */
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
   }
 
   .controls-wrapper {
-    display: none;
-    width: 90%;
+    display: none; /* Hidden by default on mobile */
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    justify-content: center;
-    background: black;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 255, 204, 0.5);
-    margin-left: 5%;
+    padding: 1rem 0;
+    gap: 1rem;
+    width: 100%;
   }
 
   .controls-wrapper.show {
@@ -585,12 +585,32 @@ button:hover {
   .toggle-controls.active {
     transform: rotate(180deg);
   }
+
+  .search-bar,
+  .category-filter,
+  .sort-button {
+    width: 100%;
+    max-width: none;
+  }
+
+  top-bar h1 {
+    margin-bottom: 1rem;
+    padding-right: 3rem; /* Make room for toggle button */
+  }
+}
+
+.controls-wrapper {
+  transition: all 0.3s ease;
+}
+
+.controls-wrapper.show {
+  animation: slideDown 0.3s ease forwards;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -1623,31 +1643,85 @@ button.loading1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 8px;
   margin: 2rem 0;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 8px;
+  flex-wrap: wrap;
 }
 
 .pagination-button {
-  padding: 0.5rem 1rem;
-  background: rgba(0, 255, 204, 0.1);
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
   border: 1px solid var(--alien-green);
+  background: rgba(0, 0, 0, 0.3);
   color: var(--alien-green);
-  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
+  border-radius: 4px;
   transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.pagination-button:hover {
+  background: rgba(0, 255, 204, 0.1);
 }
 
 .pagination-button:hover:not(:disabled) {
   background: rgba(0, 255, 204, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
 }
 
 .pagination-button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+}
+
+.pagination-button.active {
+  background: var(--alien-green);
+  color: black;
+  font-weight: bold;
+}
+
+.pagination-button.nav-button {
+  font-size: 18px;
+  padding: 0 15px;
+}
+
+.pagination-ellipsis {
+  color: var(--alien-green);
+  padding: 0 8px;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pagination-controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .pagination-controls {
+    gap: 4px;
+    padding: 0.5rem;
+  }
+
+  .pagination-button {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+
+  .pagination-ellipsis {
+    padding: 0 4px;
+  }
 }
 
 .page-info {
@@ -1656,6 +1730,7 @@ button.loading1 {
   padding: 0.5rem 1rem;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
+  margin: 0 8px;
 }
 
 .error-message {

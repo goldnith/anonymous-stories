@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import StoryCard from "../components/StoryCard";
 import Popup from "../components/Popup"; // Import the Popup component
 import FloatingButton from "../components/FloatingButton";
@@ -46,6 +46,8 @@ function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [storiesPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchInputValue, setSearchInputValue] = useState("");
+  const searchInputRef = useRef(null);
 
   const STORY_CATEGORIES = [
     "funny",
@@ -116,6 +118,9 @@ function Home() {
       setStories([]);
     } finally {
       setIsLoading(false);
+      if (searchInputRef.current) {
+        searchInputRef.current.focus();
+      }
     }
   }, [currentPage, storiesPerPage, searchTerm, selectedCategory, sortByLikes]);
 
@@ -123,31 +128,91 @@ function Home() {
     debounce((term) => {
       setCurrentPage(1); // Reset to first page on new search
       setSearchTerm(term);
-    }, 500),
+    }, 1000),
     []
   );
 
-  const PaginationControls = () => (
-    <div className="pagination-controls">
-      <button
-        onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-        className="pagination-button"
-      >
-        Previous
-      </button>
-      <span className="page-info">
-        Page {currentPage} of {totalPages}
-      </span>
-      <button
-        onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages}
-        className="pagination-button"
-      >
-        Next
-      </button>
-    </div>
-  );
+  useEffect(() => {
+    return () => {
+      setSearchInputValue("");
+      setSearchTerm("");
+    };
+  }, []);
+
+  const PaginationControls = () => {
+    const pageNumbers = [];
+    const maxVisiblePages = 7;
+    const halfVisible = Math.floor(maxVisiblePages / 2);
+    
+    let startPage = Math.max(currentPage - halfVisible, 1);
+    let endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
+  
+    if (endPage - startPage + 1 < maxVisiblePages) {
+      startPage = Math.max(endPage - maxVisiblePages + 1, 1);
+    }
+  
+    for (let i = startPage; i <= endPage; i++) {
+      pageNumbers.push(i);
+    }
+  
+    return (
+      <div className="pagination-controls">
+        {currentPage > 1 && (
+          <button
+            onClick={() => setCurrentPage(currentPage - 1)}
+            className="pagination-button nav-button"
+            aria-label="Previous page"
+          >
+            ←
+          </button>
+        )}
+  
+        {startPage > 1 && (
+          <>
+            <button
+              onClick={() => setCurrentPage(1)}
+              className={`pagination-button ${currentPage === 1 ? 'active' : ''}`}
+            >
+              1
+            </button>
+            {startPage > 2 && <span className="pagination-ellipsis">...</span>}
+          </>
+        )}
+  
+        {pageNumbers.map(number => (
+          <button
+            key={number}
+            onClick={() => setCurrentPage(number)}
+            className={`pagination-button ${currentPage === number ? 'active' : ''}`}
+          >
+            {number}
+          </button>
+        ))}
+  
+        {endPage < totalPages && (
+          <>
+            {endPage < totalPages - 1 && <span className="pagination-ellipsis">...</span>}
+            <button
+              onClick={() => setCurrentPage(totalPages)}
+              className={`pagination-button ${currentPage === totalPages ? 'active' : ''}`}
+            >
+              {totalPages}
+            </button>
+          </>
+        )}
+  
+        {currentPage < totalPages && (
+          <button
+            onClick={() => setCurrentPage(currentPage + 1)}
+            className="pagination-button nav-button"
+            aria-label="Next page"
+          >
+            →
+          </button>
+        )}
+      </div>
+    );
+  };
 
   useEffect(() => {
     if (stories.length > 0 && window.adsbygoogle) {
@@ -276,12 +341,17 @@ function Home() {
         >
           ▼
         </button>
-        <div className="controls-wrapper ${showControls ? 'show' : ''}">
+        <div className={`controls-wrapper ${showControls ? 'show' : ''}`}>
           <input
+            ref={searchInputRef}
             type="text"
             placeholder="Search stories..."
             className="search-bar"
-            onChange={(e) => debouncedSearch(e.target.value)}
+            value={searchInputValue}
+            onChange={(e) => {
+              setSearchInputValue(e.target.value);
+              debouncedSearch(e.target.value);
+            }}
             aria-label="Search stories"
           />
           <select

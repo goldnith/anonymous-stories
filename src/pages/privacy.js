@@ -1,9 +1,20 @@
 import React from 'react';
 import './terms.css';
 
+function StarField() {
+  return (
+    <div className="star-field">
+      <div className="stars-layer-1"></div>
+      <div className="stars-layer-2"></div>
+      <div className="stars-layer-3"></div>
+    </div>
+  );
+}
+
 function Privacy() {
   return (
     <div className="policy-container">
+      <StarField />
       <h1>Privacy Policy</h1>
       <div className="policy-content">
         <section>

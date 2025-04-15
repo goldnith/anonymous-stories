@@ -1,9 +1,20 @@
 import React from 'react';
 import './terms.css';
 
+function StarField() {
+  return (
+    <div className="star-field">
+      <div className="stars-layer-1"></div>
+      <div className="stars-layer-2"></div>
+      <div className="stars-layer-3"></div>
+    </div>
+  );
+}
+
 function About() {
   return (
     <div className="about-container">
+      <StarField />
       <h1>About Alien Stories</h1>
       <div className="about-content">
         <section>

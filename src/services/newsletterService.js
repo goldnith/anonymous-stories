@@ -32,7 +32,7 @@ export const newsletterService = {
         apiConfig
       );
       
-      const { success, message, data } = response.data;
+      const { success, message, data, warning } = response.data;
       
       if (!success) {
         throw new Error(message);
@@ -43,7 +43,9 @@ export const newsletterService = {
         success: true,
         message,
         status: data.status,
-        email: data.email
+        email: data.email,
+        welcomeEmailSent: data.welcomeEmailSent,
+        warning
       };
     } catch (error) {
       if (error.response?.status === 400) {

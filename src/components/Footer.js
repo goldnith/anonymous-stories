@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import './Footer.css';
-import { NEWSLETTER_CONFIG } from '../config/newsletter.config';
 import { newsletterService } from '../services/newsletterService';
 
 const Footer = () => {
@@ -13,11 +11,6 @@ const Footer = () => {
   const [subscriptionStatus, setSubscriptionStatus] = useState('');
   const [error, setError] = useState(null);
 
-  // Initialize EmailJS
-  useEffect(() => {
-    emailjs.init("AH-d0-lcWG02jSv6f");
-  }, []);
-
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setSubscriptionStatus('pending');
@@ -25,8 +18,8 @@ const Footer = () => {
     
     try {
       // Validate email
-      if (!NEWSLETTER_CONFIG.validation.emailPattern.test(email)) {
-        throw new Error(NEWSLETTER_CONFIG.errors.invalidEmail);
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        throw new Error('Please enter a valid email address');
       }
 
       // Check if already subscribed
@@ -50,42 +43,10 @@ const Footer = () => {
       // Add subscriber through API
       const response = await newsletterService.addSubscriber(email);
       
-      // Only send welcome email if it's a new subscription
-      if (response.success && response.message !== 'Subscription reactivated') {
-        const unsubscribeLink = `${window.location.origin}/unsubscribe?email=${encodeURIComponent(email)}`;
-        
-        const welcomeEmailParams = {
-          to_email: email,
-          head_message: 'Greetings from Alien Stories! 👽',
-          subject: 'Welcome to Our Alien Community',
-          message_html: `
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #000000;">
-              <div style="background-color: #000000; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border: 1px solid #00ffcc; border-radius: 8px;">
-                <h2 style="color: #00ffcc; margin-bottom: 20px;">Welcome to Our Alien Community! 🛸</h2>
-                <p style="margin-bottom: 15px;">Thank you for subscribing to our weekly newsletter. Get ready for amazing stories from across the universe!</p>
-                <p style="margin-bottom: 20px;">You'll receive our first digest in the next weekly transmission.</p>
-                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #00ffcc;">
-                  <p style="font-style: italic; color: #00ffcc;">Stay weird, stay anonymous! 👽</p>
-                  <p style="font-size: 12px; margin-top: 20px; color: #666;">
-                    Don't want to receive our transmissions? 
-                    <a href="${unsubscribeLink}" 
-                      style="color: #00ffcc; text-decoration: underline;">
-                      Unsubscribe here
-                    </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-          `,
-          footer_text: 'Stay weird, stay anonymous! 👽',
-        };
-
-        await emailjs.send(
-          NEWSLETTER_CONFIG.template.serviceId,
-          NEWSLETTER_CONFIG.template.templateId,
-          welcomeEmailParams,
-          NEWSLETTER_CONFIG.template.publicKey
-        );
+      if (response.warning) {
+        setError({ message: response.warning });
+        setSubscriptionStatus('error');
+        return;
       }
 
       setSubscriptionStatus('success');
